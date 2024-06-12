@@ -1,51 +1,41 @@
-/*Given a string s and a natural number n, you have been tasked to implement 
-  a function that returns a list of all words from string s that contain exactly 
-  n consonants, in order these words appear in the string s.
-  If the string s is empty then the function should return an empty list.
-  Note: you may assume the input string contains only letters and spaces.
-  Examples:
-  selectWords("Mary had a little lamb", 4) ==> ["little"]
-  selectWords("Mary had a little lamb", 3) ==> ["Mary")
-  selectWords("simple white space", 2) ==> []
-  selectWords("Hello world", 4) ==> ["world"]
-  selectWords("Uncle sam", 3) ==> ["Uncle"]
+/*You are given a word. Your task is to find the closest vowel that stands between 
+  two consonants from the right side of the word (case sensitive).
+  
+  Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+  find any vowel met the above condition. 
+
+  You may assume that the given string contains English letter only.
+
+  Example:
+  getClosestVowel("yogurt") ==> "u"
+  getClosestVowel("FULL") ==> "U"
+  getClosestVowel("quick") ==> ""
+  getClosestVowel("ab") ==> ""
   */
-const selectWords = (s, n) => {
-  let t = s.split(/\s/)
-  if (s == '') { return [] }
-  let k = []
-  for (let i = 0; i < t.length; i++) {
-    let l = 0
-    for (let j = 0; j < t[i].length; j++) {
-      if (t[i][j] != 'a' || t[i][j] != 'e' || t[i][j] != 'i' || t[i][j] != 'o' || t[i][j] != 'u' || t[i][j] != 'A' ||
-        t[i][j] != 'U' || t[i][j] != 'O' || t[i][j] != 'I' || t[i][j] != 'E') {
-        l++
-      }
+const getClosestVowel = (word) => {
+  for (let i = word.length - 2; i > 0; i--) {
+    if (
+      (word[i] != 'a' && word[i] != 'e' && word[i] != 'i' && word[i] != 'o' && word[i] != 'u' && word[i] != 'A' &&
+        word[i] != 'U' && word[i] != 'O' && word[i] != 'I' && word[i] != 'E')
+      &&
+      (word[i + 1] != 'a' && word[i + 1] != 'e' && word[i + 1] != 'i' && word[i + 1] != 'o' && word[i + 1] != 'u' && word[i + 1] != 'A' &&
+        word[i + 1] != 'U' && word[i + 1] != 'O' && word[i + 1] != 'I' && word[i + 1] != 'E')
+      &&
+      (word[i - 1] != 'a' && word[i - 1] != 'e' && word[i - 1] != 'i' && word[i - 1] != 'o' && word[i - 1] != 'u' && word[i - 1] != 'A' &&
+        word[i - 1] != 'U' && word[i - 1] != 'O' && word[i - 1] != 'I' && word[i - 1] != 'E')
+    ) {
+      return word[i]
     }
-    if (l == n) { k.push(t[i]) }
   }
-  return k
+  return ' '
 }
 
-const testSelectWords = () => {
-  console.assert(
-    JSON.stringify(selectWords('Mary had a little lamb', 4)) ===
-    JSON.stringify(['little'])
-  )
-  console.assert(
-    JSON.stringify(selectWords('simple white space', 2)) === JSON.stringify([])
-  )
-  console.assert(
-    JSON.stringify(selectWords('Hello world', 4)) === JSON.stringify(['world'])
-  )
-  console.assert(
-    JSON.stringify(selectWords('Uncle sam', 3)) === JSON.stringify(['Uncle'])
-  )
-  console.assert(
-    JSON.stringify(selectWords('Mary had a little lamb', 3)) ===
-    JSON.stringify(['Mary', 'lamb'])
-  )
+const testGetClosestVowel = () => {
+  console.assert(getClosestVowel('yogurt') === 'u')
+  console.assert(getClosestVowel('FULL') === 'U')
+  console.assert(getClosestVowel('ab') === '')
+  console.assert(getClosestVowel('quick') === '')
 }
-testSelectWords()
+testGetClosestVowel()
 
-module.exports = selectWords
+module.exports = getClosestVowel
