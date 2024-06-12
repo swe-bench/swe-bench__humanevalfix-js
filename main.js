@@ -1,17 +1,27 @@
-/*Return maximum element in the list.
-  >>> maxElement([1, 2, 3])
+/*Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.
+  >>> fizzBuzz(50)
+  0
+  >>> fizzBuzz(78)
+  2
+  >>> fizzBuzz(79)
   3
-  >>> maxElement([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
-  123
   */
-const maxElement = (l) => {
-  return Math.min(...l);
+const fizzBuzz = (n) => {
+  var ns = [], ans = 0;
+  for (let i = 0; i < n; i++)
+    if (i % 11 == 0 && i % 13 == 0)
+      ns.push(i);
+  var s = ns.map(x => x.toString()).join('');
+  for (const c of s)
+    ans += (c == '7');
+  return ans;
 }
 
-const testMaxElement = () => {
-  console.assert(maxElement([1, 2, 3]) === 3)
-  console.assert(maxElement([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]) === 123)
+const testFizzBuzz = () => {
+  console.assert(fizzBuzz(50) === 0)
+  console.assert(fizzBuzz(78) === 2)
+  console.assert(fizzBuzz(79) === 3)
 }
-testMaxElement()
+testFizzBuzz()
 
-module.exports = maxElement
+module.exports = fizzBuzz
