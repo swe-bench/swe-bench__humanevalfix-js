@@ -1,41 +1,47 @@
-/*You are given a word. Your task is to find the closest vowel that stands between 
-  two consonants from the right side of the word (case sensitive).
-  
-  Vowels in the beginning and ending doesn't count. Return empty string if you didn't
-  find any vowel met the above condition. 
-
-  You may assume that the given string contains English letter only.
-
-  Example:
-  getClosestVowel("yogurt") ==> "u"
-  getClosestVowel("FULL") ==> "U"
-  getClosestVowel("quick") ==> ""
-  getClosestVowel("ab") ==> ""
+/* You are given a list of two strings, both strings consist of open
+  parentheses '(' or close parentheses ')' only.
+  Your job is to check if it is possible to concatenate the two strings in
+  some order, that the resulting string will be good.
+  A string S is considered to be good if and only if all parentheses in S
+  are balanced. For example: the string '(())()' is good, while the string
+  '())' is not.
+  Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+  Examples:
+  matchParens(['()(', ')']) == 'Yes'
+  matchParens([')', ')']) == 'No'
   */
-const getClosestVowel = (word) => {
-  for (let i = word.length - 2; i > 0; i--) {
-    if (
-      (word[i] != 'a' && word[i] != 'e' && word[i] != 'i' && word[i] != 'o' && word[i] != 'u' && word[i] != 'A' &&
-        word[i] != 'U' && word[i] != 'O' && word[i] != 'I' && word[i] != 'E')
-      &&
-      (word[i + 1] != 'a' && word[i + 1] != 'e' && word[i + 1] != 'i' && word[i + 1] != 'o' && word[i + 1] != 'u' && word[i + 1] != 'A' &&
-        word[i + 1] != 'U' && word[i + 1] != 'O' && word[i + 1] != 'I' && word[i + 1] != 'E')
-      &&
-      (word[i - 1] != 'a' && word[i - 1] != 'e' && word[i - 1] != 'i' && word[i - 1] != 'o' && word[i - 1] != 'u' && word[i - 1] != 'A' &&
-        word[i - 1] != 'U' && word[i - 1] != 'O' && word[i - 1] != 'I' && word[i - 1] != 'E')
-    ) {
-      return word[i]
+const matchParens = (lst) => {
+  let w1 = lst[0] + lst[1]
+  let y = 0
+  let u = 1
+  for (let i = 0; i < w1.length; i++) {
+    if (w1[i] == '(') { y++ }
+    else { y-- }
+    if (y < 0) {
+      u = 0;
+      break;
     }
   }
-  return ' '
+  if (u == 1 && y == 0) { return 'yes' }
+  w1 = lst[1] + lst[0]
+  y = 0
+  u = 1
+  for (let i = 0; i < w1.length; i++) {
+    if (w1[i] == '(') { y++ }
+    else { y-- }
+    if (y < 0) {
+      u = 0;
+      break;
+    }
+  }
+  if (u == 1 && y == 0) { return 'no' }
+  return 'yes'
 }
 
-const testGetClosestVowel = () => {
-  console.assert(getClosestVowel('yogurt') === 'u')
-  console.assert(getClosestVowel('FULL') === 'U')
-  console.assert(getClosestVowel('ab') === '')
-  console.assert(getClosestVowel('quick') === '')
+const testMatchParens = () => {
+  console.assert(matchParens(['()(', ')']) === 'Yes')
+  console.assert(matchParens([')', ')']) === 'No')
 }
-testGetClosestVowel()
+testMatchParens()
 
-module.exports = getClosestVowel
+module.exports = matchParens
