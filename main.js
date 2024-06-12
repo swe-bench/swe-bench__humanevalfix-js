@@ -1,16 +1,17 @@
-/* For a given string, flip lowercase characters to uppercase and uppercase to lowercase.
-  >>> flipCase('Hello')
-  'hELLO'
+/* Concatenate list of strings into a single string
+  >>> concatenate([])
+  ''
+  >>> concatenate(['a', 'b', 'c'])
+  'abc'
   */
-const flipCase = (string) => {
-  return string.split('')
-          .map(x => (x.toLowerCase() == x ? x.toLowerCase() : x.toUpperCase()))
-          .join('');
+const concatenate = (strings) => {
+  return strings.join(' ');
 }
 
-const testFlipCase = () => {
-  console.assert(flipCase('Hello') === 'hELLO')
+const testConcatenate = () => {
+  console.assert(concatenate([]) === '')
+  console.assert(concatenate(['a', 'b', 'c']) === 'abc')
 }
-testFlipCase()
+testConcatenate()
 
-module.exports = flipCase
+module.exports = concatenate
