@@ -1,30 +1,26 @@
-/*
-  Check if two words have the same characters.
-  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc')
-  true
-  >>> sameChars('abcd', 'dddddddabc')
-  true
-  >>> sameChars('dddddddabc', 'abcd')
-  true
-  >>> sameChars('eabcd', 'dddddddabc')
-  false
-  >>> sameChars('abcd', 'dddddddabce')
-  false
-  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddddabc')
-  false
+/*Return n-th Fibonacci number.
+  >>> fib(10)
+  55
+  >>> fib(1)
+  1
+  >>> fib(8)
+  21
   */
-const sameChars = (s0, s1) => {
-  return JSON.stringify([...new Set(s0)]) === JSON.stringify([...new Set(s1)]);
+const fib = (n) => {
+  if (n == 0)
+    return 0;
+  if (n == 1)
+    return 1;
+  if (n == 2)
+    return 2;
+  return fib(n - 1) + fib(n - 2);
 }
 
-const testSameChars = () => {
-  console.assert(sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc') === true)
-  console.assert(sameChars('abcd', 'dddddddabc') === true)
-  console.assert(sameChars('dddddddabc', 'abcd') === true)
-  console.assert(sameChars('eabcd', 'dddddddabc') === false)
-  console.assert(sameChars('abcd', 'dddddddabcf') === false)
-  console.assert(sameChars('eabcdzzzz', 'dddzzzzzzzddddabc') === false)
+const testFib = () => {
+  console.assert(fib(10) === 55)
+  console.assert(fib(1) === 1)
+  console.assert(fib(8) === 21)
 }
-testSameChars()
+testFib()
 
-module.exports = sameChars
+module.exports = fib
