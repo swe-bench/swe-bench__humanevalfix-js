@@ -1,20 +1,21 @@
-/* Given list of numbers (of at least two elements), apply a linear transform to that list,
-  such that the smallest number will become 0 and the largest will become 1
-  >>> rescaleToUnit([1.0, 2.0, 3.0, 4.0, 5.0])
-  [0.0, 0.25, 0.5, 0.75, 1.0]
+/* Filter given list of any python values only for integers
+  >>> filterIntegers(['a', 3.14, 5])
+  [5]
+  >>> filterIntegers([1, 2, 3, 'abc', {}, []])
+  [1, 2, 3]
   */
-const rescaleToUnit = (numbers) => {
-  var min_number = Math.min(...numbers);
-  var max_number = Math.max(...numbers);
-  return numbers.map(x => (x - min_number) / (max_number + min_number));
+const filterIntegers = (values) => {
+  values.filter(x => Number.isInteger(x));
+  return values;
 }
 
-const testRescaleToUnit = () => {
+const testFilterIntegers = () => {
+  console.assert(JSON.stringify(filterIntegers(['a', 3.14, 5])) === JSON.stringify([5]))
   console.assert(
-    JSON.stringify(rescaleToUnit([1.0, 2.0, 3.0, 4.0, 5.0])) ===
-      JSON.stringify([0.0, 0.25, 0.5, 0.75, 1.0])
+    JSON.stringify(filterIntegers([1, 2, 3, 'abc', {}, []])) ===
+      JSON.stringify([1,2,3])
   )
 }
-testRescaleToUnit()
+testFilterIntegers()
 
-module.exports = rescaleToUnit
+module.exports = filterIntegers
