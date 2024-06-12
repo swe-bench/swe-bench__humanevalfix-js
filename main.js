@@ -1,34 +1,20 @@
 /*
-  Given a positive integer, obtain its roman numeral equivalent as a string,
-  and return it in lowercase.
-  Restrictions: 1 <= num <= 1000
-
-  Examples:
-  >>> intToMiniRoman(19) == 'xix'
-  >>> intToMiniRoman(152) == 'clii'
-  >>> intToMiniRoman(426) == 'cdxxvi'
+ Given the lengths of the three sides of a triangle. Return true if the three
+  sides form a right-angled triangle, false otherwise.
+  A right-angled triangle is a triangle in which one angle is right angle or
+  90 degree.
+  Example:
+  rightAngleTriangle(3, 4, 5) == true
+  rightAngleTriangle(1, 2, 3) == false
   */
-const intToMiniRoman = (number) => {
-  let num = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000]
-  let sym = ['i', 'iv', 'v', 'ix', 'x', 'xl', 'l', 'xc', 'c', 'cd', 'd', 'cm', 'm']
-  let i = 12
-  let res = ''
-  while (number) {
-    let div = (number - number % num[i]) / num[i]
-    while (div) {
-      res += sym[i]
-      div -= 1
-    }
-    i -= 1
-  }
-  return res
+const rightAngleTriangle = (a, b, c) => {
+  return (a * a + b * b == c * c)
 }
 
-const testIntToMiniRoman = () => {
-  console.assert(intToMiniRoman(19) === 'xix')
-  console.assert(intToMiniRoman(152) === 'clii')
-  console.assert(intToMiniRoman(426) === 'cdxxvi')
+const testRightAngleTriangle = () => {
+  console.assert(rightAngleTriangle(3, 4, 5) === true)
+  console.assert(rightAngleTriangle(1, 2, 3) === false)
 }
-testIntToMiniRoman()
+testRightAngleTriangle()
 
-module.exports = intToMiniRoman
+module.exports = rightAngleTriangle
