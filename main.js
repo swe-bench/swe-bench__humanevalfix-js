@@ -1,27 +1,24 @@
-/*Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.
-  >>> fizzBuzz(50)
-  0
-  >>> fizzBuzz(78)
-  2
-  >>> fizzBuzz(79)
-  3
+/*This function takes a list l and returns a list l' such that
+  l' is identical to l in the odd indicies, while its values at the even indicies are equal
+  to the values of the even indicies of l, but sorted.
+  >>> sortEven([1, 2, 3])
+  [1, 2, 3]
+  >>> sortEven([5, 6, 3, 4])
+  [3, 6, 5, 4]
   */
-const fizzBuzz = (n) => {
-  var ns = [], ans = 0;
-  for (let i = 0; i < n; i++)
-    if (i % 11 == 0 && i % 13 == 0)
-      ns.push(i);
-  var s = ns.map(x => x.toString()).join('');
-  for (const c of s)
-    ans += (c == '7');
-  return ans;
+const sortEven = (l) => {
+  var even = l.filter((item, index) => index % 2 == 0);
+  l.sort((a, b) => (a - b));
+  return l.map((item, index) => (index % 2 == 0 ? even[index / 2] : item));
 }
 
-const testFizzBuzz = () => {
-  console.assert(fizzBuzz(50) === 0)
-  console.assert(fizzBuzz(78) === 2)
-  console.assert(fizzBuzz(79) === 3)
+const testSortEven = () => {
+  console.assert(JSON.stringify(sortEven([1, 2, 3])) ===
+    JSON.stringify([1, 2, 3]))
+  console.assert(JSON.stringify(
+    sortEven([5,6,3,4])) ===
+    JSON.stringify([3,6,5,4]))
 }
-testFizzBuzz()
+testSortEven()
 
-module.exports = fizzBuzz
+module.exports = sortEven
