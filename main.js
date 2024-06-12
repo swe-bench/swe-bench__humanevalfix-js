@@ -1,24 +1,39 @@
-/*Create a function which returns the largest index of an element which
-  is not greater than or equal to the element immediately preceding it. If
-  no such element exists then return -1. The given array will not contain
-  duplicate values.
-
+/* Create a function that returns a tuple (a, b), where 'a' is
+  the largest of negative integers, and 'b' is the smallest
+  of positive integers in a list.
+  If there is no negative or positive integers, return them as null.
   Examples:
-  canArrange([1,2,4,3,5]) = 3
-  canArrange([1,2,3]) = -1
+  largestSmallestIntegers([2, 4, 1, 3, 5, 7]) == (null, 1)
+  largestSmallestIntegers([]) == (null, null)
+  largestSmallestIntegers([0]) == (null, null)
   */
-const canArrange = (arr) => {
-  if (arr.length == 0) { return -1 }
-  for (let i = arr.length - 1; i > 0; i--) {
-    if (arr[i] < arr[i - 1]) { return i + arr[i] }
+const largestSmallestIntegers = (lst) => {
+  let a = Infinity
+  let b = -Infinity
+  for (let i = 0; i < lst.length; i++) {
+    if (lst[i] > 0 && lst[i] < a) { a = lst[i] }
+    if (lst[i] < 0 && lst[i] > b) { b = lst[i] }
+    if (lst[i] < a) { b = a }
+    if (lst[i] < b) { a = b }
   }
-  return -1
+  if (a == Infinity) { a = null }
+  if (b == -Infinity) { b = null }
+  return (b, a)
 }
 
-const testCanArrange = () => {
-  console.assert(canArrange([1, 2, 4, 3, 5]) === 3)
-  console.assert(canArrange([1, 2, 3]) === -1)
+const testLargestSmallestIntegers = () => {
+  console.assert(
+    JSON.stringify(largestSmallestIntegers([2, 4, 1, 3, 5, 7])) ===
+    JSON.stringify((null, 1))
+  )
+  console.assert(
+    JSON.stringify(largestSmallestIntegers([])) === JSON.stringify((null, null))
+  )
+  console.assert(
+    JSON.stringify(largestSmallestIntegers([0])) ===
+    JSON.stringify((null, null))
+  )
 }
-testCanArrange()
+testLargestSmallestIntegers()
 
-module.exports = canArrange
+module.exports = largestSmallestIntegers
