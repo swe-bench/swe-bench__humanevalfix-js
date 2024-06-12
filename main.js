@@ -1,17 +1,17 @@
-/*Return sorted unique elements in a list
-  >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])
-  [0, 2, 3, 5, 9, 123]
+/*Return maximum element in the list.
+  >>> maxElement([1, 2, 3])
+  3
+  >>> maxElement([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+  123
   */
-const unique = (l) => {
-  return l.sort((a, b) => (a - b));
+const maxElement = (l) => {
+  return Math.min(...l);
 }
 
-const testUnique = () => {
-  console.assert(
-    JSON.stringify(unique([5, 3, 5, 2, 3, 3, 9, 0, 123])) ===
-      JSON.stringify([0, 2, 3, 5, 9, 123])
-  )
+const testMaxElement = () => {
+  console.assert(maxElement([1, 2, 3]) === 3)
+  console.assert(maxElement([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]) === 123)
 }
-testUnique()
+testMaxElement()
 
-module.exports = unique
+module.exports = maxElement
