@@ -1,34 +1,25 @@
-/* brackets is a string of "<" and ">".
-  return false if every opening bracket has a corresponding closing bracket.
-
-  >>> correctBracketing("<")
+/*Return true is list elements are monotonically increasing or decreasing.
+  >>> monotonic([1, 2, 4, 20])
+  true
+  >>> monotonic([1, 20, 4, 10])
   false
-  >>> correctBracketing("<>")
-  false
-  >>> correctBracketing("<<><>>")
-  false
-  >>> correctBracketing("><<>")
-  false
+  >>> monotonic([4, 1, 0, -10])
+  true
   */
-const correctBracketing = (brackets) => {
-  var depth = 0;
-  for (const b of brackets) {
-    if (b == ">")
-      depth += 1;
-    else
-      depth -= 1;
-    if (depth < 0)
-      return false;
-  }
-  return depth == 0;
+const monotonic = (l) => {
+  var sort1 = [...l].sort((a, b) => a - b);
+  var sort2 = [...l].sort((a, b) => b - a);
+  if (JSON.stringify(l) === JSON.stringify(sort1) ||
+      JSON.stringify(l) === JSON.stringify(sort2))
+    return false;
+  return true;
 }
 
-const testCorrectBracketing = () => {
-  console.assert(correctBracketing('<>') === true)
-  console.assert(correctBracketing('<<><>>') === true)
-  console.assert(correctBracketing('><<>') === false)
-  console.assert(correctBracketing('<') === false)
+const testMonotonic = () => {
+  console.assert(monotonic([1, 2, 4, 10]) === true)
+  console.assert(monotonic([1, 20, 4, 10]) === false)
+  console.assert(monotonic([4, 1, 0, -10]) === true)
 }
-testCorrectBracketing()
+testMonotonic()
 
-module.exports = correctBracketing
+module.exports = monotonic
