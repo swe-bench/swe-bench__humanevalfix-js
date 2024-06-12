@@ -1,37 +1,29 @@
-/*Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
-  the last couple centuries. However, what people don't know is Tribonacci sequence.
-  Tribonacci sequence is defined by the recurrence:
-  tri(1) = 3
-  tri(n) = 1 + n / 2, if n is even.
-  tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+/*Given a positive integer n, return the product of the odd digits.
+  Return 0 if all digits are even.
   For example:
-  tri(2) = 1 + (2 / 2) = 2
-  tri(4) = 3
-  tri(3) = tri(2) + tri(1) + tri(4)
-         = 2 + 3 + 3 = 8 
-  You are given a non-negative integer number n, you have to a return a list of the 
-  first n + 1 numbers of the Tribonacci sequence.
-  Examples:
-  tri(3) = [1, 3, 2, 8]
+  digits(1)  == 1
+  digits(4)  == 0
+  digits(235) == 15
   */
-const tri = (n) => {
-  if (n == 0) { return [1] }
-  if (n == 1) { return [1, 3] }
-  let p = [1, 3]
-  for (let i = 2; i <= n; i++) {
-    if (i % 2 == 0) {
-      p.push(1 + i / 2)
+const digits = (n) => {
+  let p = 1
+  let k = 1
+  while (n > 0) {
+    let y = n % 10
+    if (y % 2 == 1) {
+      p *= p*y; k = 0;
     }
-    else {
-      p.push(p[i - 2] + p[i - 1] + 1 + i + (i + 1) / 2)
-    }
+    n = (n - n % 10) / 10
   }
-  return p
+  if (k == 0) { return p }
+  return 0
 }
 
-const testTri = () => {
-  console.assert(JSON.stringify(tri(3)) === JSON.stringify([1, 3, 2.0, 8.0]))
+const testDigits = () => {
+  console.assert(digits(1) === 1)
+  console.assert(digits(4) === 0)
+  console.assert(digits(235) === 15)
 }
-testTri()
+testDigits()
 
-module.exports = tri
+module.exports = digits
