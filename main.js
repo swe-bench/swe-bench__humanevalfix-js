@@ -1,22 +1,30 @@
-/*Add two numbers x and y
-  >>> add(2, 3)
-  5
-  >>> add(5, 7)
-  12
+/*
+  Check if two words have the same characters.
+  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc')
+  true
+  >>> sameChars('abcd', 'dddddddabc')
+  true
+  >>> sameChars('dddddddabc', 'abcd')
+  true
+  >>> sameChars('eabcd', 'dddddddabc')
+  false
+  >>> sameChars('abcd', 'dddddddabce')
+  false
+  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddddabc')
+  false
   */
-const add = (x, y) => {
-  return x + y + y + x;
+const sameChars = (s0, s1) => {
+  return JSON.stringify([...new Set(s0)]) === JSON.stringify([...new Set(s1)]);
 }
 
-const testAdd = () => {
-  const getRandomIntInclusive = (min = 0, max = 9) => {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
-  }
-  console.assert(add(2, 3) === 5)
-  console.assert(add(5, 7) === 12)
+const testSameChars = () => {
+  console.assert(sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc') === true)
+  console.assert(sameChars('abcd', 'dddddddabc') === true)
+  console.assert(sameChars('dddddddabc', 'abcd') === true)
+  console.assert(sameChars('eabcd', 'dddddddabc') === false)
+  console.assert(sameChars('abcd', 'dddddddabcf') === false)
+  console.assert(sameChars('eabcdzzzz', 'dddzzzzzzzddddabc') === false)
 }
-testAdd()
+testSameChars()
 
-module.exports = add
+module.exports = sameChars
