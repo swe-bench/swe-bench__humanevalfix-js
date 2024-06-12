@@ -1,26 +1,34 @@
-/* Insert a number 'delimeter' between every two consecutive elements of input list `numbers'
-  >>> intersperse([], 4)
-  []
-  >>> intersperse([1, 2, 3], 4)
-  [1, 4, 2, 4, 3]
+/* Input to this function is a string represented multiple groups for nested parentheses separated by spaces.
+  For each of the group, output the deepest level of nesting of parentheses.
+  E.g. (()()) has maximum two levels of nesting while ((())) has three.
+
+  >>> parseNestedParens('(()()) ((())) () ((())()())')
+  [2, 3, 1, 3]
   */
-const intersperse = (numbers, delimeter) => {
-  if (!Array.isArray(numbers) || numbers.length == 0)
-    return [];
-  var result = [];
-  for (const n of numbers) {
-    result.push(n, delimeter);
+const parseNestedParens = (paren_string) => {
+  var parseParenGroup = function (s) {
+    let depth = 0, max_depth = 0;
+    for (const c of s) {
+      if (c == '(') {
+        depth += 1;
+        max_depth = Math.max(max_depth, depth);
+      } else {
+        max_depth -= 1;
+      }
+    }
+    return max_depth;
   }
-  return result;
+  return paren_string.split(' ')
+          .filter(x => x != '')
+          .map(x => parseParenGroup(x));
 }
 
-const testIntersperse = () => {
-  console.assert(JSON.stringify(intersperse([], 4)) === JSON.stringify([]))
+const testParseNestedParens = () => {
   console.assert(
-    JSON.stringify(
-      intersperse([1,2,3], 4)) === JSON.stringify([1,4,2,4,3])
+    JSON.stringify(parseNestedParens('(()()) ((())) () ((())()())')) ===
+      JSON.stringify([2, 3, 1, 3])
   )
 }
-testIntersperse()
+testParseNestedParens()
 
-module.exports = intersperse
+module.exports = parseNestedParens
