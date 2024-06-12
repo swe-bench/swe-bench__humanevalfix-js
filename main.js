@@ -1,58 +1,44 @@
-/*Given a string representing a space separated lowercase letters, return a dictionary
-  of the letter with the most repetition and containing the corresponding count.
-  If several letters have the same occurrence, return all of them.
-  
-  Example:
-  histogram('a b c') == {'a': 1, 'b': 1, 'c': 1}
-  histogram('a b b a') == {'a': 2, 'b': 2}
-  histogram('a b c a b') == {'a': 2, 'b': 2}
-  histogram('b b b b a') == {'b': 4}
-  histogram('') == {}
-
+/*Task
+  We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+  then check if the result string is palindrome.
+  A string is called palindrome if it reads the same backward as forward.
+  You should return a tuple containing the result string and true/false for the check.
+  Example
+  For s = "abcde", c = "ae", the result should be ('bcd',false)
+  For s = "abcdef", c = "b"  the result should be ('acdef',false)
+  For s = "abcdedcba", c = "ab", the result should be ('cdedc',true)
   */
-const histogram = (test) => {
-  let d = {}
-  let t = test.split(/\s/)
-  if (test == '') { t = [] }
-  for (m in t) {
-    if (t[m] in d) {
-      d[t[m]]++
+const reverseDelete = (s, c) => {
+  let t = ''
+  for (let i = 0; i < s.length; i++) {
+    let y = 1
+    for (let j = 0; j < c.length; j++) {
+      if (s[i] == c[j]) {
+        y = 0
+      }
     }
-    else {
-      d[t[m]] = 1
-    }
-  }
-  s = Object.keys(d).sort(function (a, b) { return - d[a] + d[b]; });
-  if (s.length == 0) { return {} }
-  let g = d[s[0]]
-  let l = {}
-  for (let ss=1; ss<s.length; ss++) {
-    if (d[s[ss]] == g) {
-      l[s[ss]] = d[s[ss]]
+    if (y == 1) {
+      t += s[i]
     }
   }
-  return l
+  let isPalindrome = false
+  for (let i = 0; i < Math.floor(t.length / 2); i++) {
+    if (t[i] != t[t.length - i - 1]) {
+      isPalindrome = true
+      break
+    }
+  }
+  return [t, isPalindrome];
 }
 
-const testHistogram = () => {
-  console.assert(
-    JSON.stringify(histogram('a b b a')) === JSON.stringify({ a: 2, b: 2 })
-  )
-  console.assert(
-    JSON.stringify(histogram('a b c a b')) === JSON.stringify({ a: 2, b: 2 })
-  )
-  console.assert(
-    JSON.stringify(histogram('a b c d g')) ===
-    JSON.stringify({ a: 1, b: 1, c: 1, d: 1, g: 1 })
-  )
-  console.assert(
-    JSON.stringify(histogram('a b c')) === JSON.stringify({ a: 1, b: 1, c: 1 })
-  )
-  console.assert(
-    JSON.stringify(histogram('b b b b a')) === JSON.stringify({ b: 4 })
-  )
-  console.assert(JSON.stringify(histogram('')) === JSON.stringify({}))
+const testReverseDelete = () => {
+  console.assert(JSON.stringify(reverseDelete('abcde', 'ae'))) ===
+    JSON.stringify(['bcd', false])
+  console.assert(JSON.stringify(reverseDelete('abcdef', 'b'))) ===
+    JSON.stringify(['acdef', false])
+  console.assert(JSON.stringify(reverseDelete('abcdedcba', 'ab'))) ===
+    JSON.stringify(['cdedc', true])
 }
-testHistogram()
+testReverseDelete()
 
-module.exports = histogram
+module.exports = reverseDelete
