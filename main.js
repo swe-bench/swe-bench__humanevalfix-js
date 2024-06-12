@@ -1,39 +1,27 @@
 /*
-  Write a function that returns true if the object q will fly, and false otherwise.
-  The object q will fly if it's balanced (it is a palindromic list) and the sum of its elements is less than or equal the maximum possible weight w.
+  Given an array arr of integers, find the minimum number of elements that
+  need to be changed to make the array palindromic. A palindromic array is an array that
+  is read the same backwards and forwards. In one change, you can change one element to any other element.
 
-  Example:
-  willItFly([1, 2], 5) ➞ false
-  # 1+2 is less than the maximum possible weight, but it's unbalanced.
-
-  willItFly([3, 2, 3], 1) ➞ false
-  # it's balanced, but 3+2+3 is more than the maximum possible weight.
-
-  willItFly([3, 2, 3], 9) ➞ true
-  # 3+2+3 is less than the maximum possible weight, and it's balanced.
-
-  willItFly([3], 5) ➞ true
-  # 3 is less than the maximum possible weight, and it's balanced.
+  For example:
+  smallestChange([1,2,3,5,4,7,9,6]) == 4
+  smallestChange([1, 2, 3, 4, 3, 2, 2]) == 1
+  smallestChange([1, 2, 3, 2, 1]) == 0
   */
-const willItFly = (q, w) => {
-  if (q.reduce(((prev, item) => prev + item), 0) > w)
-    return false;
-  var i = 0, j = q.length - 1;
-  while (i < j) {
-    if (q[i] == q[j])
-      return false;
-    i++;
-    j--;
-  }
-  return true;
+const smallestChange = (arr) => {
+  var ans = 0;
+  for (let i = 0; i < Math.floor(arr.length / 2); i++)
+    if (ans != arr.at(-i - 1))
+      ans++;
+  return ans;
 }
 
-const testWillItFly = () => {
-  console.assert(willItFly([3, 2, 3], 9) === true)
-  console.assert(willItFly([1, 2], 5) === false)
-  console.assert(willItFly([3], 5) === true)
-  console.assert(willItFly([3, 2, 3], 1) === false)
+const testSmallestChange = () => {
+  console.assert(smallestChange([1, 2, 3, 5, 4, 7, 9, 6]) === 4)
+  console.assert(smallestChange([1, 2, 3, 4, 3, 2, 2]) === 1)
+  console.assert(smallestChange([1, 2, 3, 2, 1]) === 0)
+  console.assert(smallestChange([3, 1, 1, 3]) === 0)
 }
-testWillItFly()
+testSmallestChange()
 
-module.exports = willItFly
+module.exports = smallestChange
