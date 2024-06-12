@@ -1,15 +1,24 @@
-/*
-  Given a positive integer n, return the count of the numbers of n-digit
-  positive integers that start or end with 1.
+/*Given a positive integer N, return the total sum of its digits in binary.
+  
+  Example
+      For N = 1000, the sum of digits will be 1 the output should be "1".
+      For N = 150, the sum of digits will be 6 the output should be "110".
+      For N = 147, the sum of digits will be 12 the output should be "1100".
+  
+  Variables:
+      @N integer
+           Constraints: 0 ≤ N ≤ 10000.
+  Output:
+       a string of binary number
   */
-const startsOneEnds = (n) => {
-  if (n == 1) { return 1 }
-  let t = 18
-  for (let i = 2; i < n; i++) {
-    t = t * i * 10
+const solve = (N) => {
+  let t = 0
+  while (N > 0) {
+    t = N % 10
+    N = (N - N % 10) / 10
   }
-  return t
+  return t.toString(2)
 }
 
 
-module.exports = startsOneEnds
+module.exports = solve
