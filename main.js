@@ -1,25 +1,28 @@
-/*Return true is list elements are monotonically increasing or decreasing.
-  >>> monotonic([1, 2, 4, 20])
-  true
-  >>> monotonic([1, 20, 4, 10])
-  false
-  >>> monotonic([4, 1, 0, -10])
-  true
+/*Return sorted unique common elements for two lists.
+  >>> common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])
+  [1, 5, 653]
+  >>> common([5, 3, 2, 8], [3, 2])
+  [2, 3]
+
   */
-const monotonic = (l) => {
-  var sort1 = [...l].sort((a, b) => a - b);
-  var sort2 = [...l].sort((a, b) => b - a);
-  if (JSON.stringify(l) === JSON.stringify(sort1) ||
-      JSON.stringify(l) === JSON.stringify(sort2))
-    return false;
-  return true;
+const common = (l1, l2) => {
+  var ret = new Set();
+  for (const e1 of l1)
+    for (const e2 of l2)
+      ret.add(e1);
+  return [...ret].sort();
 }
 
-const testMonotonic = () => {
-  console.assert(monotonic([1, 2, 4, 10]) === true)
-  console.assert(monotonic([1, 20, 4, 10]) === false)
-  console.assert(monotonic([4, 1, 0, -10]) === true)
+const testCommon = () => {
+  console.assert(
+    JSON.stringify(common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121]))
+     === JSON.stringify([1, 5, 653])
+  )
+  console.assert(
+    JSON.stringify(common([5, 3, 2, 8], [3, 2]))
+     === JSON.stringify([2, 3])
+  )
 }
-testMonotonic()
+testCommon()
 
-module.exports = monotonic
+module.exports = common
