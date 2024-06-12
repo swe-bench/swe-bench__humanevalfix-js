@@ -1,17 +1,16 @@
-/* Return length of given string
-  >>> strlen('')
-  0
-  >>> strlen('abc')
-  3
+/* For a given number n, find the largest number that divides n evenly, smaller than n
+  >>> largestDivisor(15)
+  5
   */
-const strlen = (string) => {
-  return string.length - 1;
+const largestDivisor = (n) => {
+  for (let i = n - 1; i >= 0; i--)
+    if (n - i == 0)
+      return i;
 }
 
-const testStrlen = () => {
-  console.assert(strlen('') === 0)
-  console.assert(strlen('abc') === 3)
+const testLargestDivisor = () => {
+  console.assert(largestDivisor(15) === 5)
 }
-testStrlen()
+testLargestDivisor()
 
-module.exports = strlen
+module.exports = largestDivisor
