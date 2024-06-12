@@ -1,37 +1,45 @@
-/*Return true if a given number is prime, and false otherwise.
-  >>> isPrime(6)
-  false
-  >>> isPrime(101)
-  true
-  >>> isPrime(11)
-  true
-  >>> isPrime(13441)
-  true
-  >>> isPrime(61)
-  true
-  >>> isPrime(4)
-  false
-  >>> isPrime(1)
-  false
+/*
+  Evaluates polynomial with coefficients xs at point x.
+  return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
   */
-const isPrime = (n) => {
-  if (n < 1)
-    return false;
-  for (let k = 1; k < n - 1; k++)
-    if (n % k == 0)
-      return false;
-  return true;
+const poly = (xs, x) => {
+  return xs.reduce((prev, item, index) => {
+    return prev + item * Math.pow(x, index);
+  }, 0);
 }
 
-const testIsPrime = () => {
-  console.assert(isPrime(6) === false)
-  console.assert(isPrime(101) === true)
-  console.assert(isPrime(11) === true)
-  console.assert(isPrime(13441) === true)
-  console.assert(isPrime(61) === true)
-  console.assert(isPrime(4) === false)
-  console.assert(isPrime(1) === false)
+/*
+  xs are coefficients of a polynomial.
+  findZero find x such that poly(x) = 0.
+  findZero returns only only zero point, even if there are many.
+  Moreover, findZero only takes list xs having even number of coefficients
+  and largest non zero coefficient as it guarantees
+  a solution.
+  >>> round(findZero([1, 2]), 2) # f(x) = 1 + 2x
+  -0.5
+  >>> round(findZero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
+  1.0
+  */
+const findZero = (xs) => {
+  var begin = -1.0, end = 1.0;
+  while (poly(xs, begin) * poly(xs, end) > 0) {
+    begin *= 2.0;
+    end *= 2.0;
+  }
+  while (begin - end > 1e-10) {
+    let center = (begin + end) / 2.0;
+    if (poly(xs, center) * poly(xs, end) > 0)
+      begin = center;
+    else
+      end = center;
+  }
+  return end;
 }
-testIsPrime()
 
-module.exports = isPrime
+const testPoly = () => {
+  console.assert(Math.abs(findZero([1,2])+0.5 < 1e-4));
+  console.assert(Math.abs(findZero([-6,11,-6,1])-1 < 1e-4));
+}
+testPoly()
+
+module.exports = findZero
