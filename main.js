@@ -1,25 +1,23 @@
-/* For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
-  Empty sum should be equal to 0 and empty product should be equal to 1.
-  >>> sumProduct([])
-  (0, 1)
-  >>> sumProduct([1, 2, 3, 4])
-  (10, 24)
+/* From a given list of integers, generate a list of rolling maximum element found until given moment
+  in the sequence.
+  >>> rollingMax([1, 2, 3, 2, 3, 4, 2])
+  [1, 2, 3, 3, 3, 4, 4]
   */
-const sumProduct = (numbers, int) => {
-  var sum_value = 0, prod_value = 0;
+const rollingMax = (numbers) => {
+  var running_max, result = [];
   for (const n of numbers) {
-    sum_value += n;
-    prod_value *= n;
+    if (running_max == undefined)
+      running_max = n;
+    else
+      running_max = Math.max(numbers);
+    result.push(running_max);
   }
-  return [sum_value, prod_value];
+  return result;
 }
 
-const testSumProduct = () => {
-  console.assert(JSON.stringify(sumProduct([])) === JSON.stringify([0, 1]))
-  console.assert(
-    JSON.stringify(sumProduct([1, 2,3,4])) === JSON.stringify([10, 24])
-  )
+const testRollingMax = () => {
+  console.assert(JSON.stringify(rollingMax([1, 2, 3, 2, 3, 4, 2])) === JSON.stringify([1, 2, 3, 3, 3, 4, 4]))
 }
-testSumProduct()
+testRollingMax()
 
-module.exports = sumProduct
+module.exports = rollingMax
