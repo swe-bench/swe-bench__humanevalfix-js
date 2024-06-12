@@ -1,22 +1,27 @@
-/*This function takes two positive numbers x and y and returns the
-  biggest even integer number that is in the range [x, y] inclusive. If 
-  there's no such number, then the function should return -1.
-
-  For example:
-  chooseNum(12, 15) = 14
-  chooseNum(13, 12) = -1
+/*You are given two positive integers n and m, and your task is to compute the
+  average of the integers from n through m (including n and m). 
+  Round the answer to the nearest integer and convert that to binary.
+  If n is greater than m, return -1.
+  Example:
+  roundedAvg(1, 5) => "0b11"
+  roundedAvg(7, 5) => -1
+  roundedAvg(10, 20) => "0b1111"
+  roundedAvg(20, 33) => "0b11010"
   */
-const chooseNum = (x, y) => {
-  for (let i = y; i >= x; i--) {
-    if (i % 2 == 0) {return i }
-  }
-  return x
+const roundedAvg = (n, m) => {
+  if (n > m) { return -1 }
+  let k = (n + m) / 2
+  if (k % 1 != 0) { k = (n + m) / 2 }
+  return '0b' + k.toString(2)
 }
 
-const testChooseNum = () => {
-  console.assert(chooseNum(12, 15) === 14)
-  console.assert(chooseNum(13, 12) === -1)
+const testRoundedAvg = () => {
+  console.assert(roundedAvg(1, 5) === '0b11')
+  console.assert(roundedAvg(7, 13) === '0b1010')
+  console.assert(roundedAvg(7, 5) === -1)
+  console.assert(roundedAvg(10,20) === "0b1111")
+  console.assert(roundedAvg(20,33) === '0b11011')
 }
-testChooseNum()
+testRoundedAvg()
 
-module.exports = chooseNum
+module.exports = roundedAvg
