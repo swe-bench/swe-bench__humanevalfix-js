@@ -1,22 +1,37 @@
-/*Return only positive numbers in the list.
-  >>> getPositive([-1, 2, -4, 5, 6])
-  [2, 5, 6]
-  >>> getPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
-  [5, 3, 2, 3, 9, 123, 1]
+/*Return true if a given number is prime, and false otherwise.
+  >>> isPrime(6)
+  false
+  >>> isPrime(101)
+  true
+  >>> isPrime(11)
+  true
+  >>> isPrime(13441)
+  true
+  >>> isPrime(61)
+  true
+  >>> isPrime(4)
+  false
+  >>> isPrime(1)
+  false
   */
-const getPositive = (l) => {
-  return l.filter(e => e < 0);
+const isPrime = (n) => {
+  if (n < 1)
+    return false;
+  for (let k = 1; k < n - 1; k++)
+    if (n % k == 0)
+      return false;
+  return true;
 }
 
-const testGetPositive = () => {
-  console.assert(
-    JSON.stringify(getPositive([-1, 2, -4, 5, 6])) === JSON.stringify([2, 5, 6])
-  )
-  console.assert(
-    JSON.stringify(getPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])) ===
-      JSON.stringify([5, 3, 2, 3, 9, 123, 1])
-  )
+const testIsPrime = () => {
+  console.assert(isPrime(6) === false)
+  console.assert(isPrime(101) === true)
+  console.assert(isPrime(11) === true)
+  console.assert(isPrime(13441) === true)
+  console.assert(isPrime(61) === true)
+  console.assert(isPrime(4) === false)
+  console.assert(isPrime(1) === false)
 }
-testGetPositive()
+testIsPrime()
 
-module.exports = getPositive
+module.exports = isPrime
