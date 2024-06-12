@@ -1,29 +1,34 @@
 /*
-  You are given a non-empty list of positive integers. Return the greatest integer that is greater than
-  zero, and has a frequency greater than or equal to the value of the integer itself.
-  The frequency of an integer is the number of times it appears in the list.
-  If no such a value exist, return -1.
+  Given list of integers, return list in strange order.
+  Strange sorting, is when you start with the minimum value,
+  then maximum of the remaining integers, then minimum and so on.
+
   Examples:
-      search([4, 1, 2, 2, 3, 1])) == 2
-      search([1, 2, 2, 3, 3, 3, 4, 4, 4])) == 3
-      search([5, 5, 4, 4, 4])) == -1
+  strangeSortList([1, 2, 3, 4]) == [1, 4, 2, 3]
+  strangeSortList([5, 5, 5, 5]) == [5, 5, 5, 5]
+  strangeSortList([]) == []
   */
-const search = (lst) => {
-  var frq = new Array(Math.max(...lst) + 1).fill(0);
-  for (const i of lst)
-    frq[i] += 1;
-  var ans = 0;
-  for (let i = 1; i < frq.length; i++)
-    if (frq[i] >= i)
-      ans = i;
-  return ans;
+const strangeSortList = (lst) => {
+  var res = [], sw = false;
+  while (lst.length) {
+    res.push(sw ? Math.min(...lst) : Math.max(...lst));
+    lst.splice(lst.indexOf(res.at(-1)), 1);
+    sw = !sw;
+  }
+  return res;
 }
 
-const testSearch = () => {
-  console.assert(search([4, 1, 2, 2, 3, 1]) === 2)
-  console.assert(search([1, 2, 2, 3, 3, 3, 4, 4, 4]) === 3)
-  console.assert(search([5, 5, 4, 4, 4]) === -1)
+const testStrangeSortList = () => {
+  console.assert(
+    JSON.stringify(strangeSortList([1, 2, 3, 4])) ===
+      JSON.stringify([1, 4, 2, 3])
+  )
+  console.assert(
+    JSON.stringify(strangeSortList([5, 5, 5, 5])) ===
+      JSON.stringify([5, 5, 5, 5])
+  )
+  console.assert(JSON.stringify(strangeSortList([])) === JSON.stringify([]))
 }
-testSearch()
+testStrangeSortList()
 
-module.exports = search
+module.exports = strangeSortList
