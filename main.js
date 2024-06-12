@@ -1,42 +1,38 @@
-/* Given a list of numbers, return whether or not they are sorted
-  in ascending order. If list has more than 1 duplicate of the same
-  number, return false. Assume no negative numbers and only integers.
-  Examples
-  isSorted([5]) ➞ true
-  isSorted([1, 2, 3, 4, 5]) ➞ true
-  isSorted([1, 3, 2, 4, 5]) ➞ false
-  isSorted([1, 2, 3, 4, 5, 6]) ➞ true
-  isSorted([1, 2, 3, 4, 5, 6, 7]) ➞ true
-  isSorted([1, 3, 2, 4, 5, 6, 7]) ➞ false
-  isSorted([1, 2, 2, 3, 3, 4]) ➞ true
-  isSorted([1, 2, 2, 2, 3, 4]) ➞ false
+/*You are given two intervals,
+  where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
+  The given intervals are closed which means that the interval (start, end)
+  includes both start and end.
+  For each given interval, it is assumed that its start is less or equal its end.
+  Your task is to determine whether the length of intersection of these two 
+  intervals is a prime number.
+  Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
+  which its length is 1, which not a prime number.
+  If the length of the intersection is a prime number, return "YES",
+  otherwise, return "NO".
+  If the two intervals don't intersect, return "NO".
+
+
+  [input/output] samples:
+  intersection((1, 2), (2, 3)) ==> "NO"
+  intersection((-1, 1), (0, 4)) ==> "NO"
+  intersection((-3, -1), (-5, 5)) ==> "YES"
   */
-const isSorted = (lst) => {
-  if (lst.length == 0) { return true }
-  let dup = 1
-  let pre = lst[0]
-  for (let i = 1; i < lst.length; i++) {
-    if (lst[i] < pre) { return false }
-    if (lst[i] == pre) {
-      dup += 1;
-      if (dup == 3) { return false }
-    } else {
-      pre = lst[i]
-    }
-  }
-  return true
+const intersection = (interval1, interval2) => {
+  let lo = interval1[0]
+  if (interval2[0] > lo) { lo = interval2[0] }
+  let hi = interval1[1]
+  if (interval2[1] < hi) { hi = interval2[1] }
+  let len = 0
+  if (hi > lo) { len = hi }
+  if (len == 1 || len == 0) { return 'NO' }
+  return 'YES'
 }
 
-const testIsSorted = () => {
-  console.assert(isSorted([5]) === true)
-  console.assert(isSorted([1, 2, 3, 4, 5]) === true)
-  console.assert(isSorted([1, 3, 2, 4, 5]) === false)
-  console.assert(isSorted([1, 2, 3, 4, 5, 6]) === true)
-  console.assert(isSorted([1, 2, 3, 4, 5, 6, 7]) === true)
-  console.assert(isSorted([1, 3, 2, 4, 5, 6, 7]) === false)
-  console.assert(isSorted([1, 2, 2, 2, 3, 4]) === false)
-  console.assert(isSorted([1, 2, 2, 3, 3, 4]) === true)
+const testIntersection = () => {
+  console.assert(intersection([1, 2], [2, 3]) === 'NO')
+  console.assert(intersection([-1, 1], [0, 4]) === 'NO')
+  console.assert(intersection([-3, -1], [-5, 5]) === 'YES')
 }
-testIsSorted()
+testIntersection()
 
-module.exports = isSorted
+module.exports = intersection
