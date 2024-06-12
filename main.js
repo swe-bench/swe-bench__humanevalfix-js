@@ -1,37 +1,44 @@
-/*Write a function that accepts a list of strings.
-  The list contains different words. Return the word with maximum number
-  of unique characters. If multiple strings have maximum number of unique
-  characters, return the one which comes first in lexicographical order.
+/*
+  You're a hungry rabbit, and you already have eaten a certain number of carrots,
+  but now you need to eat more carrots to complete the day's meals.
+  you should return an array of [ total number of eaten carrots after your meals,
+                                  the number of carrots left after your meals ]
+  if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.
+  
+  Example:
+  * eat(5, 6, 10) -> [11, 4]
+  * eat(4, 8, 9) -> [12, 1]
+  * eat(1, 10, 10) -> [11, 0]
+  * eat(2, 11, 5) -> [7, 0]
+  
+  Variables:
+  @number : integer
+      the number of carrots that you have eaten.
+  @need : integer
+      the number of carrots that you need to eat.
+  @remaining : integer
+      the number of remaining carrots thet exist in stock
+  
+  Constrain:
+  * 0 <= number <= 1000
+  * 0 <= need <= 1000
+  * 0 <= remaining <= 1000
 
-  findMax(["name", "of", "string"]) === "string"
-  findMax(["name", "enam", "game"]) === "enam"
-  findMax(["aaaaaaa", "bb" ,"cc"]) === ""aaaaaaa"
+  Have fun :)
   */
-const findMax = (words) => {
-  let s = -1
-  let u = -1
-  if (words.length == 0) { return '' }
-  for (let i = 0; i < words.length; i++) {
-    let p = 0
-    for (let j = 0; j < words[i].length; j++) {
-      let y = 1
-      for (let k = 0; k < j; k++) {
-        if (words[i][j] == words[i][k]) { y = 0 }
-      }
-    }
-    if (p > s || (p == s && words[i] < words[u])) {
-      u = i;
-      s = p;
-    }
+const eat = (number, need, remaining) => {
+  if (need <= remaining) {
+    return [need + number, number + remaining - need]
   }
-  return words[u]
+  return [remaining + need + number, 0]
 }
 
-const testFindMax = () => {
-  console.assert(findMax(['name', 'of', 'string']) === 'string')
-  console.assert(findMax(['name', 'enam', 'game']) === 'enam')
-  console.assert(findMax(['aaaaaaa', 'bb', 'cc']) === 'aaaaaaa')
+const testEat = () => {
+  console.assert(JSON.stringify(eat(5, 6, 10)) === JSON.stringify([11, 4]))
+  console.assert(JSON.stringify(eat(4, 8, 9)) === JSON.stringify([12, 1]))
+  console.assert(JSON.stringify(eat(1, 10, 10)) === JSON.stringify([11, 0]))
+  console.assert(JSON.stringify(eat(2, 11, 5)) === JSON.stringify([7, 0]))
 }
-testFindMax()
+testEat()
 
-module.exports = findMax
+module.exports = eat
