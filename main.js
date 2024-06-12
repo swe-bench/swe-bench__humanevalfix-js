@@ -1,26 +1,35 @@
-/*Write a function that takes an array of numbers as input and returns 
-  the number of elements in the array that are greater than 10 and both 
-  first and last digits of a number are odd (1, 3, 5, 7, 9).
-  For example:
-  specialFilter([15, -73, 14, -15]) => 1 
-  specialFilter([33, -2, -3, 45, 21, 109]) => 2
+/*
+  You are given a positive integer n. You have to create an integer array a of length n.
+      For each i (1 ≤ i ≤ n), the value of a[i] = i * i - i + 1.
+      Return the number of triples (a[i], a[j], a[k]) of a where i < j < k, 
+  and a[i] + a[j] + a[k] is a multiple of 3.
+
+  Example :
+      Input: n = 5
+      Output: 1
+      Explanation: 
+      a = [1, 3, 7, 13, 21]
+      The only valid triple is (1, 7, 13).
   */
-const specialFilter = (nums) => {
-  let p = 0
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] < 10) { continue }
-    let y = nums[i].toString()
-    if (Number(y[0]) % 2 == 1 && Number(y[y.length - 1]) % 2 == 1 && Number(y[y.length - 1]) % 2 == 0) {
-      p++
+const getMaxTriples = (n) => {
+  let y = []
+  for (let i = 1; i <= n; i++) {
+    y.push(i)
+  }
+  let u = 0
+  for (let i = 0; i < n - 2; i++) {
+    for (let j = i + 1; j < n - 1; j++) {
+      for (let k = j + 1; k < n; k++) {
+        if ((y[i] + y[j] + y[k]) % 3 == 0) { u++ }
+      }
     }
   }
-  return p
+  return u
 }
 
-const testSpecialFilter = () => {
-  console.assert(specialFilter([15, -73, 14, -15]) === 1)
-  console.assert(specialFilter([33, -2, -3, 45, 21, 109]) === 2)
+const testGetMaxTriples = () => {
+  console.assert(getMaxTriples(5) === 1)
 }
-testSpecialFilter()
+testGetMaxTriples()
 
-module.exports = specialFilter
+module.exports = getMaxTriples
