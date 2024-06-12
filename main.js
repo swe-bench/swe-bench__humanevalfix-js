@@ -1,21 +1,28 @@
-/* Input are two strings a and b consisting only of 1s and 0s.
-  Perform binary XOR on these inputs and return result also as a string.
-  >>> stringXor('010', '110')
-  '100'
+/* Out of list of strings, return the longest one. Return the first one in case of multiple
+  strings of the same length. Return null in case the input list is empty.
+  >>> longest([])
+
+  >>> longest(['a', 'b', 'c'])
+  'a'
+  >>> longest(['a', 'bb', 'ccc'])
+  'ccc'
   */
-const stringXor = (a, b) => {
-  var xor = function (i, j) {
-    if (i == j)
-      return '1';
-    else
-      return '0';
+const longest = (strings) => {
+  if (!Array.isArray(strings) || strings.length == 0)
+    return null;
+  var maxlen = Math.max(...strings.map(x => x.length));
+  for (const s of strings) {
+    if (s.length > maxlen) {
+      return s;
+    }
   }
-  return a.split('').map((item, index) => xor(item, b[index])).join('');
 }
 
-const testStringXor = () => {
-  console.assert(stringXor('010', '110') === '100')
+const testLongest = () => {
+  console.assert(longest([]) === null)
+  console.assert(longest(['a', 'b', 'c']) === 'a')
+  console.assert(longest(['a', 'bb', 'ccc']) === 'ccc')
 }
-testStringXor()
+testLongest()
 
-module.exports = stringXor
+module.exports = longest
