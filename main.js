@@ -1,28 +1,44 @@
 /*
-  Given a positive integer n, you have to make a pile of n levels of stones.
-  The first level has n stones.
-  The number of stones in the next level is:
-      - the next odd number if n is odd.
-      - the next even number if n is even.
-  Return the number of stones in each level in a list, where element at index
-  i represents the number of stones in the level (i+1).
-
-  Examples:
-  >>> makeAPile(3)
-  [3, 5, 7]
+  You will be given a string of words separated by commas or spaces. Your task is
+  to split the string into words and return an array of the words.
+  
+  For example:
+  wordsString("Hi, my name is John") == ["Hi", "my", "name", "is", "John"]
+  wordsString("One, two, three, four, five, six") == ["One", "two", "three", "four", "five", "six"]
   */
-const makeAPile = (n) => {
-  let t = []
-  for (let i = n; i < n * 3; i += 2) {
-    t.push(i)
-    t.push(n)
+const wordsString = (s) => {
+  let t = ','
+  let p = []
+  let k = 0
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == ' ' || s[i] == ',') {
+      if (k == 0) {
+        k = 1;
+        p.push(t);
+        t = ',';
+      }
+    }
+    else {
+      k = 0;
+      t += s[i]
+    }
   }
-  return t
+  if (t != '') {
+    p.push(t);
+  }
+  return p
 }
 
-const testMakeAPile = () => {
-  console.assert(JSON.stringify(makeAPile(3)) === JSON.stringify([3, 5, 7]))
+const testWordsString = () => {
+  console.assert(
+    JSON.stringify(wordsString('Hi, my name is John')) ===
+    JSON.stringify(['Hi', 'my', 'name', 'is', 'John'])
+  )
+  console.assert(
+    JSON.stringify(wordsString('One, two, three, four, five, six')) ===
+    JSON.stringify(['One', 'two', 'three', 'four', 'five', 'six'])
+  )
 }
-testMakeAPile()
+testWordsString()
 
-module.exports = makeAPile
+module.exports = wordsString
