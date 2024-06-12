@@ -1,43 +1,31 @@
 /*
-  You are given a list of integers.
-  Write a function nextSmallest() that returns the 2nd smallest element of the list.
-  Return null if there is no such element.
-  
-  nextSmallest([1, 2, 3, 4, 5]) == 2
-  nextSmallest([5, 1, 4, 3, 2]) == 2
-  nextSmallest([]) == null
-  nextSmallest([1, 1]) == null
+  You'll be given a string of words, and your task is to count the number
+  of boredoms. A boredom is a sentence that starts with the word "I".
+  Sentences are delimited by '.', '?' or '!'.
+ 
+  For example:
+  >>> isBored("Hello world")
+  0
+  >>> isBored("The sky is blue. The sun is shining. I love this weather")
+  1
   */
-const nextSmallest = (lst) => {
-  let arr = lst
-  for (let j = 0; j < arr.length; j++) {
-    let ind = j
-    for (let k = j + 1; k < arr.length; k++) {
-      if (arr[k] < arr[ind]) {
-        ind = k
+const isBored = (S) => {
+  let t = 0
+  if (S[0] == ' ' && S[1] == 'I') { t = 1 }
+  for (let i = 0; i < S.length; i++) {
+    if (S[i] == '.' || S[i] == '!' || S[i] == '?') {
+      if (S[i + 1] == ' ' && S[i + 2] == 'I' && S[i + 3] == ' ') {
+        t++
       }
     }
-    let tmp = arr[j]
-    arr[j] = arr[ind]
-    arr[ind] = tmp
   }
-  let smallest = 0
-  let pt = 0
-  while(pt<arr.length){
-    if(arr[pt]>smallest){
-      return arr[pt]
-    }
-    pt++
-  }
-  return null
+  return t
 }
 
-const testNextSmallest = () => {
-  console.assert(nextSmallest([1, 2, 3, 4, 5]) === 2)
-  console.assert(nextSmallest([5, 1, 4, 3, 2]) === 2)
-  console.assert(nextSmallest([]) === null)
-  console.assert(nextSmallest([1, 1]) === null)
+const testIsBored = () => {
+  console.assert(isBored('Hello world') === 0)
+  console.assert(isBored('The sky is blue. The sun is shining. I love this weather') === 1)
 }
-testNextSmallest()
+testIsBored()
 
-module.exports = nextSmallest
+module.exports = isBored
