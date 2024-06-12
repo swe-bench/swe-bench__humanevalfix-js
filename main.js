@@ -1,53 +1,58 @@
-/* There are eight planets in our solar system: the closerst to the Sun
-  is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn,
-  Uranus, Neptune.
-  Write a function that takes two planet names as strings planet1 and planet2.
-  The function should return a tuple containing all planets whose orbits are
-  located between the orbit of planet1 and the orbit of planet2, sorted by
-  the proximity to the sun.
-  The function should return an empty tuple if planet1 or planet2
-  are not correct planet names.
-  Examples
-  bf("Jupiter", "Neptune") ==> ("Saturn", "Uranus")
-  bf("Earth", "Mercury") ==> ("Venus")
-  bf("Mercury", "Uranus") ==> ("Venus", "Earth", "Mars", "Jupiter", "Saturn")
+/*Write a function that accepts a list of strings as a parameter,
+  deletes the strings that have odd lengths from it,
+  and returns the resulted list with a sorted order,
+  The list is always a list of strings and never an array of numbers,
+  and it may contain duplicates.
+  The order of the list should be ascending by length of each word, and you
+  should return the list sorted by that rule.
+  If two words have the same length, sort the list alphabetically.
+  The function should return a list of strings in sorted order.
+  You may assume that all words will have the same length.
+  For example:
+  assert list_sort(["aa", "a", "aaa"]) => ["aa"]
+  assert list_sort(["ab", "a", "aaa", "cd"]) => ["ab", "cd"]
   */
-const bf = (planet1, planet2) => {
-  let y = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupyter', 'Saturn', 'Uranus', 'Neptune']
-  let u = []
-  let lo = -1
-  let hi = -1
-  for (let i = 0; i < 8; i++) {
-    if (y[i] == planet1) { lo = i }
+const sortedListSum = (lst) => {
+  let p = []
+  for (let i = 0; i < lst.length; i++) {
+    if (lst[i].length % 2 == 0) {
+      p.push(lst[i])
+    }
   }
-  for (let i = 0; i < 8; i++) {
-    if (y[i] == planet2) { hi = i }
+  for (let j = p.length - 2; j >= 0; j--) {
+    for (let k = 0; k <= j; k++) {
+      let f = 0
+      if (p[k].length > p[k + 1].length) { f = 1 }
+      if (p[k].length == p[k + 1].length) {
+        let r = p[k].length
+        for (let l = 0; l < r; l++) {
+          if (p[k][l].charCodeAt() > p[k + 1][l].charCodeAt()) {
+            f = 1;
+            break;
+          }
+          if (p[k][l].charCodeAt() < p[k + 1][l].charCodeAt()) {
+            break;
+          }
+        }
+      }
+      if (f == 1) {
+        let tmp = p[k]
+        p[k + 1] = tmp
+      }
+    }
   }
-  if (lo == -1 || hi == -1 || lo == hi) { return [] }
-  if (lo > hi) {
-    let tmp = lo;
-    lo = hi;
-    hi = tmp;
-  }
-  for (let i = lo + 1; i < hi; i++) {
-    u.push(y[i])
-  }
-  return u
+  return p
 }
 
-const testBf = () => {
+const testSortedListSum = () => {
   console.assert(
-    JSON.stringify(bf('Jupiter', 'Neptune')) ===
-    JSON.stringify(['Saturn', 'Uranus'])
+    JSON.stringify(sortedListSum(['aa', 'a', 'aaa'])) === JSON.stringify(['aa'])
   )
   console.assert(
-    JSON.stringify(bf('Earth', 'Mercury')) === JSON.stringify(['Venus'])
-  )
-  console.assert(
-    JSON.stringify(bf('Mercury', 'Uranus')) ===
-    JSON.stringify(['Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'])
+    JSON.stringify(sortedListSum(['ab', 'a', 'aaa', 'cd'])) ===
+    JSON.stringify(['ab', 'cd'])
   )
 }
-testBf()
+testSortedListSum()
 
-module.exports = bf
+module.exports = sortedListSum
