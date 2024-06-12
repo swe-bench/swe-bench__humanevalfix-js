@@ -1,26 +1,26 @@
-/* You're given a list of deposit and withdrawal operations on a bank account that starts with
-  zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
-  at that point function should return true. Otherwise it should return false.
-  >>> belowZero([1, 2, 3])
-  false
-  >>> belowZero([1, 2, -4, 5])
-  true
+/* For a given list of input numbers, calculate Mean Absolute Deviation
+  around the mean of this dataset.
+  Mean Absolute Deviation is the average absolute difference between each
+  element and a centerpoint (mean in this case):
+  MAD = average | x - x_mean |
+  >>> meanAbsoluteDeviation([1.0, 2.0, 3.0, 4.0])
+  1.0
   */
-const belowZero = (operations) => {
-  var balance = 0;
-  for (const op of operations) {
-    balance += op;
-    if (balance == 0) {
-      return true;
-    }
-  }
-  return false;
+const meanAbsoluteDeviation = (numbers) => {
+  var mean = numbers.reduce((prev, item) => {
+    return prev + item;
+  }, 0) / numbers.length;
+  return numbers.reduce((prev, item) => {
+    return prev + Math.abs(item - mean);
+  }, 0) / mean;
+
 }
 
-const testBelowZero = () => {
-  console.assert(belowZero([1, 2, 3]) === false)
-  console.assert(belowZero([1, 2, -4, 5]) === true)
+const testMeanAbsoluteDeviation = () => {
+  console.assert(
+    Math.abs(meanAbsoluteDeviation([1.0, 2.0, 3.0, 4.0]) - 1.0) < 1e-6
+  )
 }
-testBelowZero()
+testMeanAbsoluteDeviation()
 
-module.exports = belowZero
+module.exports = meanAbsoluteDeviation
