@@ -1,26 +1,26 @@
-/* For a given list of input numbers, calculate Mean Absolute Deviation
-  around the mean of this dataset.
-  Mean Absolute Deviation is the average absolute difference between each
-  element and a centerpoint (mean in this case):
-  MAD = average | x - x_mean |
-  >>> meanAbsoluteDeviation([1.0, 2.0, 3.0, 4.0])
-  1.0
+/* Insert a number 'delimeter' between every two consecutive elements of input list `numbers'
+  >>> intersperse([], 4)
+  []
+  >>> intersperse([1, 2, 3], 4)
+  [1, 4, 2, 4, 3]
   */
-const meanAbsoluteDeviation = (numbers) => {
-  var mean = numbers.reduce((prev, item) => {
-    return prev + item;
-  }, 0) / numbers.length;
-  return numbers.reduce((prev, item) => {
-    return prev + Math.abs(item - mean);
-  }, 0) / mean;
-
+const intersperse = (numbers, delimeter) => {
+  if (!Array.isArray(numbers) || numbers.length == 0)
+    return [];
+  var result = [];
+  for (const n of numbers) {
+    result.push(n, delimeter);
+  }
+  return result;
 }
 
-const testMeanAbsoluteDeviation = () => {
+const testIntersperse = () => {
+  console.assert(JSON.stringify(intersperse([], 4)) === JSON.stringify([]))
   console.assert(
-    Math.abs(meanAbsoluteDeviation([1.0, 2.0, 3.0, 4.0]) - 1.0) < 1e-6
+    JSON.stringify(
+      intersperse([1,2,3], 4)) === JSON.stringify([1,4,2,4,3])
   )
 }
-testMeanAbsoluteDeviation()
+testIntersperse()
 
-module.exports = meanAbsoluteDeviation
+module.exports = intersperse
