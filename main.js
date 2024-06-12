@@ -1,26 +1,23 @@
-/*Write a function vowelsCount which takes a string representing
-  a word as input and returns the number of vowels in the string.
-  Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
-  vowel, but only when it is at the end of the given word.
-
-  Example:
-  >>> vowelsCount("abcde")
-  2
-  >>> vowelsCount("ACEDY")
-  3
+/*Circular shift the digits of the integer x, shift the digits right by shift
+  and return the result as a string.
+  If shift > number of digits, return digits reversed.
+  >>> circularShift(12, 1)
+  "21"
+  >>> circularShift(12, 2)
+  "12"
   */
-const vowelsCount = (s) => {
-  var vowels = "aeiouyAEIOUY";
-  var n_vowels = s.split('').reduce((prev, item) => {
-    return prev + (vowels.includes(item));
-  }, 0);
-  return n_vowels;
+const circularShift = (x, shift) => {
+  s = x.toString();
+  if (shift > s.length)
+    return s.split('').reverse().join('');
+  else
+    return s.slice(0, -shift) + s.slice(-shift);
 }
 
-const testVowelsCount = () => {
-  console.assert(vowelsCount('abcde') === 2)
-  console.assert(vowelsCount('ACEDY') === 3)
+const testCircularShift = () => {
+  console.assert(circularShift(12, 2) === '12')
+  console.assert(circularShift(12, 1) === '21')
 }
-testVowelsCount()
+testCircularShift()
 
-module.exports = vowelsCount
+module.exports = circularShift
