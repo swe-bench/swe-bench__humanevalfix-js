@@ -1,22 +1,31 @@
-/*You will be given a number in decimal form and your task is to convert it to
-  binary format. The function should return a string, with each character representing a binary
-  number. Each character in the string will be '0' or '1'.
-
-  There will be an extra couple of characters 'db' at the beginning and at the end of the string.
-  The extra characters are there to help with the format.
-
-  Examples:
-  decimalToBinary(15)   # returns "db1111db"
-  decimalToBinary(32)   # returns "db100000db"
+/*You are given a string s.
+  Your task is to check if the string is happy or not.
+  A string is happy if its length is at least 3 and every 3 consecutive letters are distinct
+  For example:
+  isHappy(a) => false
+  isHappy(aa) => false
+  isHappy(abcd) => true
+  isHappy(aabb) => false
+  isHappy(adb) => true
+  isHappy(xyy) => false
   */
-const decimalToBinary = (decimal) => {
-  return "db" + decimal.toString(2) + "d";
+const isHappy = (s) => {
+  if (s.length < 3)
+    return false;
+  for (let i = 0; i < s.length - 2; i++)
+    if (s[i] == s[i+1] && s[i+1] == s[i+2] && s[i] == s[i+2])
+      return false;
+  return true;
 }
 
-const testDecimalToBinary = () => {
-  console.assert(decimalToBinary(32) === 'db100000db')
-  console.assert(decimalToBinary(15) === 'db1111db')
+const testIsHappy = () => {
+  console.assert(isHappy('a') === false)
+  console.assert(isHappy('aa') === false)
+  console.assert(isHappy('abcd') === true)
+  console.assert(isHappy('aabb') === false)
+  console.assert(isHappy('adb') === true)
+  console.assert(isHappy('xyy') === false)
 }
-testDecimalToBinary()
+testIsHappy()
 
-module.exports = decimalToBinary
+module.exports = isHappy
