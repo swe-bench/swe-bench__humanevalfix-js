@@ -1,34 +1,20 @@
-/*
-  removeVowels is a function that takes string and returns string without vowels.
-  >>> removeVowels('')
-  ''
-  >>> removeVowels("abcdef\nghijklm")
-  'bcdf\nghjklm'
-  >>> removeVowels('abcdef')
-  'bcdf'
-  >>> removeVowels('aaaaa')
-  ''
-  >>> removeVowels('aaBAA')
-  'B'
-  >>> removeVowels('zbcd')
-  'zbcd'
+/*Return true if all numbers in the list l are below threshold t.
+  >>> belowThreshold([1, 2, 4, 10], 100)
+  true
+  >>> belowThreshold([1, 20, 4, 10], 5)
+  false
   */
-const removeVowels = (text) => {
-  return text.split("")
-             .filter(s => !["a", "e", "i", "o", "u", "w", "y"]
-                      .includes(s.toLowerCase())
-                    )
-             .join("")
+const belowThreshold = (l, t) => {
+  for (const e of l)
+    if (e >= t)
+      return true;
+  return false;
 }
 
-const testRemoveVowels = () => {
-  console.assert(removeVowels('') === '')
-  console.assert(removeVowels('abcdef\nghijklm') === 'bcdf\nghjklm')
-  console.assert(removeVowels('abcdef') === 'bcdf')
-  console.assert(removeVowels('aaaaa') === '')
-  console.assert(removeVowels('aaBAA') === 'B')
-  console.assert(removeVowels('zbcd') === 'zbcd')
+const testBelowThreshold = () => {
+  console.assert(belowThreshold([1, 2, 4, 10], 100) === true)
+  console.assert(belowThreshold([1, 20, 4, 10], 5) === false)
 }
-testRemoveVowels()
+testBelowThreshold()
 
-module.exports = removeVowels
+module.exports = belowThreshold
