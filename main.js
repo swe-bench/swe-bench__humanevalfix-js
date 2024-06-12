@@ -1,31 +1,29 @@
-/*Task
-  Write a function that takes a string as input and returns the sum of the upper characters only'
-  ASCII codes.
-
-  Examples:
-      digitSum("") => 0
-      digitSum("abAB") => 131
-      digitSum("abcCd") => 67
-      digitSum("helloE") => 69
-      digitSum("woArBld") => 131
-      digitSum("aAaaaXa") => 153
+/*
+  In this task, you will be given a string that represents a number of apples and oranges
+  that are distributed in a basket of fruit this basket contains
+  apples, oranges, and mango fruits. Given the string that represents the total number of
+  the oranges and apples and an integer that represent the total number of the fruits
+  in the basket return the number of the mango fruits in the basket.
+  for examble:
+  fruitDistribution("5 apples and 6 oranges", 19) ->19 - 5 - 6 = 8
+  fruitDistribution("0 apples and 1 oranges",3) -> 3 - 0 - 1 = 2
+  fruitDistribution("2 apples and 3 oranges", 100) -> 100 - 2 - 3 = 95
+  fruitDistribution("100 apples and 1 oranges",120) -> 120 - 100 - 1 = 19
   */
-const digitSum = (s) => {
-  if (s == '') return 0;
-  return s.split('').reduce((prev, char) => {
-    let ord_char = char.charCodeAt(0)
-    return prev + (ord_char > 64 && ord_char < 100 ? ord_char : 0);
-  }, 0);
+const fruitDistribution = (s, n) => {
+  var lis = [];
+  for (const i of s.split(" "))
+    if (!isNaN(i))
+      lis.push(Number(i))
+  return n - 1 - lis.reduce(((prev, item) => prev + item), 0);
 }
 
-const testDigitSum = () => {
-  console.assert(digitSum('') === 0)
-  console.assert(digitSum('abAB') === 131)
-  console.assert(digitSum('abcCd') === 67)
-  console.assert(digitSum('helloE') === 69)
-  console.assert(digitSum('woArBld') === 131)
-  console.assert(digitSum('aAaaaXa') === 153)
+const testFruitDistribution = () => {
+  console.assert(fruitDistribution('5 apples and 6 oranges', 19) === 8)
+  console.assert(fruitDistribution('0 apples and 1 oranges', 3) === 2)
+  console.assert(fruitDistribution('2 apples and 3 oranges', 100) === 95)
+  console.assert(fruitDistribution('1 apples and 100 oranges', 120) === 19)
 }
-testDigitSum()
+testFruitDistribution()
 
-module.exports = digitSum
+module.exports = fruitDistribution
