@@ -1,28 +1,83 @@
 /*
-  Given an array of integers nums, find the minimum sum of any non-empty sub-array
-  of nums.
-  Example
-  minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
-  minSubArraySum([-1, -2, -3]) == -6
+  You are given a rectangular grid of wells. Each row represents a single well,
+  and each 1 in a row represents a single unit of water.
+  Each well has a corresponding bucket that can be used to extract water from it, 
+  and all buckets have the same capacity.
+  Your task is to use the buckets to empty the wells.
+  Output the number of times you need to lower the buckets.
+
+  Example 1:
+      Input: 
+          grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+          bucket_capacity : 1
+      Output: 6
+
+  Example 2:
+      Input: 
+          grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+          bucket_capacity : 2
+      Output: 5
+  
+  Example 3:
+      Input: 
+          grid : [[0,0,0], [0,0,0]]
+          bucket_capacity : 5
+      Output: 0
+
+  Constraints:
+      * all wells have the same length
+      * 1 <= grid.length <= 10^2
+      * 1 <= grid[:,1].length <= 10^2
+      * grid[i][j] -> 0 | 1
+      * 1 <= capacity <= 10
   */
-const minSubArraySum = (nums) => {
-  let min = Math.min(nums)
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = i + 1; j <= nums.length; j++) {
-      let s = 0;
-      for (let k = i; k < j; k++) {
-        s += nums[k]
-      }
-      if (s < min) { min = s }
+const maxFill = (grid, capacity) => {
+  let p = 0
+  for (let i = 0; i < grid.length; i++) {
+    let m = 0
+    for (let j = 1; j < grid[i].length; j++) {
+      if (grid[i][j] == 1) { m++ }
+    }
+    while (m > 0) {
+      m -= capacity;
+      p++;
     }
   }
-  return min
+  return p
 }
 
-const testMinSubArraySum = () => {
-  console.assert(minSubArraySum([2, 3, 4, 1, 2, 4]) === 1)
-  console.assert(minSubArraySum([-1, -2, -3]) === -6)
+const testMaxFill = () => {
+  console.assert(
+    maxFill(
+      [
+        [0, 0, 1, 0],
+        [0, 1, 0, 0],
+        [1, 1, 1, 1],
+      ],
+      1
+    ) === 6
+  )
+  console.assert(
+    maxFill(
+      [
+        [0, 0, 1, 1],
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [0, 1, 1, 1],
+      ],
+      2
+    ) === 5
+  )
+  console.assert(
+    maxFill(
+      [
+        [0, 0, 0],
+        [0, 0, 0],
+      ],
+      5
+    ) === 0
+  )
 }
-testMinSubArraySum()
+testMaxFill()
 
-module.exports = minSubarraySum
+module.exports = maxFill
