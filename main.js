@@ -1,38 +1,31 @@
-/*You are given two intervals,
-  where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
-  The given intervals are closed which means that the interval (start, end)
-  includes both start and end.
-  For each given interval, it is assumed that its start is less or equal its end.
-  Your task is to determine whether the length of intersection of these two 
-  intervals is a prime number.
-  Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
-  which its length is 1, which not a prime number.
-  If the length of the intersection is a prime number, return "YES",
-  otherwise, return "NO".
-  If the two intervals don't intersect, return "NO".
+/*
+  You are given an array arr of integers and you need to return
+  sum of magnitudes of integers multiplied by product of all signs
+  of each number in the array, represented by 1, -1 or 0.
+  Note: return null for empty arr.
 
-
-  [input/output] samples:
-  intersection((1, 2), (2, 3)) ==> "NO"
-  intersection((-1, 1), (0, 4)) ==> "NO"
-  intersection((-3, -1), (-5, 5)) ==> "YES"
+  Example:
+  >>> prodSigns([1, 2, 2, -4]) == -9
+  >>> prodSigns([0, 1]) == 0
+  >>> prodSigns([]) == null
   */
-const intersection = (interval1, interval2) => {
-  let lo = interval1[0]
-  if (interval2[0] > lo) { lo = interval2[0] }
-  let hi = interval1[1]
-  if (interval2[1] < hi) { hi = interval2[1] }
-  let len = 0
-  if (hi > lo) { len = hi }
-  if (len == 1 || len == 0) { return 'NO' }
-  return 'YES'
+const prodSigns = (arr) => {
+  if (arr.length == 0) { return null }
+  let n = 1
+  let s = 0
+  for (let i = 0; i < arr.length; i++) {
+    s += arr[i]
+    if (arr[i] == 0) { return 0 }
+    if (arr[i] < 0) { n = -n; s -= 2 * arr[i] }
+  }
+  return s * n * 2
 }
 
-const testIntersection = () => {
-  console.assert(intersection([1, 2], [2, 3]) === 'NO')
-  console.assert(intersection([-1, 1], [0, 4]) === 'NO')
-  console.assert(intersection([-3, -1], [-5, 5]) === 'YES')
+const testProdSigns = () => {
+  console.assert(prodSigns([1, 2, 2, -4]) === -9)
+  console.assert(prodSigns([0, 1]) === 0)
+  console.assert(prodSigns([]) === null)
 }
-testIntersection()
+testProdSigns()
 
-module.exports = intersection
+module.exports = prodSigns
