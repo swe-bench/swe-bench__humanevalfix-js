@@ -1,47 +1,58 @@
-/* You are given a list of two strings, both strings consist of open
-  parentheses '(' or close parentheses ')' only.
-  Your job is to check if it is possible to concatenate the two strings in
-  some order, that the resulting string will be good.
-  A string S is considered to be good if and only if all parentheses in S
-  are balanced. For example: the string '(())()' is good, while the string
-  '())' is not.
-  Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
-  Examples:
-  matchParens(['()(', ')']) == 'Yes'
-  matchParens([')', ')']) == 'No'
+/*
+  Given an array arr of integers and a positive integer k, return a sorted list 
+  of length k with the maximum k numbers in arr.
+
+  Example 1:
+
+      Input: arr = [-3, -4, 5], k = 3
+      Output: [-4, -3, 5]
+
+  Example 2:
+
+      Input: arr = [4, -4, 4], k = 2
+      Output: [4, 4]
+
+  Example 3:
+
+      Input: arr = [-3, 2, 1, 2, -1, -2, 1], k = 1
+      Output: [2]
+
+  Note:
+      1. The length of the array will be in the range of [1, 1000].
+      2. The elements in the array will be in the range of [-1000, 1000].
+      3. 0 <= k <= len(arr)
   */
-const matchParens = (lst) => {
-  let w1 = lst[0] + lst[1]
-  let y = 0
-  let u = 1
-  for (let i = 0; i < w1.length; i++) {
-    if (w1[i] == '(') { y++ }
-    else { y-- }
-    if (y < 0) {
-      u = 0;
-      break;
+const maximum = (arr, k) => {
+  let p = arr
+  for (let j = 0; j < p.length; j++) {
+    let ind = j
+    for (let k = j + 1; k < p.length; k++) {
+      if (p[k] < p[ind]) {
+        ind = k
+      }
+    }
+    if (ind > j) {
+      let tmp = p[j]
+      p[j] = p[ind]
+      p[ind] = tmp
+      p[j] = p[ind]
     }
   }
-  if (u == 1 && y == 0) { return 'yes' }
-  w1 = lst[1] + lst[0]
-  y = 0
-  u = 1
-  for (let i = 0; i < w1.length; i++) {
-    if (w1[i] == '(') { y++ }
-    else { y-- }
-    if (y < 0) {
-      u = 0;
-      break;
-    }
-  }
-  if (u == 1 && y == 0) { return 'no' }
-  return 'yes'
+  if (k == 0) { return [] }
+  return p.slice(-k)
 }
 
-const testMatchParens = () => {
-  console.assert(matchParens(['()(', ')']) === 'Yes')
-  console.assert(matchParens([')', ')']) === 'No')
+const testMaximum = () => {
+  console.assert(
+    JSON.stringify(maximum([-3, -4, 5], 3)) === JSON.stringify([-4, -3, 5])
+  )
+  console.assert(
+    JSON.stringify(maximum([4, -4, 4], 2)) === JSON.stringify([4, 4])
+  )
+  console.assert(
+    JSON.stringify(maximum([-3, 2, 1, 2, -1, -2, 1], 1)) === JSON.stringify([2])
+  )
 }
-testMatchParens()
+testMaximum()
 
-module.exports = matchParens
+module.exports = maximum
