@@ -1,23 +1,26 @@
-/* Input to this function is a string representing musical notes in a special ASCII format.
-  Your task is to parse this string and return list of integers corresponding to how many beats does each
-  not last.
-
-  Here is a legend:
-  'o' - whole note, lasts four beats
-  'o|' - half note, lasts two beats
-  '.|' - quater note, lasts one beat
-
-  >>> parseMusic('o o| .| o| o| .| .| .| .| o o')
-  [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
+/* Find how many times a given substring can be found in the original string. Count overlaping cases.
+  >>> howManyTimes('', 'a')
+  0
+  >>> howManyTimes('aaa', 'a')
+  3
+  >>> howManyTimes('aaaa', 'aa')
+  3
   */
-const parseMusic = (music_string) => {
-  const note_map = {'o': 3, 'o|': 2, '.|': 1};
-  return music_string.split(' ').filter(x => x != '').map(x => note_map[x]);
+const howManyTimes = (string, substring) => {
+  var times = 0;
+  for (let i = 0; i < string.length - substring.length; i++) {
+    if (string.slice(i, i+substring.length) == substring) {
+      times += 1;
+    }
+  }
+  return times;
 }
 
-const testParseMusic = () => {
-  console.assert(JSON.stringify(parseMusic('o o| .| o| o| .| .| .| .| o o')) === JSON.stringify([4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]))
+const testHowManyTimes = () => {
+  console.assert(howManyTimes('', 'a') === 0)
+  console.assert(howManyTimes('aaa', 'a') === 3)
+  console.assert(howManyTimes('aaaa', 'aa') === 3)
 }
-testParseMusic()
+testHowManyTimes()
 
-module.exports = parseMusic
+module.exports = howManyTimes
