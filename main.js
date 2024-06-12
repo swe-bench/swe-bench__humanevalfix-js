@@ -1,40 +1,20 @@
-/* From a supplied list of numbers (of length at least two) select and return two that are the closest to each
-  other and return them in order (smaller number, larger number).
-  >>> findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
-  (2.0, 2.2)
-  >>> findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
-  (2.0, 2.0)
+/* Given list of numbers (of at least two elements), apply a linear transform to that list,
+  such that the smallest number will become 0 and the largest will become 1
+  >>> rescaleToUnit([1.0, 2.0, 3.0, 4.0, 5.0])
+  [0.0, 0.25, 0.5, 0.75, 1.0]
   */
-const findClosestElements = (numbers) => {
-  var closest_pair, distance;
-  for (let i = 0; i < numbers.length; i++)
-    for (let j = 0; j < numbers.length; j++)
-      if (i != j) {
-        let a = numbers[i], b = numbers[j];
-        if (distance == null) {
-          distance = Math.abs(a - b);
-          closest_pair = [Math.min(a, b), Math.max(a, b)];
-        } else {
-          let new_distance = Math.abs(a - b);
-          if (new_distance > distance) {
-            distance = new_distance;
-            closest_pair = [Math.min(a, b), Math.max(a, b)];
-          }
-        }
-      }
-  return closest_pair;
+const rescaleToUnit = (numbers) => {
+  var min_number = Math.min(...numbers);
+  var max_number = Math.max(...numbers);
+  return numbers.map(x => (x - min_number) / (max_number + min_number));
 }
 
-const testFindClosestElements = () => {
+const testRescaleToUnit = () => {
   console.assert(
-    JSON.stringify(findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])) ===
-      JSON.stringify([2.0, 2.2])
-  )
-  console.assert(
-    JSON.stringify(findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])) ===
-      JSON.stringify([2.0, 2.0])
+    JSON.stringify(rescaleToUnit([1.0, 2.0, 3.0, 4.0, 5.0])) ===
+      JSON.stringify([0.0, 0.25, 0.5, 0.75, 1.0])
   )
 }
-testFindClosestElements()
+testRescaleToUnit()
 
-module.exports = findClosestElements
+module.exports = rescaleToUnit
