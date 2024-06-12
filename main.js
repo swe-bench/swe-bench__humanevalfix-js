@@ -1,17 +1,18 @@
-/* Return a string containing space-delimited numbers starting from 0 upto n inclusive.
-  >>> stringSequence(0)
-  '0'
-  >>> stringSequence(5)
-  '0 1 2 3 4 5'
+/* Given a string, find out how many distinct characters (regardless of case) does it consist of
+  >>> countDistinctCharacters('xyzXYZ')
+  3
+  >>> countDistinctCharacters('Jerry')
+  4
   */
-const stringSequence = (n) => {
-  return [...Array(n-1).keys(), n].join(' ')
+const countDistinctCharacters = (string) => {
+  return (new Set(string)).size;
+
 }
 
-const testStringSequence = () => {
-  console.assert(stringSequence(0) === '0')
-  console.assert(stringSequence(5) === '0 1 2 3 4 5')
+const testCountDistinctCharacters = () => {
+  console.assert(countDistinctCharacters('xyzXYZ') === 3)
+  console.assert(countDistinctCharacters('Jerry') === 4)
 }
-testStringSequence()
+testCountDistinctCharacters()
 
-module.exports = stringSequence
+module.exports = countDistinctCharacters
