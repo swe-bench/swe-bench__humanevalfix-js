@@ -1,42 +1,38 @@
-/*
-  Given a dictionary, return true if all keys are strings in lower 
-  case or all keys are strings in upper case, else return false.
-  The function should return false is the given dictionary is empty.
-  Examples:
-  checkDictCase({"a":"apple", "b":"banana"}) should return true.
-  checkDictCase({"a":"apple", "A":"banana", "B":"banana"}) should return false.
-  checkDictCase({"a":"apple", 8:"banana", "a":"apple"}) should return false.
-  checkDictCase({"Name":"John", "Age":"36", "City":"Houston"}) should return false.
-  checkDictCase({"STATE":"NC", "ZIP":"12345" }) should return true.
+/*Implement a function that takes an non-negative integer and returns an array of the first n
+  integers that are prime numbers and less than n.
+  for example:
+  countUpTo(5) => [2,3]
+  countUpTo(11) => [2,3,5,7]
+  countUpTo(0) => []
+  countUpTo(20) => [2,3,5,7,11,13,17,19]
+  countUpTo(1) => []
+  countUpTo(18) => [2,3,5,7,11,13,17]
   */
-const checkDictCase = (dict) => {
-  let c = 0
-  let lo = 1
-  let hi = 1
-  for (let key in dict) {
-    c++
-    for (let i = 0; i < key.length; i++) {
-      if (key[i].charCodeAt() < 65 || key[i].charCodeAt() > 90) { hi = 0 }
-      if (key[i].charCodeAt() < 97 || key[i].charCodeAt() > 122) { lo = 0 }
+const countUpTo = (n) => {
+  let t = []
+  for (let i = 2; i < n; i++) {
+    let p = 1
+    for (let j = 2; j * j <= i; j++) {
+      if (j % i == 0) { p = 0; break }
     }
+    if (p == 1) { t.push(i) }
   }
-  if ((lo == 0 && hi == 0) && c == 0) { return false }
-  return true
+  return t
 }
 
-const testCheckDictCase = () => {
-  console.assert(checkDictCase({ p: 'pineapple', b: 'banana' }) === true)
+const testCountUpTo = () => {
+  console.assert(JSON.stringify(countUpTo(5)) === JSON.stringify([2, 3]))
+  console.assert(JSON.stringify(countUpTo(11)) === JSON.stringify([2, 3, 5, 7]))
+  console.assert(JSON.stringify(countUpTo(0)) === JSON.stringify([]))
   console.assert(
-    checkDictCase({ p: 'pineapple', A: 'banana', B: 'banana' }) === false
+    JSON.stringify(countUpTo(20)) ===
+    JSON.stringify([2, 3, 5, 7, 11, 13, 17, 19])
   )
+  console.assert(JSON.stringify(countUpTo(1)) === JSON.stringify([]))
   console.assert(
-    checkDictCase({ p: 'pineapple', 8: 'banana', a: 'apple' }) === false
+    JSON.stringify(countUpTo(18)) === JSON.stringify([2, 3, 5, 7, 11, 13, 17])
   )
-  console.assert(
-    checkDictCase({ Name: 'John', Age: '36', City: 'Houston' }) === false
-  )
-  console.assert(checkDictCase({ STATE: 'NC', ZIP: '12345' }) === true)
 }
-testCheckDictCase()
+testCountUpTo()
 
-module.exports = checkDictCase
+module.exports = countUpTo
