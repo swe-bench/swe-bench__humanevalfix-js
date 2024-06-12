@@ -1,40 +1,29 @@
-/*
-  Given an array of non-negative integers, return a copy of the given array after sorting,
-  you will sort the given array in ascending order if the sum( first index value, last index value) is odd,
-  or sort it in descending order if the sum( first index value, last index value) is even.
-
-  Note:
-  * don't change the given array.
-
-  Examples:
-  * sortArray([]) => []
-  * sortArray([5]) => [5]
-  * sortArray([2, 4, 3, 0, 1, 5]) => [0, 1, 2, 3, 4, 5]
-  * sortArray([2, 4, 3, 0, 1, 5, 6]) => [6, 5, 4, 3, 2, 1, 0]
+/*Create a function encrypt that takes a string as an argument and
+  returns a string encrypted with the alphabet being rotated. 
+  The alphabet should be rotated in a manner such that the letters 
+  shift down by two multiplied to two places.
+  For example:
+  encrypt('hi') returns 'lm'
+  encrypt('asdfghjkl') returns 'ewhjklnop'
+  encrypt('gf') returns 'kj'
+  encrypt('et') returns 'ix'
   */
-const sortArray = (array) => {
-  let arr = array
-  let tot = arr[0] + arr[arr.length-1]
-  for (let j = 0; j < arr.length; j++) {
-    let ind = j
-    for (let k = j + 1; k < arr.length; k++) {
-      if ((tot % 2 == 1 && arr[k] < arr[ind]) || (tot % 2 != 0 && arr[k] > arr[ind])) {
-        ind = k
-      }
-    }
-    let tmp = arr[j]
-    arr[j] = arr[ind]
-    arr[ind] = tmp
+const encrypt = (s) => {
+  let t = ''
+  for (let i = 0; i < s.length; i++) {
+    let p = s[i].charCodeAt() + 4
+    if (p > 122) { p -= 24 }
+    t += String.fromCharCode(p)
   }
-  return arr
+  return t
 }
 
-const testSortArray = () => {
-  console.assert(JSON.stringify(sortArray([])) === JSON.stringify([]))
-  console.assert(JSON.stringify(sortArray([5])) === JSON.stringify([5]))
-  console.assert(JSON.stringify(sortArray([2, 4, 3, 0, 1, 5])) === JSON.stringify([0, 1, 2, 3, 4, 5]))
-  console.assert(JSON.stringify(sortArray([2, 4, 3, 0, 1, 5, 6])) === JSON.stringify([6, 5, 4, 3, 2, 1, 0]))
+const testEncrypt = () => {
+  console.assert(encrypt('hi') === 'lm')
+  console.assert(encrypt('asdfghjkl') === 'ewhjklnop')
+  console.assert(encrypt('gf') === 'kj')
+  console.assert(encrypt('et') === 'ix')
 }
-testSortArray()
+testEncrypt()
 
-module.exports = sortArray
+module.exports = encrypt
