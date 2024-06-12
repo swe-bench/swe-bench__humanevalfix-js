@@ -1,42 +1,34 @@
-/*
-  Given a string text, replace all spaces in it with underscores, 
-  and if a string has more than 2 consecutive spaces, 
-  then replace all consecutive spaces with - 
-  
-  fixSpaces("Example") == "Example"
-  fixSpaces("Example 1") == "Example_1"
-  fixSpaces(" Example 2") == "_Example_2"
-  fixSpaces(" Example   3") == "_Example-3"
+/*Create a function which takes a string representing a file's name, and returns
+  'Yes' if the the file's name is valid, and returns 'No' otherwise.
+  A file's name is considered to be valid if and only if all the following conditions 
+  are met:
+  - There should not be more than three digits ('0'-'9') in the file's name.
+  - The file's name contains exactly one dot '.'
+  - The substring before the dot should not be empty, and it starts with a letter from 
+  the latin alphapet ('a'-'z' and 'A'-'Z').
+  - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+  Examples:
+  fileNameCheck("example.txt") # => 'Yes'
+  fileNameCheck("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
   */
-const fixSpaces = (text) => {
-  let t = ''
-  let c = 0
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] == '  ') { c++ }
-    else if (c > 0) {
-      if (c == 1) { t += '_' }
-      if (c == 2) { t += '___' }
-      if (c > 2) { t += '--' }
-      t += text[i]
-      c = 0;
-    } else {
-      t += text[i]
-    }
+const fileNameCheck = (file_name) => {
+  let t = file_name.split(/\./)
+  if (t.length != 2) { return 'No' }
+  if (t[0] == '') { return 'No' }
+  let a = t[0][0].charCodeAt()
+  if (!((a >= 65 && a <= 90) || (a >= 97 && a <= 122))) { return 'No' }
+  let y = 0
+  for (let i = 1; i < t[0].length; i++) {
+    if (t[0][i].charCodeAt() >= 48 && t[0][i].charCodeAt() <= 57) { y++ }
+    if (y > 3) { return 'No' }
   }
-  if (c == 1) { t += '__' }
-  if (c == 2) { t += '___' }
-  if (c > 2) { t += '-' }
-  return t
+  return 'Yes'
 }
 
-const testFixSpaces = () => {
-  console.assert(fixSpaces('Example') === 'Example')
-  console.assert(fixSpaces('Example 1') === 'Example_1')
-  console.assert(
-    fixSpaces(' Example 2') === '_Example_2'
-  )
-  console.assert(fixSpaces(' Example   3') === '_Example-3')
+const testFileNameCheck = () => {
+  console.assert(fileNameCheck('example.txt') === 'Yes')
+  console.assert(fileNameCheck('1example.dll') === 'No')
 }
-testFixSpaces()
+testFileNameCheck()
 
-module.exports = fixSpaces
+module.exports = fileNameCheck
