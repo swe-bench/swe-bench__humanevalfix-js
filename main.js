@@ -1,43 +1,42 @@
-/* Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
-  should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
-  alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+/* Given a list of numbers, return whether or not they are sorted
+  in ascending order. If list has more than 1 duplicate of the same
+  number, return false. Assume no negative numbers and only integers.
   Examples
-  splitWords("Hello world!") ➞ ["Hello", "world!"]
-  splitWords("Hello,world!") ➞ ["Hello", "world!"]
-  splitWords("abcdef") == 3
+  isSorted([5]) ➞ true
+  isSorted([1, 2, 3, 4, 5]) ➞ true
+  isSorted([1, 3, 2, 4, 5]) ➞ false
+  isSorted([1, 2, 3, 4, 5, 6]) ➞ true
+  isSorted([1, 2, 3, 4, 5, 6, 7]) ➞ true
+  isSorted([1, 3, 2, 4, 5, 6, 7]) ➞ false
+  isSorted([1, 2, 2, 3, 3, 4]) ➞ true
+  isSorted([1, 2, 2, 2, 3, 4]) ➞ false
   */
-const splitWords = (txt) => {
-  let t = txt.split(/,/)
-  if (t.length > 1) {
-    return t
-  } else {
-    t = txt.split(/\s/)
-    if (t.length > 1) {
-      return t
+const isSorted = (lst) => {
+  if (lst.length == 0) { return true }
+  let dup = 1
+  let pre = lst[0]
+  for (let i = 1; i < lst.length; i++) {
+    if (lst[i] < pre) { return false }
+    if (lst[i] == pre) {
+      dup += 1;
+      if (dup == 3) { return false }
     } else {
-      let p = 0
-      for (let i = 0; i < txt.length; i++) {
-        let m = txt[i].charCodeAt()
-        if (m >= 97 && m <= 122 && m % 2 == 0) {
-          p++
-        }
-      }
-      return p
+      pre = lst[i]
     }
   }
+  return true
 }
 
-const testSplitWords = () => {
-  console.assert(
-    JSON.stringify(splitWords('Hello world!')) ===
-    JSON.stringify(['Hello', 'world!'])
-  )
-  console.assert(
-    JSON.stringify(splitWords('Hello,world!')) ===
-    JSON.stringify(['Hello', 'world!'])
-  )
-  console.assert(JSON.stringify(splitWords('abcdef')) === JSON.stringify(3))
+const testIsSorted = () => {
+  console.assert(isSorted([5]) === true)
+  console.assert(isSorted([1, 2, 3, 4, 5]) === true)
+  console.assert(isSorted([1, 3, 2, 4, 5]) === false)
+  console.assert(isSorted([1, 2, 3, 4, 5, 6]) === true)
+  console.assert(isSorted([1, 2, 3, 4, 5, 6, 7]) === true)
+  console.assert(isSorted([1, 3, 2, 4, 5, 6, 7]) === false)
+  console.assert(isSorted([1, 2, 2, 2, 3, 4]) === false)
+  console.assert(isSorted([1, 2, 2, 3, 3, 4]) === true)
 }
-testSplitWords()
+testIsSorted()
 
-module.exports = splitWords
+module.exports = isSorted
