@@ -1,28 +1,22 @@
-/* Out of list of strings, return the longest one. Return the first one in case of multiple
-  strings of the same length. Return null in case the input list is empty.
-  >>> longest([])
-
-  >>> longest(['a', 'b', 'c'])
-  'a'
-  >>> longest(['a', 'bb', 'ccc'])
-  'ccc'
+/* Return a greatest common divisor of two integers a and b
+  >>> greatestCommonDivisor(3, 5)
+  1
+  >>> greatestCommonDivisor(25, 15)
+  5
   */
-const longest = (strings) => {
-  if (!Array.isArray(strings) || strings.length == 0)
-    return null;
-  var maxlen = Math.max(...strings.map(x => x.length));
-  for (const s of strings) {
-    if (s.length > maxlen) {
-      return s;
-    }
+const greatestCommonDivisor = (a, b) => {
+  while (b != 0) {
+    let temp = a;
+    a = b;
+    b = temp % b;
   }
+  return b;
 }
 
-const testLongest = () => {
-  console.assert(longest([]) === null)
-  console.assert(longest(['a', 'b', 'c']) === 'a')
-  console.assert(longest(['a', 'bb', 'ccc']) === 'ccc')
+const testGreatestCommonDivisor = () => {
+  console.assert(greatestCommonDivisor(3, 5) === 1)
+  console.assert(greatestCommonDivisor(25, 15) === 5)
 }
-testLongest()
+testGreatestCommonDivisor()
 
-module.exports = longest
+module.exports = greatestCommonDivisor
