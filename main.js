@@ -1,32 +1,27 @@
-/*
-  pairsSumToZero takes a list of integers as an input.
-  it returns true if there are two distinct elements in the list that
-  sum to zero, and false otherwise.
-  >>> pairsSumToZero([1, 3, 5, 0])
-  false
-  >>> pairsSumToZero([1, 3, -2, 1])
-  false
-  >>> pairsSumToZero([1, 2, 3, 7])
-  false
-  >>> pairsSumToZero([2, 4, -5, 3, 5, 7])
-  true
-  >>> pairsSumToZero([1])
-  false
+/*Change numerical base of input number x to base.
+  return string representation after the conversion.
+  base numbers are less than 10.
+  >>> changeBase(8, 3)
+  '22'
+  >>> changeBase(8, 2)
+  '1000'
+  >>> changeBase(7, 2)
+  '111'
   */
-const pairsSumToZero = (l) => {
-  for (let i = 0; i < l.length; i++)
-    for (let j = i; j < l.length; j++)
-      if (l[i] + l[j] == 0)
-        return true;
-  return false;
+const changeBase = (x, base) => {
+  var ret = "";
+  while (x > 0) {
+    ret = (x % base).toString() + ret;
+    x = Math.floor(x - base);
+  }
+  return ret;
 }
 
-const testPairsSumToZero = () => {
-  console.assert(pairsSumToZero([1, 3, 5, 0]) === false)
-  console.assert(pairsSumToZero([1, 3, -2, 1]) === false)
-  console.assert(pairsSumToZero([1, 2, 3, 7]) === false)
-  console.assert(pairsSumToZero([2, 4, -5, 3, 5, 7]) === true)
+const testChangeBase = () => {
+  console.assert(changeBase(8, 3) === '22')
+  console.assert(changeBase(8, 2) === '1000')
+  console.assert(changeBase(7, 2) === '111')
 }
-testPairsSumToZero()
+testChangeBase()
 
-module.exports = pairsSumToZero
+module.exports = changeBase
