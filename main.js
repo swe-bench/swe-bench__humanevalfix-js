@@ -1,44 +1,22 @@
-/*
-  You will be given a string of words separated by commas or spaces. Your task is
-  to split the string into words and return an array of the words.
-  
+/*This function takes two positive numbers x and y and returns the
+  biggest even integer number that is in the range [x, y] inclusive. If 
+  there's no such number, then the function should return -1.
+
   For example:
-  wordsString("Hi, my name is John") == ["Hi", "my", "name", "is", "John"]
-  wordsString("One, two, three, four, five, six") == ["One", "two", "three", "four", "five", "six"]
+  chooseNum(12, 15) = 14
+  chooseNum(13, 12) = -1
   */
-const wordsString = (s) => {
-  let t = ','
-  let p = []
-  let k = 0
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] == ' ' || s[i] == ',') {
-      if (k == 0) {
-        k = 1;
-        p.push(t);
-        t = ',';
-      }
-    }
-    else {
-      k = 0;
-      t += s[i]
-    }
+const chooseNum = (x, y) => {
+  for (let i = y; i >= x; i--) {
+    if (i % 2 == 0) {return i }
   }
-  if (t != '') {
-    p.push(t);
-  }
-  return p
+  return x
 }
 
-const testWordsString = () => {
-  console.assert(
-    JSON.stringify(wordsString('Hi, my name is John')) ===
-    JSON.stringify(['Hi', 'my', 'name', 'is', 'John'])
-  )
-  console.assert(
-    JSON.stringify(wordsString('One, two, three, four, five, six')) ===
-    JSON.stringify(['One', 'two', 'three', 'four', 'five', 'six'])
-  )
+const testChooseNum = () => {
+  console.assert(chooseNum(12, 15) === 14)
+  console.assert(chooseNum(13, 12) === -1)
 }
-testWordsString()
+testChooseNum()
 
-module.exports = wordsString
+module.exports = chooseNum
