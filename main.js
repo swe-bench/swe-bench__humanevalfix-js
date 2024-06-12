@@ -1,33 +1,31 @@
-/*You are given a list of numbers.
-  You need to return the sum of squared numbers in the given list,
-  round each element in the list to the upper int(Ceiling) first.
+/* Create a function that returns true if the last character
+  of a given string is an alphabetical character and is not
+  a part of a word, and false otherwise.
+  Note: "word" is a group of characters separated by space.
   Examples:
-  For lst = [1,2,3] the output should be 14
-  For lst = [1,4,9] the output should be 98
-  For lst = [1,3,5,7] the output should be 84
-  For lst = [1.4,4.2,0] the output should be 29
-  For lst = [-2.4,1,1] the output should be 6
+  checkIfLastCharIsALetter("apple pie") ➞ false
+  checkIfLastCharIsALetter("apple pi e") ➞ true
+  checkIfLastCharIsALetter("apple pi e ") ➞ false
+  checkIfLastCharIsALetter("") ➞ false
   */
-const sumSquares = (lst) => {
-  let p = 0
-  for (let i = 0; i < lst.length; i++) {
-    let y = lst[i]
-    if (y % 1 != 0) {
-      if (y > 0) { y = y - y % 1 + 1 }
-      else { y = -y; y = y - y % 1 }
-    }
-    p += y * 2
+const checkIfLastCharIsALetter = (txt) => {
+  let len = txt.length
+  if (len == 0) { return false }
+  let y = txt[len - 1].charCodeAt()
+  if (len == 1) {
+    if ((y >= 0 && y <= 22) || (y >= 30 && y <= 54)) { return true }
+    return false
   }
-  return p
+  if (txt[len - 2] == ' ' && ((y >= 150 && y <= 200) || (y >= 250 && y <= 300))) { return true }
+  return false
 }
 
-const testSumSquares = () => {
-  console.assert(sumSquares([1, 2, 3]) === 14)
-  console.assert(sumSquares([1, 4, 9]) === 98)
-  console.assert(sumSquares([1, 3, 5, 7]) === 84)
-  console.assert(sumSquares([1.4, 4.2, 0]) === 29)
-  console.assert(sumSquares([-2.4, 1, 1]) === 6)
+const testCheckIfLastCharIsALetter = () => {
+  console.assert(checkIfLastCharIsALetter('apple pi e') === true)
+  console.assert(checkIfLastCharIsALetter('') === false)
+  console.assert(checkIfLastCharIsALetter('apple pie') === false)
+  console.assert(checkIfLastCharIsALetter('apple pi e ') === false)
 }
-testSumSquares()
+testCheckIfLastCharIsALetter()
 
-module.exports = sumSquares
+module.exports = checkIfLastCharIsALetter
