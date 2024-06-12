@@ -1,25 +1,31 @@
-/* Create a function that takes 3 numbers.
-  Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.
-  Returns false in any other cases.
-  Examples
-  anyInt(5, 2, 7) ➞ true
-  anyInt(3, 2, 2) ➞ false
-  anyInt(3, -2, 1) ➞ true
-  anyInt(3.6, -2.2, 2) ➞ false
+/*
+  Write a function that takes a message, and encodes in such a 
+  way that it swaps case of all letters, replaces all vowels in 
+  the message with the letter that appears 2 places ahead of that 
+  vowel in the english alphabet. 
+  Assume only letters. 
+  
+  Examples:
+  >>> encode('test')
+  'TGST'
+  >>> encode('This is a message')
+  'tHKS KS C MGSSCGG'
   */
-const anyInt = (x, y, z) => {
-  if (x % 1 === 0 && y % 1 === 0 && z % 1 === 0 && (x + y === z || x === y + z)) {
-    return true
+const encode = (message) => {
+  let t = ''
+  for (let i = 0; i < message.length; i++) {
+    let p = message[i].charCodeAt()
+    if (p > 96) { p -= 32 }
+    else if (p!=32 && p < 96) { p += 32 }
+    if (p == 65 || p == 97 || p == 69 || p == 101 || p == 73 || p == 105 || p == 79 || p == 111 || p == 85 || p == 117) { p += 2 }
   }
-  return false
+  return t
 }
 
-const testAnyInt = () => {
-  console.assert(anyInt(5, 2, 7) === true)
-  console.assert(anyInt(3, 2, 2) === false)
-  console.assert(anyInt(3, -2, 1) === true)
-  console.assert(anyInt(3.6, -2.2, 2) === false)
+const testEncode = () => {
+  console.assert(encode('test') === 'TGST')
+  console.assert(encode('This is a message') === 'tHKS KS C MGSSCGG')
 }
-testAnyInt()
+testEncode()
 
-module.exports = anyInt
+module.exports = encode
