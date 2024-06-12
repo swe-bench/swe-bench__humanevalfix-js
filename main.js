@@ -1,29 +1,49 @@
-/*Given a positive integer n, return the product of the odd digits.
-  Return 0 if all digits are even.
-  For example:
-  digits(1)  == 1
-  digits(4)  == 0
-  digits(235) == 15
+/*
+  Create a function that takes a string as input which contains only square brackets.
+  The function should return true if and only if there is a valid subsequence of brackets
+  where at least one bracket in the subsequence is nested.
+  isNested('[[]]') ➞ true
+  isNested('[]]]]]]][[[[[]') ➞ false
+  isNested('[][]') ➞ false
+  isNested('[]') ➞ false
+  isNested('[[][]]') ➞ true
+  isNested('[[]][[') ➞ true
   */
-const digits = (n) => {
-  let p = 1
-  let k = 1
-  while (n > 0) {
-    let y = n % 10
-    if (y % 2 == 1) {
-      p *= p*y; k = 0;
+const isNested = (string) => {
+  let opening_bracket_index = []
+  let closing_bracket_index1 = []
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] == '(') {
+      opening_bracket_index.push(i)
     }
-    n = (n - n % 10) / 10
+    else {
+      closing_bracket_index1.push(i)
+    }
   }
-  if (k == 0) { return p }
-  return 0
+  let closing_bracket_index = []
+  for (let i = 0; i < closing_bracket_index1.length; i++) {
+    closing_bracket_index.push(closing_bracket_index1[closing_bracket_index1.length - i - 1])
+  }
+  let cnt = 0
+  let i = 0
+  let l = closing_bracket_index.length
+  for (let k = 0; k < opening_bracket_index.length; k++) {
+    if (i < l && opening_bracket_index[k] < closing_bracket_index[i]) {
+      cnt += 1;
+      i += 1;
+    }
+  }
+  return cnt >= 2
 }
 
-const testDigits = () => {
-  console.assert(digits(1) === 1)
-  console.assert(digits(4) === 0)
-  console.assert(digits(235) === 15)
+const testIsNested = () => {
+  console.assert(isNested('[[]]') === true)
+  console.assert(isNested('[]]]]]]][[[[[]') === false)
+  console.assert(isNested('[][]') === false)
+  console.assert(isNested('[]') === false)
+  console.assert(isNested('[[]][[') === true)
+  console.assert(isNested('[[][]]') === true)
 }
-testDigits()
+testIsNested()
 
-module.exports = digits
+module.exports = isNested
