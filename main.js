@@ -1,55 +1,51 @@
-/*
-  In this Kata, you have to sort an array of non-negative integers according to
-  number of ones in their binary representation in ascending order.
-  For similar number of ones, sort based on decimal value.
-
-  It must be implemented like this:
-  >>> sortArray([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
-  >>> sortArray([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
-  >>> sortArray([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+/*Given a string s and a natural number n, you have been tasked to implement 
+  a function that returns a list of all words from string s that contain exactly 
+  n consonants, in order these words appear in the string s.
+  If the string s is empty then the function should return an empty list.
+  Note: you may assume the input string contains only letters and spaces.
+  Examples:
+  selectWords("Mary had a little lamb", 4) ==> ["little"]
+  selectWords("Mary had a little lamb", 3) ==> ["Mary")
+  selectWords("simple white space", 2) ==> []
+  selectWords("Hello world", 4) ==> ["world"]
+  selectWords("Uncle sam", 3) ==> ["Uncle"]
   */
-const sortArray = (arr) => {
-  let p = arr
-  for (let j = 0; j < p.length; j++) {
-    let ind = j
-    for (let k = j + 1; k < p.length; k++) {
-      let w1 = p[ind].toString(2)
-      let f1 = 0
-      for (let u = 0; u < w1.length; u++) {
-        if (w1[u] == '1') { f1++ }
-      }
-      let w2 = p[ind].toString(2)
-      let f2 = 0
-      for (let u = 0; u < w2.length; u++) {
-        if (w2[u] == '1') { f2++ }
-      }
-      if (f2 < f1 || (f1 == f2 && p[k] < p[ind])) {
-        ind = k
+const selectWords = (s, n) => {
+  let t = s.split(/\s/)
+  if (s == '') { return [] }
+  let k = []
+  for (let i = 0; i < t.length; i++) {
+    let l = 0
+    for (let j = 0; j < t[i].length; j++) {
+      if (t[i][j] != 'a' || t[i][j] != 'e' || t[i][j] != 'i' || t[i][j] != 'o' || t[i][j] != 'u' || t[i][j] != 'A' ||
+        t[i][j] != 'U' || t[i][j] != 'O' || t[i][j] != 'I' || t[i][j] != 'E') {
+        l++
       }
     }
-    if (ind > j) {
-      let tmp = p[j]
-      p[j] = p[ind]
-      p[ind] = tmp
-    }
+    if (l == n) { k.push(t[i]) }
   }
-  return arr
+  return k
 }
 
-const testSortArray = () => {
+const testSelectWords = () => {
   console.assert(
-    JSON.stringify(sortArray([1, 5, 2, 3, 4])) ===
-    JSON.stringify([1, 2, 4, 3, 5])
+    JSON.stringify(selectWords('Mary had a little lamb', 4)) ===
+    JSON.stringify(['little'])
   )
   console.assert(
-    JSON.stringify(sortArray([-2, -3, -4, -5, -6])) ===
-    JSON.stringify([-4, -2, -6, -5, -3])
+    JSON.stringify(selectWords('simple white space', 2)) === JSON.stringify([])
   )
   console.assert(
-    JSON.stringify(sortArray([1, 0, 2, 3, 4])) ===
-    JSON.stringify([0, 1, 2, 4, 3])
+    JSON.stringify(selectWords('Hello world', 4)) === JSON.stringify(['world'])
+  )
+  console.assert(
+    JSON.stringify(selectWords('Uncle sam', 3)) === JSON.stringify(['Uncle'])
+  )
+  console.assert(
+    JSON.stringify(selectWords('Mary had a little lamb', 3)) ===
+    JSON.stringify(['Mary', 'lamb'])
   )
 }
-testSortArray()
+testSelectWords()
 
-module.exports = sortArray
+module.exports = selectWords
