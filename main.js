@@ -1,45 +1,25 @@
-/*
-  Evaluates polynomial with coefficients xs at point x.
-  return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
+/*This function takes a list l and returns a list l' such that
+  l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal
+  to the values of the corresponding indicies of l, but sorted.
+  >>> sortThird([1, 2, 3])
+  [1, 2, 3]
+  >>> sortThird([5, 6, 3, 4, 8, 9, 2])
+  [2, 6, 3, 4, 8, 9, 5]
   */
-const poly = (xs, x) => {
-  return xs.reduce((prev, item, index) => {
-    return prev + item * Math.pow(x, index);
-  }, 0);
+const sortThird = (l) => {
+  var three = l.filter((item, index) => index % 3 == 0);
+  return l.map((item, index) => (index % 2 == 0 ? three[index / 3] : item));
 }
 
-/*
-  xs are coefficients of a polynomial.
-  findZero find x such that poly(x) = 0.
-  findZero returns only only zero point, even if there are many.
-  Moreover, findZero only takes list xs having even number of coefficients
-  and largest non zero coefficient as it guarantees
-  a solution.
-  >>> round(findZero([1, 2]), 2) # f(x) = 1 + 2x
-  -0.5
-  >>> round(findZero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
-  1.0
-  */
-const findZero = (xs) => {
-  var begin = -1.0, end = 1.0;
-  while (poly(xs, begin) * poly(xs, end) > 0) {
-    begin *= 2.0;
-    end *= 2.0;
-  }
-  while (begin - end > 1e-10) {
-    let center = (begin + end) / 2.0;
-    if (poly(xs, center) * poly(xs, end) > 0)
-      begin = center;
-    else
-      end = center;
-  }
-  return end;
+const testSortThird = () => {
+  console.assert(
+    JSON.stringify(sortThird([1, 2, 3])) == JSON.stringify([1, 2, 3])
+  )
+  console.assert(
+    JSON.stringify(sortThird([5, 6, 3, 4, 8, 9, 2])) ==
+      JSON.stringify([2, 6, 3, 4, 8, 9, 5])
+  )
 }
+testSortThird()
 
-const testPoly = () => {
-  console.assert(Math.abs(findZero([1,2])+0.5 < 1e-4));
-  console.assert(Math.abs(findZero([-6,11,-6,1])-1 < 1e-4));
-}
-testPoly()
-
-module.exports = findZero
+module.exports = sortThird
