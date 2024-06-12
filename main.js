@@ -1,18 +1,23 @@
-/* Given a string, find out how many distinct characters (regardless of case) does it consist of
-  >>> countDistinctCharacters('xyzXYZ')
-  3
-  >>> countDistinctCharacters('Jerry')
-  4
+/* Input to this function is a string representing musical notes in a special ASCII format.
+  Your task is to parse this string and return list of integers corresponding to how many beats does each
+  not last.
+
+  Here is a legend:
+  'o' - whole note, lasts four beats
+  'o|' - half note, lasts two beats
+  '.|' - quater note, lasts one beat
+
+  >>> parseMusic('o o| .| o| o| .| .| .| .| o o')
+  [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
   */
-const countDistinctCharacters = (string) => {
-  return (new Set(string)).size;
-
+const parseMusic = (music_string) => {
+  const note_map = {'o': 3, 'o|': 2, '.|': 1};
+  return music_string.split(' ').filter(x => x != '').map(x => note_map[x]);
 }
 
-const testCountDistinctCharacters = () => {
-  console.assert(countDistinctCharacters('xyzXYZ') === 3)
-  console.assert(countDistinctCharacters('Jerry') === 4)
+const testParseMusic = () => {
+  console.assert(JSON.stringify(parseMusic('o o| .| o| o| .| .| .| .| o o')) === JSON.stringify([4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]))
 }
-testCountDistinctCharacters()
+testParseMusic()
 
-module.exports = countDistinctCharacters
+module.exports = parseMusic
