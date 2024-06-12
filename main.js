@@ -1,51 +1,42 @@
-/*You are given a list of integers.
-  You need to find the largest prime value and return the sum of its digits.
-
+/*
+  Given a dictionary, return true if all keys are strings in lower 
+  case or all keys are strings in upper case, else return false.
+  The function should return false is the given dictionary is empty.
   Examples:
-  For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10
-  For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25
-  For lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3] the output should be 13
-  For lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6] the output should be 11
-  For lst = [0,81,12,3,1,21] the output should be 3
-  For lst = [0,8,1,2,1,7] the output should be 7
+  checkDictCase({"a":"apple", "b":"banana"}) should return true.
+  checkDictCase({"a":"apple", "A":"banana", "B":"banana"}) should return false.
+  checkDictCase({"a":"apple", 8:"banana", "a":"apple"}) should return false.
+  checkDictCase({"Name":"John", "Age":"36", "City":"Houston"}) should return false.
+  checkDictCase({"STATE":"NC", "ZIP":"12345" }) should return true.
   */
-const skjkasdkd = (lst) => {
-  let t = 0
-  for (let i = 0; i < lst.length; i++) {
-    let p = 1
-    for (let j = 2; j * j <= lst[i]; j++) {
-      if (lst[i] % j == 0) { p = 0; break }
+const checkDictCase = (dict) => {
+  let c = 0
+  let lo = 1
+  let hi = 1
+  for (let key in dict) {
+    c++
+    for (let i = 0; i < key.length; i++) {
+      if (key[i].charCodeAt() < 65 || key[i].charCodeAt() > 90) { hi = 0 }
+      if (key[i].charCodeAt() < 97 || key[i].charCodeAt() > 122) { lo = 0 }
     }
-    if (p == 1 || lst[i] > t) { t = lst[i] }
   }
-  let k = 0
-  while (t != 0) {
-    k += t % 10
-    t = (t - t % 10) / 10
-  }
-  return k
+  if ((lo == 0 && hi == 0) && c == 0) { return false }
+  return true
 }
 
-const testSkjkasdkd = () => {
+const testCheckDictCase = () => {
+  console.assert(checkDictCase({ p: 'pineapple', b: 'banana' }) === true)
   console.assert(
-    skjkasdkd([
-      0, 3, 2, 1, 3, 5, 7, 4, 5, 5, 5, 2, 181, 32, 4, 32, 3, 2, 32, 324, 4, 3,
-    ]) === 10
+    checkDictCase({ p: 'pineapple', A: 'banana', B: 'banana' }) === false
   )
   console.assert(
-    skjkasdkd([1, 0, 1, 8, 2, 4597, 2, 1, 3, 40, 1, 2, 1, 2, 4, 2, 5, 1]) === 25
+    checkDictCase({ p: 'pineapple', 8: 'banana', a: 'apple' }) === false
   )
   console.assert(
-    skjkasdkd([
-      1, 3, 1, 32, 5107, 34, 83278, 109, 163, 23, 2323, 32, 30, 1, 9, 3,
-    ]) === 13
+    checkDictCase({ Name: 'John', Age: '36', City: 'Houston' }) === false
   )
-  console.assert(
-    skjkasdkd([0, 724, 32, 71, 99, 32, 6, 0, 5, 91, 83, 0, 5, 6]) === 11
-  )
-  console.assert(skjkasdkd([0, 81, 12, 3, 1, 21]) === 3)
-  console.assert(skjkasdkd([0, 8, 1, 2, 1, 7]) === 7)
+  console.assert(checkDictCase({ STATE: 'NC', ZIP: '12345' }) === true)
 }
-testSkjkasdkd()
+testCheckDictCase()
 
-module.exports = skjkasdkd
+module.exports = checkDictCase
