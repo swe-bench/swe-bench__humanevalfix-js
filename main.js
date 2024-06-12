@@ -1,39 +1,30 @@
-/* Create a function that returns a tuple (a, b), where 'a' is
-  the largest of negative integers, and 'b' is the smallest
-  of positive integers in a list.
-  If there is no negative or positive integers, return them as null.
-  Examples:
-  largestSmallestIntegers([2, 4, 1, 3, 5, 7]) == (null, 1)
-  largestSmallestIntegers([]) == (null, null)
-  largestSmallestIntegers([0]) == (null, null)
+/*
+  Create a function that takes integers, floats, or strings representing
+  real numbers, and returns the larger variable in its given variable type.
+  Return null if the values are equal.
+  Note: If a real number is represented as a string, the floating point might be . or ,
+
+  compareOne(1, 2.5) ➞ 2.5
+  compareOne(1, "2,3") ➞ "2,3"
+  compareOne("5,1", "6") ➞ "6"
+  compareOne("1", 1) ➞ null
   */
-const largestSmallestIntegers = (lst) => {
-  let a = Infinity
-  let b = -Infinity
-  for (let i = 0; i < lst.length; i++) {
-    if (lst[i] > 0 && lst[i] < a) { a = lst[i] }
-    if (lst[i] < 0 && lst[i] > b) { b = lst[i] }
-    if (lst[i] < a) { b = a }
-    if (lst[i] < b) { a = b }
-  }
-  if (a == Infinity) { a = null }
-  if (b == -Infinity) { b = null }
-  return (b, a)
+const compareOne = (a, b) => {
+  let aa = Number(a)
+  if (typeof a == 'string') { aa = Number(a.replace(',', '.').replace('.', ',')) }
+  let bb = Number(b)
+  if (typeof b == 'string') { bb = Number(b.replace(',', '.')) }
+  if (aa > bb) { return a }
+  if (aa < bb) { return b }
+  return null
 }
 
-const testLargestSmallestIntegers = () => {
-  console.assert(
-    JSON.stringify(largestSmallestIntegers([2, 4, 1, 3, 5, 7])) ===
-    JSON.stringify((null, 1))
-  )
-  console.assert(
-    JSON.stringify(largestSmallestIntegers([])) === JSON.stringify((null, null))
-  )
-  console.assert(
-    JSON.stringify(largestSmallestIntegers([0])) ===
-    JSON.stringify((null, null))
-  )
+const testCompareOne = () => {
+  console.assert(compareOne(1, 2.5) === 2.5)
+  console.assert(compareOne(1, '2,3') === '2,3')
+  console.assert(compareOne('5,1', '6') === '6')
+  console.assert(compareOne('1', 1) === null)
 }
-testLargestSmallestIntegers()
+testCompareOne()
 
-module.exports = largestSmallestIntegers
+module.exports = compareOne
