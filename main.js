@@ -1,34 +1,25 @@
-/* Input to this function is a string represented multiple groups for nested parentheses separated by spaces.
-  For each of the group, output the deepest level of nesting of parentheses.
-  E.g. (()()) has maximum two levels of nesting while ((())) has three.
-
-  >>> parseNestedParens('(()()) ((())) () ((())()())')
-  [2, 3, 1, 3]
+/* Filter an input list of strings only for ones that contain given substring
+  >>> filterBySubstring([], 'a')
+  []
+  >>> filterBySubstring(['abc', 'bacd', 'cde', 'array'], 'a')
+  ['abc', 'bacd', 'array']
   */
-const parseNestedParens = (paren_string) => {
-  var parseParenGroup = function (s) {
-    let depth = 0, max_depth = 0;
-    for (const c of s) {
-      if (c == '(') {
-        depth += 1;
-        max_depth = Math.max(max_depth, depth);
-      } else {
-        max_depth -= 1;
-      }
-    }
-    return max_depth;
-  }
-  return paren_string.split(' ')
-          .filter(x => x != '')
-          .map(x => parseParenGroup(x));
+const filterBySubstring = (strings, substring) => {
+  return strings.filter(x => substring.indexOf(x) != -1);
 }
 
-const testParseNestedParens = () => {
+const testFilterBySubstring = () => {
   console.assert(
-    JSON.stringify(parseNestedParens('(()()) ((())) () ((())()())')) ===
-      JSON.stringify([2, 3, 1, 3])
+    JSON.stringify(filterBySubstring([], 'a')) === JSON.stringify([])
+  )
+  console.assert(
+    JSON.stringify(
+      filterBySubstring(
+        ['abc', 'bacd', 'cde', 'array'], 'a'
+      )
+    ) === JSON.stringify(['abc', 'bacd', 'array'])
   )
 }
-testParseNestedParens()
+testFilterBySubstring()
 
-module.exports = parseNestedParens
+module.exports = filterBySubstring
