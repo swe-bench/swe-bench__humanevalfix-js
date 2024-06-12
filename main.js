@@ -1,53 +1,39 @@
-/*
-  Given a positive integer n, return a sorted list that has the odd numbers in collatz sequence.
+/*You have to write a function which validates a given date string and
+  returns true if the date is valid otherwise false.
+  The date is valid if all of the following rules are satisfied:
+  1. The date string is not empty.
+  2. The number of days is not less than 1 or higher than 31 days for months 1,3,5,7,8,10,12. And the number of days is not less than 1 or higher than 30 days for months 4,6,9,11. And, the number of days is not less than 1 or higher than 29 for the month 2.
+  3. The months should not be less than 1 or higher than 12.
+  4. The date should be in the format: mm-dd-yyyy
 
-  The Collatz conjecture is a conjecture in mathematics that concerns a sequence defined
-  as follows: start with any positive integer n. Then each term is obtained from the 
-  previous term as follows: if the previous term is even, the next term is one half of 
-  the previous term. If the previous term is odd, the next term is 3 times the previous
-  term plus 1. The conjecture is that no matter what value of n, the sequence will always reach 1.
+  for example: 
+  validDate('03-11-2000') => true
 
-  Note: 
-      1. Collatz(1) is [1].
-      2. returned list sorted in increasing order.
+  validDate('15-01-2012') => false
 
-  For example:
-  getOddCollatz(5) returns [1, 5] # The collatz sequence for 5 is [5, 16, 8, 4, 2, 1], so the odd numbers are only 1, and 5.
+  validDate('04-0-2040') => false
+
+  validDate('06-04-2020') => true
+
+  validDate('06/04/2020') => false
   */
-const getOddCollatz = (n) => {
-  let p = []
-  let t = n
-  while (1) {
-    let u = 0
-    for (let i = 0; i < p.length; i++) {
-      if (t == p[i]) {
-        u = 1
-        break;
-      }
-    }
-    if (u == 1) { break }
-    if (t % 2 == 1) { p.push(t); t = 2 * t + 1 }
-    else { t = t / 2 }
-  }
-  for (let j = 0; j < p.length; j++) {
-    let ind = j
-    for (let k = j + 1; k < p.length; k++) {
-      if (p[k] < p[ind]) {
-        ind = k
-      }
-    }
-    if (ind > j) {
-      let tmp = p[j]
-      p[j] = p[ind]
-      p[ind] = tmp
-    }
-  }
-  return p
+const validDate = (date) => {
+  let t = date.split(/-/)
+  if (t.length != 3) { return false }
+  if (t[1] < 1 || t[1] > 12 || t[0] < 1) { return false }
+  if (t[1] == 2 && t[0] > 29) { return false }
+  if ((t[1] == 1 || t[1] == 3 || t[1] == 5 || t[1] == 7 || t[1] == 8 || t[1] == 10 || t[1] == 12) && t[0] > 31) { return false }
+  if ((t[1] == 4 || t[1] == 6 || t[1] == 9 || t[1] == 11) && t[0] > 30) { return false }
+  return true
 }
 
-const testGetOddCollatz = () => {
-  console.assert(JSON.stringify(getOddCollatz(5)) === JSON.stringify([1, 5]))
+const testValidDate = () => {
+  console.assert(validDate('03-11-2000') === true)
+  console.assert(validDate('15-01-2012') === false)
+  console.assert(validDate('04-0-2040') === false)
+  console.assert(validDate('06-04-2020') === true)
+  console.assert(validDate('06/04/2020') === false)
 }
-testGetOddCollatz()
+testValidDate()
 
-module.exports = getOddCollatz
+module.exports = validDate
