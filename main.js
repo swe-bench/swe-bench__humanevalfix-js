@@ -1,37 +1,43 @@
-/*I think we all remember that feeling when the result of some long-awaited
-  event is finally known. The feelings and thoughts you have at that moment are
-  definitely worth noting down and comparing.
-  Your task is to determine if a person correctly guessed the results of a number of matches.
-  You are given two arrays of scores and guesses of equal length, where each index shows a match. 
-  Return an array of the same length denoting how far off each guess was. If they have guessed correctly,
-  the value is 0, and if not, the value is the absolute difference between the guess and the score.
-  
-  
-  example:
-
-  compare([1,2,3,4,5,1],[1,2,3,4,2,-2]) -> [0,0,0,0,3,3]
-  compare([0,5,0,0,0,4],[4,1,1,0,0,-2]) -> [4,4,1,0,0,6]
+/*You will be given the name of a class (a string) and a list of extensions.
+  The extensions are to be used to load additional classes to the class. The
+  strength of the extension is as follows: Let CAP be the number of the uppercase
+  letters in the extension's name, and let SM be the number of lowercase letters
+  in the extension's name, the strength is given by the fraction CAP - SM.
+  You should find the strongest extension and return a string in this
+  format: ClassName.StrongestExtensionName.
+  If there are two or more extensions with the same strength, you should
+  choose the one that comes first in the list.
+  For example, if you are given "Slices" as the class and a list of the
+  extensions: ['SErviNGSliCes', 'Cheese', 'StuFfed'] then you should
+  return 'Slices.SErviNGSliCes' since 'SErviNGSliCes' is the strongest extension
+  (its strength is -1).
+  Example:
+  for strongestExtension('my_class', ['AA', 'Be', 'CC']) == 'my_class.AA'
   */
-const compare = (game, guess) => {
-  for (let i = 0; i < guess.length; i++) {
-    game[i] -= guess[i]
- if (game[i]<0)
- game[i]=-game[i];
- if (guess[i]!=0)
- game[i]-=guess[i];  }
-  return game
+const strongestExtension = (class_name, extensions) => {
+  let u = 0
+  let s = -Infinity
+  for (let i = extensions.length - 1; i >= 0; i--) {
+    let y = 0
+    for (let j = 0; j < extensions[i].length; j++) {
+      let k = extensions[i][j].charCodeAt()
+      if (k >= 65 && k <= 90) { y += 1 }
+      if (k >= 97 && k <= 122) { y -= 1 }
+    }
+    if (y >= s) {
+      s = y;
+      u = i;
+    }
+  }
+  return class_name + extensions[u]
 }
 
-const testCompare = () => {
+const testStrongestExtension = () => {
   console.assert(
-    JSON.stringify(compare([1, 2, 3, 4, 5, 1], [1, 2, 3, 4, 2, -2])) ===
-    JSON.stringify([0, 0, 0, 0, 3, 3])
-  )
-  console.assert(
-    JSON.stringify(compare([0,5,0,0,0,4],[4,1,1,0,0,-2])) ===
-    JSON.stringify([4,4,1,0,0,6])
+    strongestExtension('my_class', ['AA', 'Be', 'CC']) ===
+    'my_class.AA'
   )
 }
-testCompare()
+testStrongestExtension()
 
-module.exports = compare
+module.exports = strongestExtension
