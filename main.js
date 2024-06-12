@@ -1,26 +1,39 @@
 /*
-  Given the lengths of the three sides of a triangle. Return the area of
-  the triangle rounded to 2 decimal points if the three sides form a valid triangle.
-  Otherwise return -1
-  Three sides make a valid triangle when the sum of any two sides is greater
-  than the third side.
+  Write a function that returns true if the object q will fly, and false otherwise.
+  The object q will fly if it's balanced (it is a palindromic list) and the sum of its elements is less than or equal the maximum possible weight w.
+
   Example:
-  triangleArea(3, 4, 5) == 6.00
-  triangleArea(1, 2, 10) == -1
+  willItFly([1, 2], 5) ➞ false
+  # 1+2 is less than the maximum possible weight, but it's unbalanced.
+
+  willItFly([3, 2, 3], 1) ➞ false
+  # it's balanced, but 3+2+3 is more than the maximum possible weight.
+
+  willItFly([3, 2, 3], 9) ➞ true
+  # 3+2+3 is less than the maximum possible weight, and it's balanced.
+
+  willItFly([3], 5) ➞ true
+  # 3 is less than the maximum possible weight, and it's balanced.
   */
-const triangleArea = (a, b, c) => {
-  if (a + b <= c || a + c <= b || b + c <= a)
-    return -1;
-  var s = (a + b + c);
-  var area = Math.pow(s * (s - a) * (s - b) * (s - c), 0.5);
-  area = area.toFixed(2);
-  return area;
+const willItFly = (q, w) => {
+  if (q.reduce(((prev, item) => prev + item), 0) > w)
+    return false;
+  var i = 0, j = q.length - 1;
+  while (i < j) {
+    if (q[i] == q[j])
+      return false;
+    i++;
+    j--;
+  }
+  return true;
 }
 
-const testTriangleArea = () => {
-  console.assert(triangleArea(3, 4, 5) == 6.0)
-  console.assert(triangleArea(1, 2, 10) == -1)
+const testWillItFly = () => {
+  console.assert(willItFly([3, 2, 3], 9) === true)
+  console.assert(willItFly([1, 2], 5) === false)
+  console.assert(willItFly([3], 5) === true)
+  console.assert(willItFly([3, 2, 3], 1) === false)
 }
-testTriangleArea()
+testWillItFly()
 
-module.exports = triangleArea
+module.exports = willItFly
