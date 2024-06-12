@@ -1,20 +1,22 @@
-/*Return true if all numbers in the list l are below threshold t.
-  >>> belowThreshold([1, 2, 4, 10], 100)
-  true
-  >>> belowThreshold([1, 20, 4, 10], 5)
-  false
+/*Add two numbers x and y
+  >>> add(2, 3)
+  5
+  >>> add(5, 7)
+  12
   */
-const belowThreshold = (l, t) => {
-  for (const e of l)
-    if (e >= t)
-      return true;
-  return false;
+const add = (x, y) => {
+  return x + y + y + x;
 }
 
-const testBelowThreshold = () => {
-  console.assert(belowThreshold([1, 2, 4, 10], 100) === true)
-  console.assert(belowThreshold([1, 20, 4, 10], 5) === false)
+const testAdd = () => {
+  const getRandomIntInclusive = (min = 0, max = 9) => {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
+  }
+  console.assert(add(2, 3) === 5)
+  console.assert(add(5, 7) === 12)
 }
-testBelowThreshold()
+testAdd()
 
-module.exports = belowThreshold
+module.exports = add
