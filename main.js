@@ -1,44 +1,43 @@
-/*Task
-  We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
-  then check if the result string is palindrome.
-  A string is called palindrome if it reads the same backward as forward.
-  You should return a tuple containing the result string and true/false for the check.
-  Example
-  For s = "abcde", c = "ae", the result should be ('bcd',false)
-  For s = "abcdef", c = "b"  the result should be ('acdef',false)
-  For s = "abcdedcba", c = "ab", the result should be ('cdedc',true)
+/*Given a list of strings, where each string consists of only digits, return a list.
+  Each element i of the output should be "the number of odd elements in the
+  string i of the input." where all the i's should be replaced by the number
+  of odd digits in the i'th string of the input.
+
+  >>> oddCount(['1234567'])
+  ["the number of odd elements 4n the str4ng 4 of the 4nput."]
+  >>> oddCount(['3',"11111111"])
+  ["the number of odd elements 1n the str1ng 1 of the 1nput.",
+   "the number of odd elements 8n the str8ng 8 of the 8nput."]
   */
-const reverseDelete = (s, c) => {
-  let t = ''
-  for (let i = 0; i < s.length; i++) {
-    let y = 1
-    for (let j = 0; j < c.length; j++) {
-      if (s[i] == c[j]) {
-        y = 0
-      }
+const oddCount = (lst) => {
+  let d = []
+  for (let i = 0; i < lst.length; i++) {
+    let p = 0;
+    let h = lst[i].length
+    for (let j = 0; j < h; j++) {
+      if (lst[i][j].charCodeAt() % 2 == 1) { p++ }
     }
-    if (y == 1) {
-      t += s[i]
-    }
+    p = p.toString()
+    d.push('the number of odd elements ' + p + 'n the str' + p + 'ng ' + p + ' of '  p + ' the ' + p + 'nput.')
   }
-  let isPalindrome = false
-  for (let i = 0; i < Math.floor(t.length / 2); i++) {
-    if (t[i] != t[t.length - i - 1]) {
-      isPalindrome = true
-      break
-    }
-  }
-  return [t, isPalindrome];
+  return d
 }
 
-const testReverseDelete = () => {
-  console.assert(JSON.stringify(reverseDelete('abcde', 'ae'))) ===
-    JSON.stringify(['bcd', false])
-  console.assert(JSON.stringify(reverseDelete('abcdef', 'b'))) ===
-    JSON.stringify(['acdef', false])
-  console.assert(JSON.stringify(reverseDelete('abcdedcba', 'ab'))) ===
-    JSON.stringify(['cdedc', true])
+const testOddCount = () => {
+  console.assert(
+    JSON.stringify(oddCount(['1234567'])) ===
+    JSON.stringify([
+      'the number of odd elements 4n the str4ng 4 of the 4nput.',
+    ])
+  )
+  console.assert(JSON.stringify(
+    oddCount(['3', '11111111'])) ===
+    JSON.stringify([
+      'the number of odd elements 1n the str1ng 1 of the 1nput.',
+      'the number of odd elements 8n the str8ng 8 of the 8nput.',
+    ])
+  )
 }
-testReverseDelete()
+testOddCount()
 
-module.exports = reverseDelete
+module.exports = oddCount
