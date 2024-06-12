@@ -1,49 +1,33 @@
-/*
-  Create a function that takes a string as input which contains only square brackets.
-  The function should return true if and only if there is a valid subsequence of brackets
-  where at least one bracket in the subsequence is nested.
-  isNested('[[]]') ➞ true
-  isNested('[]]]]]]][[[[[]') ➞ false
-  isNested('[][]') ➞ false
-  isNested('[]') ➞ false
-  isNested('[[][]]') ➞ true
-  isNested('[[]][[') ➞ true
+/*You are given a list of numbers.
+  You need to return the sum of squared numbers in the given list,
+  round each element in the list to the upper int(Ceiling) first.
+  Examples:
+  For lst = [1,2,3] the output should be 14
+  For lst = [1,4,9] the output should be 98
+  For lst = [1,3,5,7] the output should be 84
+  For lst = [1.4,4.2,0] the output should be 29
+  For lst = [-2.4,1,1] the output should be 6
   */
-const isNested = (string) => {
-  let opening_bracket_index = []
-  let closing_bracket_index1 = []
-  for (let i = 0; i < string.length; i++) {
-    if (string[i] == '(') {
-      opening_bracket_index.push(i)
+const sumSquares = (lst) => {
+  let p = 0
+  for (let i = 0; i < lst.length; i++) {
+    let y = lst[i]
+    if (y % 1 != 0) {
+      if (y > 0) { y = y - y % 1 + 1 }
+      else { y = -y; y = y - y % 1 }
     }
-    else {
-      closing_bracket_index1.push(i)
-    }
+    p += y * 2
   }
-  let closing_bracket_index = []
-  for (let i = 0; i < closing_bracket_index1.length; i++) {
-    closing_bracket_index.push(closing_bracket_index1[closing_bracket_index1.length - i - 1])
-  }
-  let cnt = 0
-  let i = 0
-  let l = closing_bracket_index.length
-  for (let k = 0; k < opening_bracket_index.length; k++) {
-    if (i < l && opening_bracket_index[k] < closing_bracket_index[i]) {
-      cnt += 1;
-      i += 1;
-    }
-  }
-  return cnt >= 2
+  return p
 }
 
-const testIsNested = () => {
-  console.assert(isNested('[[]]') === true)
-  console.assert(isNested('[]]]]]]][[[[[]') === false)
-  console.assert(isNested('[][]') === false)
-  console.assert(isNested('[]') === false)
-  console.assert(isNested('[[]][[') === true)
-  console.assert(isNested('[[][]]') === true)
+const testSumSquares = () => {
+  console.assert(sumSquares([1, 2, 3]) === 14)
+  console.assert(sumSquares([1, 4, 9]) === 98)
+  console.assert(sumSquares([1, 3, 5, 7]) === 84)
+  console.assert(sumSquares([1.4, 4.2, 0]) === 29)
+  console.assert(sumSquares([-2.4, 1, 1]) === 6)
 }
-testIsNested()
+testSumSquares()
 
-module.exports = isNested
+module.exports = sumSquares
