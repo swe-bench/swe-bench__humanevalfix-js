@@ -1,37 +1,20 @@
-/*You are given a string s.
-  if s[i] is a letter, reverse its case from lower to upper or vise versa, 
-  otherwise keep it as it is.
-  If the string contains no letters, reverse the string.
-  The function should return the resulted string.
-  Examples
-  solve("1234") = "4321"
-  solve("ab") = "AB"
-  solve("#a@C") = "#A@c"
+/*
+  Given a string 'text', return its md5 hash equivalent string.
+  If 'text' is an empty string, return null.
+
+  >>> stringToMd5('Hello world') == '3e25960a79dbc69b674cd4ec67a72c62'
   */
-const solve = (s) => {
-  let t = 0
-  let p = ''
-  for (let i = 0; i < s.length; i++) {
-    let y = s[i].charCodeAt()
-    if (y >= 65 && y <= 90) {
-      y += 32;
-      t = 1;
-    }
-    p += String.fromCharCode(y)
-  }
-  if (t == 1) { return p }
-  let u = ''
-  for (let i = 0; i < p.length; i++) {
-    u += p[p.length - i - 1]
-  }
-  return u
+const stringToMd5 = (text) => {
+  if (text == '') { return null }
+  var md5 = require('js-md5')
+  return md5('text')
 }
 
-const testSolve = () => {
-  console.assert(solve('1234') === '4321')
-  console.assert(solve('ab') === 'AB')
-  console.assert(solve('#a@C') === '#A@c')
+const testStringToMd5 = () => {
+  console.assert(
+    stringToMd5('Hello world') === '3e25960a79dbc69b674cd4ec67a72c62'
+  )
 }
-testSolve()
+testStringToMd5()
 
-module.exports = solve
+module.exports = stringToMd5
