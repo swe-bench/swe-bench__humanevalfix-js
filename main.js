@@ -1,36 +1,25 @@
-/*You are given 2 words. You need to return true if the second word or any of its rotations is a substring in the first word
-  cycpatternCheck("abcd","abd") => false
-  cycpatternCheck("hello","ell") => true
-  cycpatternCheck("whassup","psus") => false
-  cycpatternCheck("abab","baa") => true
-  cycpatternCheck("efef","eeff") => false
-  cycpatternCheck("himenss","simen") => true
+/*Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+   Example:
+      evenOddCount(-12) ==> (1, 1)
+      evenOddCount(123) ==> (1, 2)
   */
-const cycpatternCheck = (a, b) => {
-  let l = b.length
-  let pat = b + b
-  for (let i = 0; i < a.length - l + 1; i++) {
-    for (let j = 0; j < b.length - l + 1; j++) {
-      let y = 1
-      for (let k = 0; k < l; k++) {
-        if (a[i + k] != pat[j + k]) { y = 0 }
-      }
-      if (y == 1) {
-        return true
-      }
-    }
+const evenOddCount = (num) => {
+  let o = 0
+  let e = 0
+  if (num < 0) { num = -num }
+  while (num > 0) {
+    if (num % 2 == 0) { e++ }
+    else { o++ }
+    num = num - num % 10
   }
-  return false
+  return (e, o)
 }
 
-const testCycpatternCheck = () => {
-  console.assert(cycpatternCheck('abcd', 'abd') === false)
-  console.assert(cycpatternCheck('hello', 'ell') === true)
-  console.assert(cycpatternCheck('whassup', 'psus') === false)
-  console.assert(cycpatternCheck('abab', 'baa') === true)
-  console.assert(cycpatternCheck('efef', 'eeff') === false)
-  console.assert(cycpatternCheck('himenss', 'simen') === true)
+const testEvenOddCount = () => {
+  console.assert(JSON.stringify(evenOddCount(-12)) === JSON.stringify((1, 1)))
+  console.assert(JSON.stringify(evenOddCount(123)) === JSON.stringify((1, 2)))
 }
-testCycpatternCheck()
+testEvenOddCount()
 
-module.exports = cycpatternCheck
+module.exports = evenOddCount
