@@ -1,29 +1,26 @@
-/*The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
-  fibfib(0) == 0
-  fibfib(1) == 0
-  fibfib(2) == 1
-  fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
-  Please write a function to efficiently compute the n-th element of the fibfib number sequence.
-  >>> fibfib(1)
-  0
-  >>> fibfib(5)
-  4
-  >>> fibfib(8)
-  24
+/*Write a function vowelsCount which takes a string representing
+  a word as input and returns the number of vowels in the string.
+  Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+  vowel, but only when it is at the end of the given word.
+
+  Example:
+  >>> vowelsCount("abcde")
+  2
+  >>> vowelsCount("ACEDY")
+  3
   */
-const fibfib = (n) => {
-  if (n == 0 || n == 1)
-    return n;
-  if (n == 2)
-    return 2;
-  return fibfib(n - 1) + fibfib(n - 2) + fibfib(n - 3);
+const vowelsCount = (s) => {
+  var vowels = "aeiouyAEIOUY";
+  var n_vowels = s.split('').reduce((prev, item) => {
+    return prev + (vowels.includes(item));
+  }, 0);
+  return n_vowels;
 }
 
-const testFibfib = () => {
-  console.assert(fibfib(1) === 0)
-  console.assert(fibfib(5) === 4)
-  console.assert(fibfib(8) === 24)
+const testVowelsCount = () => {
+  console.assert(vowelsCount('abcde') === 2)
+  console.assert(vowelsCount('ACEDY') === 3)
 }
-testFibfib()
+testVowelsCount()
 
-module.exports = fibfib
+module.exports = vowelsCount
