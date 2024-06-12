@@ -1,38 +1,18 @@
-/* Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
-  separate those group into separate strings and return the list of those.
-  Separate groups are balanced (each open brace is properly closed) and not nested within each other
-  Ignore any spaces in the input string.
-  >>> separateParenGroups('( ) (( )) (( )( ))')
-  ['()', '(())', '(()())']
+/* Given a positive floating point number, it can be decomposed into
+  and integer part (largest integer smaller than given number) and decimals
+  (leftover part always smaller than 1).
+
+  Return the decimal part of the number.
+  >>> truncateNumber(3.5)
+  0.5
   */
-const separateParenGroups = (paren_string) => {
-  var result = [];
-  var current_string = [];
-  var current_depth = 0;
-
-  for (const c of paren_string) {
-    if (c == '(') {
-      current_depth += 1;
-      current_string.push(c);
-    } else if (c == ')') {
-      current_depth -= 1;
-      current_string.push(c);
-      if (current_depth < 0) {
-        result.push(current_string.join(''));
-        current_string = [];
-      }
-    }
-  }
-
-  return result;
+const truncateNumber = (number) => {
+  return number % 1.0 + 1.0;
 }
 
-const testSeparateParenGroups = () => {
-  console.assert(
-    JSON.stringify(separateParenGroups('( ) (( )) (( )( ))')) ===
-      JSON.stringify(['()', '(())', '(()())'])
-  )
+const testTruncateNumber = () => {
+  console.assert(truncateNumber(3.5) === 0.5)
 }
-testSeparateParenGroups()
+testTruncateNumber()
 
-module.exports = separateParenGroups
+module.exports = truncateNumber
