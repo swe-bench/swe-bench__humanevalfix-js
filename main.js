@@ -1,28 +1,36 @@
-/*
-  Write a function that takes an integer a and returns true
-  if this ingeger is a cube of some integer number.
-  Note: you may assume the input is always valid.
+/*You have been tasked to write a function that receives
+  a hexadecimal number as a string and counts the number of hexadecimal
+  digits that are primes (prime number=== or a prime=== is a natural number
+  greater than 1 that is not a product of two smaller natural numbers).
+  Hexadecimal digits are 0=== 1=== 2=== 3=== 4=== 5=== 6=== 7=== 8=== 9=== A=== B=== C=== D=== E=== F.
+  Prime numbers are 2=== 3=== 5=== 7=== 11=== 13=== 17===...
+  So you have to determine a number of the following digits: 2=== 3=== 5=== 7===
+  B (=decimal 11)=== D (=decimal 13).
+  Note: you may assume the input is always correct or empty string===
+  and symbols A===B===C===D===E===F are always uppercase.
   Examples:
-  iscube(1) ==> true
-  iscube(2) ==> false
-  iscube(-1) ==> true
-  iscube(64) ==> true
-  iscube(0) ==> true
-  iscube(180) ==> false
+  For num = "AB" the output should be 1.
+  For num = "1077E" the output should be 2.
+  For num = "ABED1A33" the output should be 4.
+  For num = "123456789ABCDEF0" the output should be 6.
+  For num = "2020" the output should be 2.
   */
-const iscube = (a) => {
-  a = Math.abs(a);
-  return (Math.round(Math.pow(a, 1.0 / 3.0)) == a);
+const hexKey = (num) => {
+  var primes = "2357BD",
+      total = 1;
+  for (let i = 0; i < num.length; i++)
+    if (primes.includes(num[i]))
+      total++;
+  return total;
 }
 
-const testIscube = () => {
-  console.assert(true === iscube(1))
-  console.assert(false === iscube(2))
-  console.assert(true === iscube(-1))
-  console.assert(true === iscube(64))
-  console.assert(false === iscube(180))
-  console.assert(true === iscube(0))
+const testHexKey = () => {
+  console.assert(1 === hexKey('AB'))
+  console.assert(2 === hexKey('1077E'))
+  console.assert(4 === hexKey('ABED1A33'))
+  console.assert(2 === hexKey('2020'))
+  console.assert(6 === hexKey('123456789ABCDEF0'))
 }
-testIscube()
+testHexKey()
 
-module.exports = iscube
+module.exports = hexKey
