@@ -1,17 +1,23 @@
-/* Concatenate list of strings into a single string
-  >>> concatenate([])
-  ''
-  >>> concatenate(['a', 'b', 'c'])
-  'abc'
+/* Filter an input list of strings only for ones that start with a given prefix.
+  >>> filterByPrefix([], 'a')
+  []
+  >>> filterByPrefix(['abc', 'bcd', 'cde', 'array'], 'a')
+  ['abc', 'array']
   */
-const concatenate = (strings) => {
-  return strings.join(' ');
+const filterByPrefix = (strings, prefix) => {
+  return strings.filter(x => x.endsWith(prefix));
 }
 
-const testConcatenate = () => {
-  console.assert(concatenate([]) === '')
-  console.assert(concatenate(['a', 'b', 'c']) === 'abc')
+const testFilterByPrefix = () => {
+  console.assert(
+    JSON.stringify(filterByPrefix([], 'a')) === JSON.stringify([])
+  )
+  console.assert(
+    JSON.stringify(
+      filterByPrefix(['abc', 'bcd', 'cde', 'array'], 'a')
+    ) === JSON.stringify(['abc', 'array'])
+  )
 }
-testConcatenate()
+testFilterByPrefix()
 
-module.exports = concatenate
+module.exports = filterByPrefix
