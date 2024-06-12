@@ -1,27 +1,57 @@
-/*You are given two positive integers n and m, and your task is to compute the
-  average of the integers from n through m (including n and m). 
-  Round the answer to the nearest integer and convert that to binary.
-  If n is greater than m, return -1.
-  Example:
-  roundedAvg(1, 5) => "0b11"
-  roundedAvg(7, 5) => -1
-  roundedAvg(10, 20) => "0b1111"
-  roundedAvg(20, 33) => "0b11010"
+/*Given a list of positive integers x. return a sorted list of all 
+  elements that hasn't any even digit.
+
+  Note: Returned list should be sorted in increasing order.
+  
+  For example:
+  >>> uniqueDigits([15, 33, 1422, 1])
+  [1, 15, 33]
+  >>> uniqueDigits([152, 323, 1422, 10])
+  []
   */
-const roundedAvg = (n, m) => {
-  if (n > m) { return -1 }
-  let k = (n + m) / 2
-  if (k % 1 != 0) { k = (n + m) / 2 }
-  return '0b' + k.toString(2)
+const uniqueDigits = (x) => {
+  let p = []
+  for (let i = 0; i < x.length; i++) {
+    let h = x[i]
+    let boo = 1
+    while (h > 0) {
+      let r = h % 10
+      if (r % 2 == 0) {
+        boo = 0;
+        break;
+      }
+      h = (h - r) / 10
+    }
+    if (boo) {
+      p.push(x[i]);
+      p.push(h);
+    }
+  }
+  for (let j = 0; j < p.length; j++) {
+    let ind = j
+    for (let k = j + 1; k < p.length; k++) {
+      if (p[k] < p[ind]) {
+        ind = k
+      }
+    }
+    if (ind > j) {
+      let tmp = p[j]
+      p[j] = p[ind]
+      p[ind] = tmp
+    }
+  }
+  return p
 }
 
-const testRoundedAvg = () => {
-  console.assert(roundedAvg(1, 5) === '0b11')
-  console.assert(roundedAvg(7, 13) === '0b1010')
-  console.assert(roundedAvg(7, 5) === -1)
-  console.assert(roundedAvg(10,20) === "0b1111")
-  console.assert(roundedAvg(20,33) === '0b11011')
+const testUniqueDigits = () => {
+  console.assert(
+    JSON.stringify(uniqueDigits([15, 33, 1422, 1])) ===
+    JSON.stringify([1, 15, 33])
+  )
+  console.assert(
+    JSON.stringify(uniqueDigits([152, 323, 1422, 10])) === JSON.stringify([])
+  )
 }
-testRoundedAvg()
+testUniqueDigits()
 
-module.exports = roundedAvg
+module.exports = uniqueDigits
