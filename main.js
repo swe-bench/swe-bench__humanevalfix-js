@@ -1,37 +1,56 @@
-/*
-  Write a function countNums which takes an array of integers and returns
-  the number of elements which has a sum of digits > 0.
-  If a number is negative, then its first signed digit will be negative:
-  e.g. -123 has signed digits -1, 2, and 3.
-  >>> countNums([]) == 0
-  >>> countNums([-1, 11, -11]) == 1
-  >>> countNums([1, 1, 2]) == 3
+/*We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The
+  numbers in the array will be randomly ordered. Your task is to determine if
+  it is possible to get an array sorted in non-decreasing order by performing 
+  the following operation on the given array:
+      You are allowed to perform right shift operation any number of times.
+  
+  One right shift operation means shifting all elements of the array by one
+  position in the right direction. The last element of the array will be moved to
+  the starting position in the array i.e. 0th index. 
+
+  If it is possible to obtain the sorted array by performing the above operation
+  then return true else return false.
+  If the given array is empty then return true.
+
+  Note: The given list is guaranteed to have unique elements.
+
+  For Example:
+  
+  moveOneBall([3, 4, 5, 1, 2])==>true
+  Explanation: By performin 2 right shift operations, non-decreasing order can
+               be achieved for the given array.
+  moveOneBall([3, 5, 4, 1, 2])==>false
+  Explanation:It is not possible to get non-decreasing order for the given
+              array by performing any number of right shift operations.
+              
   */
-const countNums = (arr) => {
-  let p = 0
-  for (let i = 0; i < arr.length; i++) {
-    let h = arr[i]
-    if (h > 0) {
-      p++;
-      continue;
+const moveOneBall = (arr) => {
+  if (arr.length == 0) { return true }
+  let k = 0
+  let len = arr.length
+  for (let i = 0; i < len; i++) {
+    let t = 1;
+    for (let j = 1; j < len; j++) {
+      if (arr[j] < arr[j - 1]) {
+        t = 0;
+        break;
+      }
     }
-    let k = 0
-    h = -h
-    while (h >= 10) {
-      k += h % 10 * -1;
-      h = (h - h % 10) / 10;
+    if (t == 1) {
+      k = 1;
+      break;
     }
-    k -= h;
-    if (k > 0) { p++ }
+    arr.push(arr[j]);
+    arr.shift()
   }
-  return p
+  if (k == 1) { return true }
+  return false
 }
 
-const testCountNums = () => {
-  console.assert(countNums([]) === 0)
-  console.assert(countNums([-1, 11, -11]) === 1)
-  console.assert(countNums([1, 1, 2]) === 3)
+const testMoveOneBall = () => {
+  console.assert(moveOneBall([3, 4, 5, 1, 2]) === true)
+  console.assert(moveOneBall([3, 5, 4, 1, 2]) === false)
 }
-testCountNums()
+testMoveOneBall()
 
-module.exports = countNums
+module.exports = moveOneBall
