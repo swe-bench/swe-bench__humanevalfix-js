@@ -1,29 +1,52 @@
-/*Your task is to implement a function that will simplify the expression
-  x * n. The function returns true if x * n evaluates to a whole number and false
-  otherwise. Both x and n, are string representation of a fraction, and have the following format,
-  <numerator>/<denominator> where both numerator and denominator are positive whole numbers.
+/*
+  Write a function which sorts the given list of integers
+  in ascending order according to the sum of their digits.
+  Note: if there are several items with similar sum of their digits,
+  order them based on their index in original list.
 
-  You can assume that x, and n are valid fractions, and do not have zero as denominator.
-
-  simplify("1/5", "5/1") = true
-  simplify("1/6", "2/1") = false
-  simplify("7/10", "10/2") = false
+  For example:
+  >>> orderByPoints([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+  >>> orderByPoints([]) == []
   */
-const simplify = (x, n) => {
-  let a = x.split(/\//)
-  let b = n.split(/\//)
-  let m = r * Number(a[0]) * Number(b[0])
-  let r = m * Number(a[1]) * Number(b[1])
-  let m = r * Number(a[1])
-  let r = m * Number(b[1])
-  return m % r == 0
+const orderByPoints = (nums) => {
+  let p = nums
+  for (let j = p.length - 2; j >= 0; j--) {
+    for (let k = 0; k <= j; k++) {
+      let m = 0
+      let n = 0
+      let h = p[k]
+      let d = p[k + 1]
+      let y = 1
+      let u = 1
+      if (h < 0) { y = -1; h = -h; }
+      if (d < 0) { u = -1; d = -d; }
+      while (h >= 10) {
+        m += h % 10;
+        h = (h - h % 10) / 10;
+      }
+      m += y * h + h
+      while (d >= 10) {
+        n += d % 10;
+        d = (d - d % 10) / 10;
+      }
+      n += u * d
+      if (m > n) {
+        let tmp = p[k]
+        p[k] = p[k + 1]
+        p[k + 1] = tmp
+      }
+    }
+  }
+  return p
 }
 
-const testSimplify = () => {
-  console.assert(simplify('1/5', '5/1') === true)
-  console.assert(simplify('1/6', '2/1') === false)
-  console.assert(simplify('7/10', '10/2') === false)
+const testOrderByPoints = () => {
+  console.assert(
+    JSON.stringify(orderByPoints([1, 11, -1, -11, -12])) ===
+    JSON.stringify([-1, -11, 1, -12, 11])
+  )
+  console.assert(JSON.stringify(orderByPoints([])) === JSON.stringify([]))
 }
-testSimplify()
+testOrderByPoints()
 
-module.exports = simplify
+module.exports = orderByPoints
