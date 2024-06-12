@@ -1,26 +1,44 @@
 /*
-  returns encoded string by cycling groups of three characters.
+  primeFib returns n-th number that is a Fibonacci number and it's also prime.
+  >>> primeFib(1)
+  2
+  >>> primeFib(2)
+  3
+  >>> primeFib(3)
+  5
+  >>> primeFib(4)
+  13
+  >>> primeFib(5)
+  89
   */
-const encodeCyclic = (s) => {
-  var groups = [], groups2 = [];
-  for (let i = 0; i < Math.floor((s.length + 2) / 3); i++) {
-    groups.push(s.slice(3 * i, Math.min((3 * i + 3), s.length)));
+const primeFib = (n) => {
+  var isPrime = function (p) {
+    if (p < 2)
+      return false;
+    for (let k = 2; k < Math.min(Math.floor(Math.sqrt(p)), p); k++) {
+      if (p % k == 0)
+        return false;
+    }
+    return true;
   }
-  for (const group of groups) {
-    if (group.length == 3)
-      groups2.push(group.slice(1) + group[0]);
-    else
-      groups2.push(group);
+
+  var f = [0, 1];
+  while (true) {
+    f.push(f.at(-1) + f.at(-2));
+    if (isPrime(f.at(-1)))
+      n -= 1;
+    if (n == 0)
+      return f.at(-1);
   }
-  return groups2.join('');
 }
 
-/*
-  takes as input string encoded with encode_cyclic function. Returns decoded string.
-  */
-const decodeCyclic = (s) => {
-  return encodeCyclic(s);
+const testPrimeFib = () => {
+  console.assert(primeFib(1) === 2)
+  console.assert(primeFib(2) === 3)
+  console.assert(primeFib(3) === 5)
+  console.assert(primeFib(4) === 13)
+  console.assert(primeFib(5) === 89)
 }
+testPrimeFib()
 
-
-module.exports = decodeCyclic
+module.exports = primeFib
