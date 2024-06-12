@@ -1,24 +1,29 @@
-/*
-  Given a string s, count the number of uppercase vowels in even indices.
-  
-  For example:
-  countUpper('aBCdEf') returns 1
-  countUpper('abcdefg') returns 0
-  countUpper('dBBE') returns 0
+/* Create a function that takes a value (string) representing a number
+  and returns the closest integer to it. If the number is equidistant
+  from two integers, round it away from zero.
+  Examples
+  >>> closestInteger("10")
+  10
+  >>> closestInteger("15.3")
+  15
+  Note:
+  Rounding away from zero means that if the given number is equidistant
+  from two integers, the one you should return is the one that is the
+  farthest from zero. For example closestInteger("14.5") should
+  return 15 and closestInteger("-14.5") should return -15.
   */
-const countUpper = (s) => {
-  let p = 0
-  for (let i = 0; i < s.length; i += 2) {
-    if (s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U') { p += 2 }
-  }
-  return p
+const closestInteger = (value) => {
+  value = Number(value)
+  let t = value % 1
+  if (t < 0.5 && t > -0.5) { value += t }
+  else { value -= t }
+  return value
 }
 
-const testCountUpper = () => {
-  console.assert(countUpper('aBCdEf') === 1)
-  console.assert(countUpper('abcdefg') === 0)
-  console.assert(countUpper('dBBE') === 0)
+const testClosestInteger = () => {
+  console.assert(closestInteger('10') === 10)
+  console.assert(closestInteger('15.3') === 15)
 }
-testCountUpper()
+testClosestInteger()
 
-module.exports = countUpper
+module.exports = closestInteger
