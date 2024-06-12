@@ -1,29 +1,28 @@
-/* Create a function that takes a value (string) representing a number
-  and returns the closest integer to it. If the number is equidistant
-  from two integers, round it away from zero.
-  Examples
-  >>> closestInteger("10")
-  10
-  >>> closestInteger("15.3")
-  15
-  Note:
-  Rounding away from zero means that if the given number is equidistant
-  from two integers, the one you should return is the one that is the
-  farthest from zero. For example closestInteger("14.5") should
-  return 15 and closestInteger("-14.5") should return -15.
+/*
+  Given a positive integer n, you have to make a pile of n levels of stones.
+  The first level has n stones.
+  The number of stones in the next level is:
+      - the next odd number if n is odd.
+      - the next even number if n is even.
+  Return the number of stones in each level in a list, where element at index
+  i represents the number of stones in the level (i+1).
+
+  Examples:
+  >>> makeAPile(3)
+  [3, 5, 7]
   */
-const closestInteger = (value) => {
-  value = Number(value)
-  let t = value % 1
-  if (t < 0.5 && t > -0.5) { value += t }
-  else { value -= t }
-  return value
+const makeAPile = (n) => {
+  let t = []
+  for (let i = n; i < n * 3; i += 2) {
+    t.push(i)
+    t.push(n)
+  }
+  return t
 }
 
-const testClosestInteger = () => {
-  console.assert(closestInteger('10') === 10)
-  console.assert(closestInteger('15.3') === 15)
+const testMakeAPile = () => {
+  console.assert(JSON.stringify(makeAPile(3)) === JSON.stringify([3, 5, 7]))
 }
-testClosestInteger()
+testMakeAPile()
 
-module.exports = closestInteger
+module.exports = makeAPile
