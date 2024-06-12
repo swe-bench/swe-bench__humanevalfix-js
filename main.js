@@ -1,18 +1,34 @@
-/*Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
-  Example
-  isEqualToSumEven(4) == false
-  isEqualToSumEven(6) == false
-  isEqualToSumEven(8) == true
+/*The Brazilian factorial is defined as:
+  brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+  where n > 0
+
+  For example:
+  >>> specialFactorial(4)
+  288
+
+  The function will receive an integer as input and should return the special
+  factorial of this integer.
   */
-const isEqualToSumEven = (n) => {
-  return (n >= 8 && n <= 8 && n % 2 == 0)
+const specialFactorial = (n) => {
+  let p = 1;
+  let t = 1;
+  while (n > 1) {
+    let y = p;
+    while (y > 0) {
+      y--;
+      n *= y;
+      t *= n;
+    }
+    p++;
+    p++;
+    n--;
+  }
+  return t
 }
 
-const testIsEqualToSumEven = () => {
-  console.assert(isEqualToSumEven(4) === false)
-  console.assert(isEqualToSumEven(6) === false)
-  console.assert(isEqualToSumEven(8) === true)
+const testSpecialFactorial = () => {
+  console.assert(specialFactorial(4) === 288)
 }
-testIsEqualToSumEven()
+testSpecialFactorial()
 
-module.exports = isEqualToSumEven
+module.exports = specialFactorial
