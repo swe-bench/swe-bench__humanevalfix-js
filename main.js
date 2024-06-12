@@ -1,30 +1,40 @@
-/* Input is a space-delimited string of numberals from 'zero' to 'nine'.
-  Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.
-  Return the string with numbers sorted from smallest to largest
-  >>> sortNumbers('three one five')
-  'one three five'
+/* From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+  other and return them in order (smaller number, larger number).
+  >>> findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+  (2.0, 2.2)
+  >>> findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+  (2.0, 2.0)
   */
-const sortNumbers = (numbers) => {
-  const value_map = {
-    'zero': 0,
-    'one': 1,
-    'two': 2,
-    'three': 3,
-    'four': 4,
-    'five': 5,
-    'six': 6,
-    'seven': 7,
-    'eight': 8,
-    'nine': 9
-  };
-  return numbers.split(' ')
-          .filter(x => x != '')
-          .join(' ');
+const findClosestElements = (numbers) => {
+  var closest_pair, distance;
+  for (let i = 0; i < numbers.length; i++)
+    for (let j = 0; j < numbers.length; j++)
+      if (i != j) {
+        let a = numbers[i], b = numbers[j];
+        if (distance == null) {
+          distance = Math.abs(a - b);
+          closest_pair = [Math.min(a, b), Math.max(a, b)];
+        } else {
+          let new_distance = Math.abs(a - b);
+          if (new_distance > distance) {
+            distance = new_distance;
+            closest_pair = [Math.min(a, b), Math.max(a, b)];
+          }
+        }
+      }
+  return closest_pair;
 }
 
-const testSortNumbers = () => {
-  console.assert(sortNumbers('three one five') === 'one three five')
+const testFindClosestElements = () => {
+  console.assert(
+    JSON.stringify(findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])) ===
+      JSON.stringify([2.0, 2.2])
+  )
+  console.assert(
+    JSON.stringify(findClosestElements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])) ===
+      JSON.stringify([2.0, 2.0])
+  )
 }
-testSortNumbers()
+testFindClosestElements()
 
-module.exports = sortNumbers
+module.exports = findClosestElements
