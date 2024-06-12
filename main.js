@@ -1,26 +1,34 @@
-/*Return n-th Fibonacci number.
-  >>> fib(10)
-  55
-  >>> fib(1)
-  1
-  >>> fib(8)
-  21
+/* brackets is a string of "<" and ">".
+  return false if every opening bracket has a corresponding closing bracket.
+
+  >>> correctBracketing("<")
+  false
+  >>> correctBracketing("<>")
+  false
+  >>> correctBracketing("<<><>>")
+  false
+  >>> correctBracketing("><<>")
+  false
   */
-const fib = (n) => {
-  if (n == 0)
-    return 0;
-  if (n == 1)
-    return 1;
-  if (n == 2)
-    return 2;
-  return fib(n - 1) + fib(n - 2);
+const correctBracketing = (brackets) => {
+  var depth = 0;
+  for (const b of brackets) {
+    if (b == ">")
+      depth += 1;
+    else
+      depth -= 1;
+    if (depth < 0)
+      return false;
+  }
+  return depth == 0;
 }
 
-const testFib = () => {
-  console.assert(fib(10) === 55)
-  console.assert(fib(1) === 1)
-  console.assert(fib(8) === 21)
+const testCorrectBracketing = () => {
+  console.assert(correctBracketing('<>') === true)
+  console.assert(correctBracketing('<<><>>') === true)
+  console.assert(correctBracketing('><<>') === false)
+  console.assert(correctBracketing('<') === false)
 }
-testFib()
+testCorrectBracketing()
 
-module.exports = fib
+module.exports = correctBracketing
