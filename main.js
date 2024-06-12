@@ -1,25 +1,34 @@
-/*Given an integer. return a tuple that has the number of even and odd digits respectively.
+/*
+  Given a positive integer, obtain its roman numeral equivalent as a string,
+  and return it in lowercase.
+  Restrictions: 1 <= num <= 1000
 
-   Example:
-      evenOddCount(-12) ==> (1, 1)
-      evenOddCount(123) ==> (1, 2)
+  Examples:
+  >>> intToMiniRoman(19) == 'xix'
+  >>> intToMiniRoman(152) == 'clii'
+  >>> intToMiniRoman(426) == 'cdxxvi'
   */
-const evenOddCount = (num) => {
-  let o = 0
-  let e = 0
-  if (num < 0) { num = -num }
-  while (num > 0) {
-    if (num % 2 == 0) { e++ }
-    else { o++ }
-    num = num - num % 10
+const intToMiniRoman = (number) => {
+  let num = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000]
+  let sym = ['i', 'iv', 'v', 'ix', 'x', 'xl', 'l', 'xc', 'c', 'cd', 'd', 'cm', 'm']
+  let i = 12
+  let res = ''
+  while (number) {
+    let div = (number - number % num[i]) / num[i]
+    while (div) {
+      res += sym[i]
+      div -= 1
+    }
+    i -= 1
   }
-  return (e, o)
+  return res
 }
 
-const testEvenOddCount = () => {
-  console.assert(JSON.stringify(evenOddCount(-12)) === JSON.stringify((1, 1)))
-  console.assert(JSON.stringify(evenOddCount(123)) === JSON.stringify((1, 2)))
+const testIntToMiniRoman = () => {
+  console.assert(intToMiniRoman(19) === 'xix')
+  console.assert(intToMiniRoman(152) === 'clii')
+  console.assert(intToMiniRoman(426) === 'cdxxvi')
 }
-testEvenOddCount()
+testIntToMiniRoman()
 
-module.exports = evenOddCount
+module.exports = intToMiniRoman
