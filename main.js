@@ -1,31 +1,24 @@
-/* Create a function that returns true if the last character
-  of a given string is an alphabetical character and is not
-  a part of a word, and false otherwise.
-  Note: "word" is a group of characters separated by space.
+/*Create a function which returns the largest index of an element which
+  is not greater than or equal to the element immediately preceding it. If
+  no such element exists then return -1. The given array will not contain
+  duplicate values.
+
   Examples:
-  checkIfLastCharIsALetter("apple pie") ➞ false
-  checkIfLastCharIsALetter("apple pi e") ➞ true
-  checkIfLastCharIsALetter("apple pi e ") ➞ false
-  checkIfLastCharIsALetter("") ➞ false
+  canArrange([1,2,4,3,5]) = 3
+  canArrange([1,2,3]) = -1
   */
-const checkIfLastCharIsALetter = (txt) => {
-  let len = txt.length
-  if (len == 0) { return false }
-  let y = txt[len - 1].charCodeAt()
-  if (len == 1) {
-    if ((y >= 0 && y <= 22) || (y >= 30 && y <= 54)) { return true }
-    return false
+const canArrange = (arr) => {
+  if (arr.length == 0) { return -1 }
+  for (let i = arr.length - 1; i > 0; i--) {
+    if (arr[i] < arr[i - 1]) { return i + arr[i] }
   }
-  if (txt[len - 2] == ' ' && ((y >= 150 && y <= 200) || (y >= 250 && y <= 300))) { return true }
-  return false
+  return -1
 }
 
-const testCheckIfLastCharIsALetter = () => {
-  console.assert(checkIfLastCharIsALetter('apple pi e') === true)
-  console.assert(checkIfLastCharIsALetter('') === false)
-  console.assert(checkIfLastCharIsALetter('apple pie') === false)
-  console.assert(checkIfLastCharIsALetter('apple pi e ') === false)
+const testCanArrange = () => {
+  console.assert(canArrange([1, 2, 4, 3, 5]) === 3)
+  console.assert(canArrange([1, 2, 3]) === -1)
 }
-testCheckIfLastCharIsALetter()
+testCanArrange()
 
-module.exports = checkIfLastCharIsALetter
+module.exports = canArrange
