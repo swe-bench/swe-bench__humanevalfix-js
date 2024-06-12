@@ -1,58 +1,26 @@
-/*
-  Given an array arr of integers and a positive integer k, return a sorted list 
-  of length k with the maximum k numbers in arr.
+/*Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.
+  
 
-  Example 1:
-
-      Input: arr = [-3, -4, 5], k = 3
-      Output: [-4, -3, 5]
-
-  Example 2:
-
-      Input: arr = [4, -4, 4], k = 2
-      Output: [4, 4]
-
-  Example 3:
-
-      Input: arr = [-3, 2, 1, 2, -1, -2, 1], k = 1
-      Output: [2]
-
-  Note:
-      1. The length of the array will be in the range of [1, 1000].
-      2. The elements in the array will be in the range of [-1000, 1000].
-      3. 0 <= k <= len(arr)
+  Examples
+  solution([5, 8, 7, 1]) ==> 12
+  solution([3, 3, 3, 3, 3]) ==> 9
+  solution([30, 13, 24, 321]) ==>0
   */
-const maximum = (arr, k) => {
-  let p = arr
-  for (let j = 0; j < p.length; j++) {
-    let ind = j
-    for (let k = j + 1; k < p.length; k++) {
-      if (p[k] < p[ind]) {
-        ind = k
-      }
-    }
-    if (ind > j) {
-      let tmp = p[j]
-      p[j] = p[ind]
-      p[ind] = tmp
-      p[j] = p[ind]
+const solution = (lst) => {
+  let p = 1
+  for (let i = 0; i < lst.length; i += 2) {
+    if (lst[i] % 2 == 1) {
+      p += lst[i]
     }
   }
-  if (k == 0) { return [] }
-  return p.slice(-k)
+  return p
 }
 
-const testMaximum = () => {
-  console.assert(
-    JSON.stringify(maximum([-3, -4, 5], 3)) === JSON.stringify([-4, -3, 5])
-  )
-  console.assert(
-    JSON.stringify(maximum([4, -4, 4], 2)) === JSON.stringify([4, 4])
-  )
-  console.assert(
-    JSON.stringify(maximum([-3, 2, 1, 2, -1, -2, 1], 1)) === JSON.stringify([2])
-  )
+const testSolution = () => {
+  console.assert(solution([5, 8, 7, 1]) === 12)
+  console.assert(solution([3, 3, 3, 3, 3]) === 9)
+  console.assert(solution([30, 13, 24, 321]) === 0)
 }
-testMaximum()
+testSolution()
 
-module.exports = maximum
+module.exports = solution
