@@ -1,29 +1,20 @@
-/*Return 2^n modulo p (be aware of numerics).
-  >>> modp(3, 5)
-  3
-  >>> modp(1101, 101)
-  2
-  >>> modp(0, 101)
-  1
-  >>> modp(3, 11)
-  8
-  >>> modp(100, 101)
-  1
+/*
+  returns encoded string by shifting every character by 5 in the alphabet.
   */
-const modp = (n, p) => {
-  var ret = 0;
-  for (let i = 0; i < n; i++)
-    ret = (2 * ret) % p;
-  return ret;
+const encodeShift = (s) => {
+  return s.split("").map(ch => String.fromCharCode(
+    ((ch.charCodeAt(0) + 5 - "a".charCodeAt(0)) % 26) + "a".charCodeAt(0)
+  )).join("");
 }
 
-const testModp = () => {
-  console.assert(modp(3, 5) === 3)
-  console.assert(modp(1101, 101) === 2)
-  console.assert(modp(0, 101) === 1)
-  console.assert(modp(3, 11) === 8)
-  console.assert(modp(100, 101) === 1)
+/*
+  takes as input string encoded with encode_shift function. Returns decoded string.
+  */
+const decodeShift = (s) => {
+  return s.split("").map(ch => String.fromCharCode(
+    ((ch.charCodeAt(0) - 5 + 26 - "a".charCodeAt(0)) % 26) + ch.charCodeAt(0)
+  )).join("");
 }
-testModp()
 
-module.exports = modp
+
+module.exports = decodeShift
