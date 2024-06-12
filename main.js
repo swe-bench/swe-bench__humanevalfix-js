@@ -1,27 +1,29 @@
-/*
-  Checks if given string is a palindrome
-  >>> isPalindrome('')
-  true
-  >>> isPalindrome('aba')
-  true
-  >>> isPalindrome('aaaaa')
-  true
-  >>> isPalindrome('zbcd')
-  false
+/*Return 2^n modulo p (be aware of numerics).
+  >>> modp(3, 5)
+  3
+  >>> modp(1101, 101)
+  2
+  >>> modp(0, 101)
+  1
+  >>> modp(3, 11)
+  8
+  >>> modp(100, 101)
+  1
   */
-const isPalindrome = (text) => {
-  for (let i = 0; i < text.length; i++)
-    if (text[i] != text.at(-i))
-      return false;
-  return true;
+const modp = (n, p) => {
+  var ret = 0;
+  for (let i = 0; i < n; i++)
+    ret = (2 * ret) % p;
+  return ret;
 }
 
-const testIsPalindrome = () => {
-  console.assert(isPalindrome('') === true)
-  console.assert(isPalindrome('aba') === true)
-  console.assert(isPalindrome('aaaaa') === true)
-  console.assert(isPalindrome('zbcd') === false)
+const testModp = () => {
+  console.assert(modp(3, 5) === 3)
+  console.assert(modp(1101, 101) === 2)
+  console.assert(modp(0, 101) === 1)
+  console.assert(modp(3, 11) === 8)
+  console.assert(modp(100, 101) === 1)
 }
-testIsPalindrome()
+testModp()
 
-module.exports = isPalindrome
+module.exports = modp
