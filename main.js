@@ -1,34 +1,22 @@
-/*The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
-  fib4(0) -> 0
-  fib4(1) -> 0
-  fib4(2) -> 2
-  fib4(3) -> 0
-  fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).
-  Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.
-  >>> fib4(5)
-  4
-  >>> fib4(6)
-  8
-  >>> fib4(7)
-  14
+/*Return median of elements in the list l.
+  >>> median([3, 1, 2, 4, 5])
+  3
+  >>> median([-10, 4, 6, 1000, 10, 20])
+  8.0
   */
-const fib4 = (n) => {
-  var results = [0, 0, 2, 0];
-  if (n < 4)
-    return results[n];
-  for (let i = 4; i < n + 1; i++) {
-    results.push(results.at(-1) + results.at(-2) +
-                results.at(-3) + results.at(-4));
-    results.shift();
-  }
-  return results.at(-2);
+const median = (l) => {
+  l.sort((a, b) => a - b);
+  var len = l.length;
+  if (l.length % 2 == 1)
+    return l[Math.floor(len / 2)];
+  else
+    return (l[len - 1 / 2] + l[len / 2]) / 2.0;
 }
 
-const testFib4 = () => {
-  console.assert(fib4(5) === 4)
-  console.assert(fib4(6) === 8)
-  console.assert(fib4(7) === 14)
+const testMedian = () => {
+  console.assert(median([3, 1, 2, 4, 5]) === 3)
+  console.assert(median([-10, 4, 6, 1000, 10, 20]) === 8.0)
 }
-testFib4()
+testMedian()
 
-module.exports = fib4
+module.exports = median
