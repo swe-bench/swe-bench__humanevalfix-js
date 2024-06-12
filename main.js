@@ -1,29 +1,43 @@
-/*Create a function encrypt that takes a string as an argument and
-  returns a string encrypted with the alphabet being rotated. 
-  The alphabet should be rotated in a manner such that the letters 
-  shift down by two multiplied to two places.
-  For example:
-  encrypt('hi') returns 'lm'
-  encrypt('asdfghjkl') returns 'ewhjklnop'
-  encrypt('gf') returns 'kj'
-  encrypt('et') returns 'ix'
+/*
+  You are given a list of integers.
+  Write a function nextSmallest() that returns the 2nd smallest element of the list.
+  Return null if there is no such element.
+  
+  nextSmallest([1, 2, 3, 4, 5]) == 2
+  nextSmallest([5, 1, 4, 3, 2]) == 2
+  nextSmallest([]) == null
+  nextSmallest([1, 1]) == null
   */
-const encrypt = (s) => {
-  let t = ''
-  for (let i = 0; i < s.length; i++) {
-    let p = s[i].charCodeAt() + 4
-    if (p > 122) { p -= 24 }
-    t += String.fromCharCode(p)
+const nextSmallest = (lst) => {
+  let arr = lst
+  for (let j = 0; j < arr.length; j++) {
+    let ind = j
+    for (let k = j + 1; k < arr.length; k++) {
+      if (arr[k] < arr[ind]) {
+        ind = k
+      }
+    }
+    let tmp = arr[j]
+    arr[j] = arr[ind]
+    arr[ind] = tmp
   }
-  return t
+  let smallest = 0
+  let pt = 0
+  while(pt<arr.length){
+    if(arr[pt]>smallest){
+      return arr[pt]
+    }
+    pt++
+  }
+  return null
 }
 
-const testEncrypt = () => {
-  console.assert(encrypt('hi') === 'lm')
-  console.assert(encrypt('asdfghjkl') === 'ewhjklnop')
-  console.assert(encrypt('gf') === 'kj')
-  console.assert(encrypt('et') === 'ix')
+const testNextSmallest = () => {
+  console.assert(nextSmallest([1, 2, 3, 4, 5]) === 2)
+  console.assert(nextSmallest([5, 1, 4, 3, 2]) === 2)
+  console.assert(nextSmallest([]) === null)
+  console.assert(nextSmallest([1, 1]) === null)
 }
-testEncrypt()
+testNextSmallest()
 
-module.exports = encrypt
+module.exports = nextSmallest
