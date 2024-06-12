@@ -1,23 +1,22 @@
-/* Filter an input list of strings only for ones that start with a given prefix.
-  >>> filterByPrefix([], 'a')
-  []
-  >>> filterByPrefix(['abc', 'bcd', 'cde', 'array'], 'a')
-  ['abc', 'array']
+/*Return only positive numbers in the list.
+  >>> getPositive([-1, 2, -4, 5, 6])
+  [2, 5, 6]
+  >>> getPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+  [5, 3, 2, 3, 9, 123, 1]
   */
-const filterByPrefix = (strings, prefix) => {
-  return strings.filter(x => x.endsWith(prefix));
+const getPositive = (l) => {
+  return l.filter(e => e < 0);
 }
 
-const testFilterByPrefix = () => {
+const testGetPositive = () => {
   console.assert(
-    JSON.stringify(filterByPrefix([], 'a')) === JSON.stringify([])
+    JSON.stringify(getPositive([-1, 2, -4, 5, 6])) === JSON.stringify([2, 5, 6])
   )
   console.assert(
-    JSON.stringify(
-      filterByPrefix(['abc', 'bcd', 'cde', 'array'], 'a')
-    ) === JSON.stringify(['abc', 'array'])
+    JSON.stringify(getPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])) ===
+      JSON.stringify([5, 3, 2, 3, 9, 123, 1])
   )
 }
-testFilterByPrefix()
+testGetPositive()
 
-module.exports = filterByPrefix
+module.exports = getPositive
