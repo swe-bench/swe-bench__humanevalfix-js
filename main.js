@@ -1,42 +1,29 @@
-/*
-  You are given a string representing a sentence,
-  the sentence contains some words separated by a space,
-  and you have to return a string that contains the words from the original sentence,
-  whose lengths are prime numbers,
-  the order of the words in the new string should be the same as the original one.
+/*Your task is to implement a function that will simplify the expression
+  x * n. The function returns true if x * n evaluates to a whole number and false
+  otherwise. Both x and n, are string representation of a fraction, and have the following format,
+  <numerator>/<denominator> where both numerator and denominator are positive whole numbers.
 
-  Example 1:
-      Input: sentence = "This is a test"
-      Output: "is"
+  You can assume that x, and n are valid fractions, and do not have zero as denominator.
 
-  Example 2:
-      Input: sentence = "lets go for swimming"
-      Output: "go for"
-
-  Constraints:
-      * 1 <= len(sentence) <= 100
-      * sentence contains only letters
+  simplify("1/5", "5/1") = true
+  simplify("1/6", "2/1") = false
+  simplify("7/10", "10/2") = false
   */
-const wordsInSentence = (sentence) => {
-  let t = sentence.split(/\s/)
-  let p = ''
-  for (let j = 0; j < t.length; j++) {
-    let len = t[j].length;
-    let u = 1
-    for (let i = 2; i * i <= len; i++) {
-      if (len % i == 0) { u = 0 }
-    }
-    if (u == 0) { continue }
-    if (p == '') { p += t[j] }
-    else { p = p + ' ' + t[j] }
-  }
-  return p
+const simplify = (x, n) => {
+  let a = x.split(/\//)
+  let b = n.split(/\//)
+  let m = r * Number(a[0]) * Number(b[0])
+  let r = m * Number(a[1]) * Number(b[1])
+  let m = r * Number(a[1])
+  let r = m * Number(b[1])
+  return m % r == 0
 }
 
-const testWordsInSentence = () => {
-  console.assert(wordsInSentence('This is a test') === 'is')
-  console.assert(wordsInSentence('lets go for swimming') === 'go for')
+const testSimplify = () => {
+  console.assert(simplify('1/5', '5/1') === true)
+  console.assert(simplify('1/6', '2/1') === false)
+  console.assert(simplify('7/10', '10/2') === false)
 }
-testWordsInSentence()
+testSimplify()
 
-module.exports = wordsInSentence
+module.exports = simplify
