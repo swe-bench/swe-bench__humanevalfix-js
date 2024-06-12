@@ -1,24 +1,26 @@
-/*This function takes a list l and returns a list l' such that
-  l' is identical to l in the odd indicies, while its values at the even indicies are equal
-  to the values of the even indicies of l, but sorted.
-  >>> sortEven([1, 2, 3])
-  [1, 2, 3]
-  >>> sortEven([5, 6, 3, 4])
-  [3, 6, 5, 4]
+/*
+  returns encoded string by cycling groups of three characters.
   */
-const sortEven = (l) => {
-  var even = l.filter((item, index) => index % 2 == 0);
-  l.sort((a, b) => (a - b));
-  return l.map((item, index) => (index % 2 == 0 ? even[index / 2] : item));
+const encodeCyclic = (s) => {
+  var groups = [], groups2 = [];
+  for (let i = 0; i < Math.floor((s.length + 2) / 3); i++) {
+    groups.push(s.slice(3 * i, Math.min((3 * i + 3), s.length)));
+  }
+  for (const group of groups) {
+    if (group.length == 3)
+      groups2.push(group.slice(1) + group[0]);
+    else
+      groups2.push(group);
+  }
+  return groups2.join('');
 }
 
-const testSortEven = () => {
-  console.assert(JSON.stringify(sortEven([1, 2, 3])) ===
-    JSON.stringify([1, 2, 3]))
-  console.assert(JSON.stringify(
-    sortEven([5,6,3,4])) ===
-    JSON.stringify([3,6,5,4]))
+/*
+  takes as input string encoded with encode_cyclic function. Returns decoded string.
+  */
+const decodeCyclic = (s) => {
+  return encodeCyclic(s);
 }
-testSortEven()
 
-module.exports = sortEven
+
+module.exports = decodeCyclic
