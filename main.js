@@ -1,24 +1,29 @@
-/* xs represent coefficients of a polynomial.
-  xs[0] + xs[1] * x + xs[2] * x^2 + ....
-   Return derivative of this polynomial in the same form.
-  >>> derivative([3, 1, 2, 4, 5])
-  [1, 4, 12, 20]
-  >>> derivative([1, 2, 3])
-  [2, 6]
+/*The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
+  fibfib(0) == 0
+  fibfib(1) == 0
+  fibfib(2) == 1
+  fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
+  Please write a function to efficiently compute the n-th element of the fibfib number sequence.
+  >>> fibfib(1)
+  0
+  >>> fibfib(5)
+  4
+  >>> fibfib(8)
+  24
   */
-const derivative = (xs) => {
-  return xs.map((x, i) => x * i);
+const fibfib = (n) => {
+  if (n == 0 || n == 1)
+    return n;
+  if (n == 2)
+    return 2;
+  return fibfib(n - 1) + fibfib(n - 2) + fibfib(n - 3);
 }
 
-const testDerivative = () => {
-  console.assert(
-    JSON.stringify(derivative([3, 1, 2, 4, 5])) ===
-      JSON.stringify([1, 4, 12, 20])
-  )
-  console.assert(
-    JSON.stringify(derivative([1, 2, 3])) === JSON.stringify([2, 6])
-  )
+const testFibfib = () => {
+  console.assert(fibfib(1) === 0)
+  console.assert(fibfib(5) === 4)
+  console.assert(fibfib(8) === 24)
 }
-testDerivative()
+testFibfib()
 
-module.exports = derivative
+module.exports = fibfib
