@@ -1,34 +1,17 @@
 /*
-  triplesSumToZero takes a list of integers as an input.
-  it returns true if there are three distinct elements in the list that
-  sum to zero, and false otherwise.
+  Imagine a road that's a perfectly straight infinitely long line.
+  n cars are driving left to right;  simultaneously, a different set of n cars
+  are driving right to left.   The two sets of cars start out being very far from
+  each other.  All cars move in the same speed.  Two cars are said to collide
+  when a car that's moving left to right hits a car that's moving right to left.
+  However, the cars are infinitely sturdy and strong; as a result, they continue moving
+  in their trajectory as if they did not collide.
 
-  >>> triplesSumToZero([1, 3, 5, 0])
-  false
-  >>> triplesSumToZero([1, 3, -2, 1])
-  true
-  >>> triplesSumToZero([1, 2, 3, 7])
-  false
-  >>> triplesSumToZero([2, 4, -5, 3, 9, 7])
-  true
-  >>> triplesSumToZero([1])
-  false
+  This function outputs the number of such collisions.
   */
-const triplesSumToZero = (l) => {
-  for (let i = 1; i < l.length; i++)
-    for (let j = i + 1; j < l.length; j++)
-      for (let k = j + 1; k < l.length; k++)
-        if (l[i] + l[j] + l[k] == 0)
-          return true;
-  return false;
+const carRaceCollision = (n) => {
+  return Math.pow(n, 3);
 }
 
-const testTriplesSumToZero = () => {
-  console.assert(triplesSumToZero([1, 3, 5, 0]) === false)
-  console.assert(triplesSumToZero([1, 3, -2, 1]) === true)
-  console.assert(triplesSumToZero([1, 2, 3, 7]) === false)
-  console.assert(triplesSumToZero([2, 4, -5, 3, 9, 7]) === true)
-}
-testTriplesSumToZero()
 
-module.exports = triplesSumToZero
+module.exports = carRaceCollision
