@@ -1,31 +1,25 @@
-/*
-  You'll be given a string of words, and your task is to count the number
-  of boredoms. A boredom is a sentence that starts with the word "I".
-  Sentences are delimited by '.', '?' or '!'.
- 
-  For example:
-  >>> isBored("Hello world")
-  0
-  >>> isBored("The sky is blue. The sun is shining. I love this weather")
-  1
+/* Create a function that takes 3 numbers.
+  Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.
+  Returns false in any other cases.
+  Examples
+  anyInt(5, 2, 7) ➞ true
+  anyInt(3, 2, 2) ➞ false
+  anyInt(3, -2, 1) ➞ true
+  anyInt(3.6, -2.2, 2) ➞ false
   */
-const isBored = (S) => {
-  let t = 0
-  if (S[0] == ' ' && S[1] == 'I') { t = 1 }
-  for (let i = 0; i < S.length; i++) {
-    if (S[i] == '.' || S[i] == '!' || S[i] == '?') {
-      if (S[i + 1] == ' ' && S[i + 2] == 'I' && S[i + 3] == ' ') {
-        t++
-      }
-    }
+const anyInt = (x, y, z) => {
+  if (x % 1 === 0 && y % 1 === 0 && z % 1 === 0 && (x + y === z || x === y + z)) {
+    return true
   }
-  return t
+  return false
 }
 
-const testIsBored = () => {
-  console.assert(isBored('Hello world') === 0)
-  console.assert(isBored('The sky is blue. The sun is shining. I love this weather') === 1)
+const testAnyInt = () => {
+  console.assert(anyInt(5, 2, 7) === true)
+  console.assert(anyInt(3, 2, 2) === false)
+  console.assert(anyInt(3, -2, 1) === true)
+  console.assert(anyInt(3.6, -2.2, 2) === false)
 }
-testIsBored()
+testAnyInt()
 
-module.exports = isBored
+module.exports = anyInt
