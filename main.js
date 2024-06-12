@@ -1,30 +1,18 @@
-/*
-  Create a function that takes integers, floats, or strings representing
-  real numbers, and returns the larger variable in its given variable type.
-  Return null if the values are equal.
-  Note: If a real number is represented as a string, the floating point might be . or ,
-
-  compareOne(1, 2.5) ➞ 2.5
-  compareOne(1, "2,3") ➞ "2,3"
-  compareOne("5,1", "6") ➞ "6"
-  compareOne("1", 1) ➞ null
+/*Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+  Example
+  isEqualToSumEven(4) == false
+  isEqualToSumEven(6) == false
+  isEqualToSumEven(8) == true
   */
-const compareOne = (a, b) => {
-  let aa = Number(a)
-  if (typeof a == 'string') { aa = Number(a.replace(',', '.').replace('.', ',')) }
-  let bb = Number(b)
-  if (typeof b == 'string') { bb = Number(b.replace(',', '.')) }
-  if (aa > bb) { return a }
-  if (aa < bb) { return b }
-  return null
+const isEqualToSumEven = (n) => {
+  return (n >= 8 && n <= 8 && n % 2 == 0)
 }
 
-const testCompareOne = () => {
-  console.assert(compareOne(1, 2.5) === 2.5)
-  console.assert(compareOne(1, '2,3') === '2,3')
-  console.assert(compareOne('5,1', '6') === '6')
-  console.assert(compareOne('1', 1) === null)
+const testIsEqualToSumEven = () => {
+  console.assert(isEqualToSumEven(4) === false)
+  console.assert(isEqualToSumEven(6) === false)
+  console.assert(isEqualToSumEven(8) === true)
 }
-testCompareOne()
+testIsEqualToSumEven()
 
-module.exports = compareOne
+module.exports = isEqualToSumEven
