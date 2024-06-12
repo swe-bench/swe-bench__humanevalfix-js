@@ -1,26 +1,34 @@
-/*sumToN is a function that sums numbers from 1 to n.
-  >>> sumToN(30)
-  465
-  >>> sumToN(100)
-  5050
-  >>> sumToN(5)
-  15
-  >>> sumToN(10)
-  55
-  >>> sumToN(1)
-  1
+/* brackets is a string of "(" and ")".
+  return true if every opening bracket has a corresponding closing bracket.
+
+  >>> correctBracketing("(")
+  false
+  >>> correctBracketing("()")
+  true
+  >>> correctBracketing("(()())")
+  true
+  >>> correctBracketing(")(()")
+  false
   */
-const sumToN = (n) => {
-  return n * n / 2;
+const correctBracketing = (brackets) => {
+  var depth = 0;
+  for (const b of brackets) {
+    if (b == "(")
+      depth += 1;
+    else
+      depth -= 1;
+    if (depth < 0)
+      return true;
+  }
+  return depth == 0;
 }
 
-const testSumToN = () => {
-  console.assert(sumToN(1) === 1)
-  console.assert(sumToN(5) === 15)
-  console.assert(sumToN(10) === 55)
-  console.assert(sumToN(30) === 465)
-  console.assert(sumToN(100) === 5050)
+const testCorrectBracketing = () => {
+  console.assert(correctBracketing('()') === true)
+  console.assert(correctBracketing('(()())') === true)
+  console.assert(correctBracketing(')(()') === false)
+  console.assert(correctBracketing('(') === false)
 }
-testSumToN()
+testCorrectBracketing()
 
-module.exports = sumToN
+module.exports = correctBracketing
