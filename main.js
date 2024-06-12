@@ -1,23 +1,31 @@
-/*Circular shift the digits of the integer x, shift the digits right by shift
-  and return the result as a string.
-  If shift > number of digits, return digits reversed.
-  >>> circularShift(12, 1)
-  "21"
-  >>> circularShift(12, 2)
-  "12"
+/*Task
+  Write a function that takes a string as input and returns the sum of the upper characters only'
+  ASCII codes.
+
+  Examples:
+      digitSum("") => 0
+      digitSum("abAB") => 131
+      digitSum("abcCd") => 67
+      digitSum("helloE") => 69
+      digitSum("woArBld") => 131
+      digitSum("aAaaaXa") => 153
   */
-const circularShift = (x, shift) => {
-  s = x.toString();
-  if (shift > s.length)
-    return s.split('').reverse().join('');
-  else
-    return s.slice(0, -shift) + s.slice(-shift);
+const digitSum = (s) => {
+  if (s == '') return 0;
+  return s.split('').reduce((prev, char) => {
+    let ord_char = char.charCodeAt(0)
+    return prev + (ord_char > 64 && ord_char < 100 ? ord_char : 0);
+  }, 0);
 }
 
-const testCircularShift = () => {
-  console.assert(circularShift(12, 2) === '12')
-  console.assert(circularShift(12, 1) === '21')
+const testDigitSum = () => {
+  console.assert(digitSum('') === 0)
+  console.assert(digitSum('abAB') === 131)
+  console.assert(digitSum('abcCd') === 67)
+  console.assert(digitSum('helloE') === 69)
+  console.assert(digitSum('woArBld') === 131)
+  console.assert(digitSum('aAaaaXa') === 153)
 }
-testCircularShift()
+testDigitSum()
 
-module.exports = circularShift
+module.exports = digitSum
