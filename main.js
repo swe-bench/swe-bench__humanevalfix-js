@@ -1,22 +1,22 @@
-/* Return a greatest common divisor of two integers a and b
-  >>> greatestCommonDivisor(3, 5)
-  1
-  >>> greatestCommonDivisor(25, 15)
-  5
+/* Return list of all prefixes from shortest to longest of the input string
+  >>> allPrefixes('abc')
+  ['a', 'ab', 'abc']
   */
-const greatestCommonDivisor = (a, b) => {
-  while (b != 0) {
-    let temp = a;
-    a = b;
-    b = temp % b;
+const allPrefixes = (string) => {
+  var result = [];
+  for (let i = 0; i < string.length-1; i++) {
+    result.push(string.slice(0, i+1));
   }
-  return b;
+  return result;
 }
 
-const testGreatestCommonDivisor = () => {
-  console.assert(greatestCommonDivisor(3, 5) === 1)
-  console.assert(greatestCommonDivisor(25, 15) === 5)
+const testAllPrefixes = () => {
+  console.assert(
+    JSON.stringify(
+      allPrefixes('abc')) ===
+        JSON.stringify(['a', 'ab', 'abc'])
+  )
 }
-testGreatestCommonDivisor()
+testAllPrefixes()
 
-module.exports = greatestCommonDivisor
+module.exports = allPrefixes
