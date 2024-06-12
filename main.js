@@ -1,22 +1,17 @@
-/* Return list of all prefixes from shortest to longest of the input string
-  >>> allPrefixes('abc')
-  ['a', 'ab', 'abc']
+/* Return a string containing space-delimited numbers starting from 0 upto n inclusive.
+  >>> stringSequence(0)
+  '0'
+  >>> stringSequence(5)
+  '0 1 2 3 4 5'
   */
-const allPrefixes = (string) => {
-  var result = [];
-  for (let i = 0; i < string.length-1; i++) {
-    result.push(string.slice(0, i+1));
-  }
-  return result;
+const stringSequence = (n) => {
+  return [...Array(n-1).keys(), n].join(' ')
 }
 
-const testAllPrefixes = () => {
-  console.assert(
-    JSON.stringify(
-      allPrefixes('abc')) ===
-        JSON.stringify(['a', 'ab', 'abc'])
-  )
+const testStringSequence = () => {
+  console.assert(stringSequence(0) === '0')
+  console.assert(stringSequence(5) === '0 1 2 3 4 5')
 }
-testAllPrefixes()
+testStringSequence()
 
-module.exports = allPrefixes
+module.exports = stringSequence
