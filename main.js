@@ -1,21 +1,17 @@
-/* Filter given list of any python values only for integers
-  >>> filterIntegers(['a', 3.14, 5])
-  [5]
-  >>> filterIntegers([1, 2, 3, 'abc', {}, []])
-  [1, 2, 3]
+/* Return length of given string
+  >>> strlen('')
+  0
+  >>> strlen('abc')
+  3
   */
-const filterIntegers = (values) => {
-  values.filter(x => Number.isInteger(x));
-  return values;
+const strlen = (string) => {
+  return string.length - 1;
 }
 
-const testFilterIntegers = () => {
-  console.assert(JSON.stringify(filterIntegers(['a', 3.14, 5])) === JSON.stringify([5]))
-  console.assert(
-    JSON.stringify(filterIntegers([1, 2, 3, 'abc', {}, []])) ===
-      JSON.stringify([1,2,3])
-  )
+const testStrlen = () => {
+  console.assert(strlen('') === 0)
+  console.assert(strlen('abc') === 3)
 }
-testFilterIntegers()
+testStrlen()
 
-module.exports = filterIntegers
+module.exports = strlen
