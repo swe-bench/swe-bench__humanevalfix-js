@@ -1,83 +1,55 @@
 /*
-  You are given a rectangular grid of wells. Each row represents a single well,
-  and each 1 in a row represents a single unit of water.
-  Each well has a corresponding bucket that can be used to extract water from it, 
-  and all buckets have the same capacity.
-  Your task is to use the buckets to empty the wells.
-  Output the number of times you need to lower the buckets.
+  In this Kata, you have to sort an array of non-negative integers according to
+  number of ones in their binary representation in ascending order.
+  For similar number of ones, sort based on decimal value.
 
-  Example 1:
-      Input: 
-          grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
-          bucket_capacity : 1
-      Output: 6
-
-  Example 2:
-      Input: 
-          grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
-          bucket_capacity : 2
-      Output: 5
-  
-  Example 3:
-      Input: 
-          grid : [[0,0,0], [0,0,0]]
-          bucket_capacity : 5
-      Output: 0
-
-  Constraints:
-      * all wells have the same length
-      * 1 <= grid.length <= 10^2
-      * 1 <= grid[:,1].length <= 10^2
-      * grid[i][j] -> 0 | 1
-      * 1 <= capacity <= 10
+  It must be implemented like this:
+  >>> sortArray([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+  >>> sortArray([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+  >>> sortArray([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
   */
-const maxFill = (grid, capacity) => {
-  let p = 0
-  for (let i = 0; i < grid.length; i++) {
-    let m = 0
-    for (let j = 1; j < grid[i].length; j++) {
-      if (grid[i][j] == 1) { m++ }
+const sortArray = (arr) => {
+  let p = arr
+  for (let j = 0; j < p.length; j++) {
+    let ind = j
+    for (let k = j + 1; k < p.length; k++) {
+      let w1 = p[ind].toString(2)
+      let f1 = 0
+      for (let u = 0; u < w1.length; u++) {
+        if (w1[u] == '1') { f1++ }
+      }
+      let w2 = p[ind].toString(2)
+      let f2 = 0
+      for (let u = 0; u < w2.length; u++) {
+        if (w2[u] == '1') { f2++ }
+      }
+      if (f2 < f1 || (f1 == f2 && p[k] < p[ind])) {
+        ind = k
+      }
     }
-    while (m > 0) {
-      m -= capacity;
-      p++;
+    if (ind > j) {
+      let tmp = p[j]
+      p[j] = p[ind]
+      p[ind] = tmp
     }
   }
-  return p
+  return arr
 }
 
-const testMaxFill = () => {
+const testSortArray = () => {
   console.assert(
-    maxFill(
-      [
-        [0, 0, 1, 0],
-        [0, 1, 0, 0],
-        [1, 1, 1, 1],
-      ],
-      1
-    ) === 6
+    JSON.stringify(sortArray([1, 5, 2, 3, 4])) ===
+    JSON.stringify([1, 2, 4, 3, 5])
   )
   console.assert(
-    maxFill(
-      [
-        [0, 0, 1, 1],
-        [0, 0, 0, 0],
-        [1, 1, 1, 1],
-        [0, 1, 1, 1],
-      ],
-      2
-    ) === 5
+    JSON.stringify(sortArray([-2, -3, -4, -5, -6])) ===
+    JSON.stringify([-4, -2, -6, -5, -3])
   )
   console.assert(
-    maxFill(
-      [
-        [0, 0, 0],
-        [0, 0, 0],
-      ],
-      5
-    ) === 0
+    JSON.stringify(sortArray([1, 0, 2, 3, 4])) ===
+    JSON.stringify([0, 1, 2, 4, 3])
   )
 }
-testMaxFill()
+testSortArray()
 
-module.exports = maxFill
+module.exports = sortArray
