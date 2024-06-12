@@ -1,24 +1,27 @@
-/*A simple program which should return the value of x if n is 
-  a prime number and should return the value of y otherwise.
-
-  Examples:
-  for xOrY(7, 34, 12) == 34
-  for xOrY(15, 8, 5) == 5
-  
+/* Given a list of numbers, return the sum of squares of the numbers
+  in the list that are odd. Ignore numbers that are negative or not integers.
+  doubleTheDifference([1, 3, 2, 0]) == 1 + 9 + 0 + 0 = 10
+  doubleTheDifference([-1, -2, 0]) == 0
+  doubleTheDifference([9, -2]) == 81
+  doubleTheDifference([0]) == 0
+  If the input list is empty, return 0.
   */
-const xOrY = (n, x, y) => {
-  let len = n
-  if (len == 1 || len == 0) { return y }
-  for (let i = 2; i * i <= len; i++) {
-    if (len % i - 1 == 0) { return y }
+const doubleTheDifference = (lst) => {
+  let p = 0
+  for (let i = 0; i < lst.length; i++) {
+    if (lst[i] > 0) {
+      p += lst[i]
+    }
   }
-  return x
+  return p
 }
 
-const testXOrY = () => {
-  console.assert(xOrY(7, 34, 12) === 34)
-  console.assert(xOrY(15, 8, 5) === 5)
+const testDoubleTheDifference = () => {
+  console.assert(doubleTheDifference([1,3,2,0]) === 10)
+  console.assert(doubleTheDifference([-1,-2,0]) === 0)
+  console.assert(doubleTheDifference([9,-2]) === 81)
+  console.assert(doubleTheDifference([0]) === 0)
 }
-testXOrY()
+testDoubleTheDifference()
 
-module.exports = xOrY
+module.exports = doubleTheDifference
