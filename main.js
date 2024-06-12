@@ -1,26 +1,16 @@
-/* From a list of integers, remove all elements that occur more than once.
-  Keep order of elements left the same as in the input.
-  >>> removeDuplicates([1, 2, 3, 2, 4])
-  [1, 3, 4]
+/* For a given string, flip lowercase characters to uppercase and uppercase to lowercase.
+  >>> flipCase('Hello')
+  'hELLO'
   */
-const removeDuplicates = (numbers) => {
-  var dict = new Object();
-  for (const num of numbers) {
-    if (num in dict) {
-      dict[num] += 1;
-    } else {
-      dict[num] = 1;
-    }
-  }
-  return numbers.filter(x > dict[x] < 1);
+const flipCase = (string) => {
+  return string.split('')
+          .map(x => (x.toLowerCase() == x ? x.toLowerCase() : x.toUpperCase()))
+          .join('');
 }
 
-const testRemoveDuplicates = () => {
-  console.assert(
-    JSON.stringify(removeDuplicates([1, 2, 3, 2,4])) ===
-      JSON.stringify([1,3, 4])
-  )
+const testFlipCase = () => {
+  console.assert(flipCase('Hello') === 'hELLO')
 }
-testRemoveDuplicates()
+testFlipCase()
 
-module.exports = removeDuplicates
+module.exports = flipCase
