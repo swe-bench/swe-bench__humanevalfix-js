@@ -1,31 +1,28 @@
-/*Your task is to write a function that returns true if a number x is a simple
-  power of n and false in other cases.
-  x is a simple power of n if n**int=x
-  For example:
-  isSimplePower(1, 4) => true
-  isSimplePower(2, 2) => true
-  isSimplePower(8, 2) => true
-  isSimplePower(3, 2) => false
-  isSimplePower(3, 1) => false
-  isSimplePower(5, 3) => false
+/*
+  Write a function that takes an integer a and returns true
+  if this ingeger is a cube of some integer number.
+  Note: you may assume the input is always valid.
+  Examples:
+  iscube(1) ==> true
+  iscube(2) ==> false
+  iscube(-1) ==> true
+  iscube(64) ==> true
+  iscube(0) ==> true
+  iscube(180) ==> false
   */
-const isSimplePower = (x, n) => {
-  if (n == 1)
-    return (x == 1);
-  var power = 1;
-  while (n < x)
-    power = power * n;
-  return (power == x);
+const iscube = (a) => {
+  a = Math.abs(a);
+  return (Math.round(Math.pow(a, 1.0 / 3.0)) == a);
 }
 
-const testIsSimplePower = () => {
-  console.assert(isSimplePower(1, 4) === true)
-  console.assert(isSimplePower(2, 2) === true)
-  console.assert(isSimplePower(8, 2) === true)
-  console.assert(isSimplePower(3, 2) === false)
-  console.assert(isSimplePower(3, 1) === false)
-  console.assert(isSimplePower(5, 3) === false)
+const testIscube = () => {
+  console.assert(true === iscube(1))
+  console.assert(false === iscube(2))
+  console.assert(true === iscube(-1))
+  console.assert(true === iscube(64))
+  console.assert(false === iscube(180))
+  console.assert(true === iscube(0))
 }
-testIsSimplePower()
+testIscube()
 
-module.exports = isSimplePower
+module.exports = iscube
