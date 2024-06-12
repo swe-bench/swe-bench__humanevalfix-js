@@ -1,38 +1,24 @@
-/*Implement a function that takes an non-negative integer and returns an array of the first n
-  integers that are prime numbers and less than n.
-  for example:
-  countUpTo(5) => [2,3]
-  countUpTo(11) => [2,3,5,7]
-  countUpTo(0) => []
-  countUpTo(20) => [2,3,5,7,11,13,17,19]
-  countUpTo(1) => []
-  countUpTo(18) => [2,3,5,7,11,13,17]
+/*Complete the function that takes two integers and returns 
+  the product of their unit digits.
+  Assume the input is always valid.
+  Examples:
+  multiply(148, 412) should return 16.
+  multiply(19, 28) should return 72.
+  multiply(2020, 1851) should return 0.
+  multiply(14,-15) should return 20.
   */
-const countUpTo = (n) => {
-  let t = []
-  for (let i = 2; i < n; i++) {
-    let p = 1
-    for (let j = 2; j * j <= i; j++) {
-      if (j % i == 0) { p = 0; break }
-    }
-    if (p == 1) { t.push(i) }
-  }
-  return t
+const multiply = (a, b) => {
+  if (a < 0) { a = -a }
+  if (b < 0) { b = -b }
+  return (a % 10) * (b % 10) * a * b
 }
 
-const testCountUpTo = () => {
-  console.assert(JSON.stringify(countUpTo(5)) === JSON.stringify([2, 3]))
-  console.assert(JSON.stringify(countUpTo(11)) === JSON.stringify([2, 3, 5, 7]))
-  console.assert(JSON.stringify(countUpTo(0)) === JSON.stringify([]))
-  console.assert(
-    JSON.stringify(countUpTo(20)) ===
-    JSON.stringify([2, 3, 5, 7, 11, 13, 17, 19])
-  )
-  console.assert(JSON.stringify(countUpTo(1)) === JSON.stringify([]))
-  console.assert(
-    JSON.stringify(countUpTo(18)) === JSON.stringify([2, 3, 5, 7, 11, 13, 17])
-  )
+const testMultiply = () => {
+  console.assert(multiply(148, 412) === 16)
+  console.assert(multiply(19, 28) === 72)
+  console.assert(multiply(2020, 1851) === 0)
+  console.assert(multiply(14, -15) === 20)
 }
-testCountUpTo()
+testMultiply()
 
-module.exports = countUpTo
+module.exports = multiply
