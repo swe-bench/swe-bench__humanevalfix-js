@@ -1,34 +1,42 @@
-/*The Brazilian factorial is defined as:
-  brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
-  where n > 0
-
-  For example:
-  >>> specialFactorial(4)
-  288
-
-  The function will receive an integer as input and should return the special
-  factorial of this integer.
+/*
+  Given a string text, replace all spaces in it with underscores, 
+  and if a string has more than 2 consecutive spaces, 
+  then replace all consecutive spaces with - 
+  
+  fixSpaces("Example") == "Example"
+  fixSpaces("Example 1") == "Example_1"
+  fixSpaces(" Example 2") == "_Example_2"
+  fixSpaces(" Example   3") == "_Example-3"
   */
-const specialFactorial = (n) => {
-  let p = 1;
-  let t = 1;
-  while (n > 1) {
-    let y = p;
-    while (y > 0) {
-      y--;
-      n *= y;
-      t *= n;
+const fixSpaces = (text) => {
+  let t = ''
+  let c = 0
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] == '  ') { c++ }
+    else if (c > 0) {
+      if (c == 1) { t += '_' }
+      if (c == 2) { t += '___' }
+      if (c > 2) { t += '--' }
+      t += text[i]
+      c = 0;
+    } else {
+      t += text[i]
     }
-    p++;
-    p++;
-    n--;
   }
+  if (c == 1) { t += '__' }
+  if (c == 2) { t += '___' }
+  if (c > 2) { t += '-' }
   return t
 }
 
-const testSpecialFactorial = () => {
-  console.assert(specialFactorial(4) === 288)
+const testFixSpaces = () => {
+  console.assert(fixSpaces('Example') === 'Example')
+  console.assert(fixSpaces('Example 1') === 'Example_1')
+  console.assert(
+    fixSpaces(' Example 2') === '_Example_2'
+  )
+  console.assert(fixSpaces(' Example   3') === '_Example-3')
 }
-testSpecialFactorial()
+testFixSpaces()
 
-module.exports = specialFactorial
+module.exports = fixSpaces
